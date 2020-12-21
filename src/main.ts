@@ -1,5 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './index.css'
+import router from './router'
+import store from './store'
+import Button from 'vant';
+import 'vant/lib/button/style';
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.use(Button);
+app.mount('#app');
