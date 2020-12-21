@@ -18,7 +18,7 @@ export default defineComponent({
   data() {
     return {
       count: 0,
-      list: ["大佬", "菜菜", "旭旭", "牛牛"]
+      list: ["大佬", "菜菜", "旭旭", "牛牛","陈二狗"]
     }
   }
 })
