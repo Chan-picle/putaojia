@@ -3,6 +3,9 @@
   <button @click="count++">count is: {{ count }}</button>
   <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
   <p>测试内容</p>
+  <ul>
+    <li v-for="item in list" :key="item">{{ item }}</li>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -14,7 +17,8 @@ export default defineComponent({
   },
   data() {
     return {
-      count: 0
+      count: 0,
+      list: ["大佬", "菜菜", "旭旭", "牛牛"]
     }
   }
 })
