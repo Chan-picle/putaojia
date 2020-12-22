@@ -1,5 +1,5 @@
 <template>
-  <p>404 NOT Found</p>
+  <p>Timetable</p>
 </template>
 <script>
 import { defineComponent } from "vue";

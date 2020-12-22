@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/dao/conn.js"  ],
   "exclude": [
     "node_modules"
   ]

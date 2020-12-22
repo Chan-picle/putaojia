@@ -1,5 +1,5 @@
 <template>
-  <p>404 NOT Found</p>
+  <p>Mine</p>
 </template>
 <script>
 import { defineComponent } from "vue";
