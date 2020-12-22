@@ -1,6 +1,6 @@
 <template>
   <header>
-    <van-nav-bar title="Timetable">
+    <van-nav-bar title="Timetable" fixed>
       <template #right>
         <span></span>
         <span class="buyed">已购项目</span>
