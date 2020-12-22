@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Search } from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -23,4 +23,6 @@ app.use(NavBar);
 app.use(Tab);
 app.use(Tabs);
 app.use(Calendar);
+//搜索框
+app.use(Search);
 app.mount('#app');

@@ -1,13 +1,21 @@
 <template>
-  <p>Index</p>
+  <van-search v-model="value" placeholder="搜索外教/配音" shape="round" @focus="searchFocus"/>
+  <div class="index">
+
+  </div>
 </template>
-<script>
-import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent ,ref} from "vue";
 
 
 export default defineComponent({
   setup(){
-
+    const value = ref('');
+    //搜索框聚焦事件
+    const searchFocus = ()=>{
+      console.log(1);
+    };
+    return { value,searchFocus };
   },
   components: {},
   props:{},
@@ -24,6 +32,13 @@ export default defineComponent({
   // methods: {}
 });
 </script>
-<style lang="less" scoped>
-
+<style lang="less" >
+.van-cell .van-field__left-icon {
+    margin-right: 17px;
+}
+.index{
+  background-color: #f5f5f5;
+  height: 50px;
+  padding-top:54px ;
+}
 </style>
