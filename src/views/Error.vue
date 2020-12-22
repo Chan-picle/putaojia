@@ -1,7 +1,7 @@
 <template>
   <p>404 NOT Found</p>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 

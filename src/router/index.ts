@@ -32,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/About.vue')
   },
   {
-    path:"/error",
+    path:"/:catchAll(.*)",
     component:()=> import("../views/Error.vue")
   }
 ]
