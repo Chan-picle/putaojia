@@ -5,7 +5,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent ,ref} from "vue";
+import { defineComponent ,reactive,ref} from "vue";
 import { getHello } from "../utils/api";
 
 
@@ -15,9 +15,9 @@ export default defineComponent({
     //搜索框聚焦事件
     const searchFocus = ()=>{
       console.log(1);
-    const list:any[]=[];
     };
-    return { value,searchFocus };
+    const list = reactive([]);
+    return { value, searchFocus, list };
   },
   mounted() {
     getHello({}).then((res:any)=>{
@@ -26,7 +26,6 @@ export default defineComponent({
   },
   components: {},
   props:{},
-  
 });
 </script>
 <style lang="less" >
