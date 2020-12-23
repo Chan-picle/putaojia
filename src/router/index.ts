@@ -38,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
 
-   // hello尝试路由
+   // hello路由
    {
     path:"/selected",
     component:()=> import("../views/Hello/selected.vue")
@@ -46,6 +46,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path:"/custom",
     component:()=> import("../views/Hello/custom.vue")
+  },
+  {
+    path:"/huihua",
+    component:()=> import("../views/Hello/huihua_list.vue")
   },
 
 

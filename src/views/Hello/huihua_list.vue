@@ -1,13 +1,11 @@
 <template>
-  <div>
     <van-nav-bar
-      title="话题库"
-      left-text="返回"
-      right-text="按钮"
+      title="会话列表"
+      left-text=""
       left-arrow
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     />
+
     <!-- 下拉刷新组件 -->
 
     <van-tabs
@@ -20,11 +18,13 @@
     >
       <van-tab v-for="(item, index) in fenlist" :title="item.tite">
         <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
-          内容 {{ index }}
+          
+          <div class="huihua_main">
+            内容 {{ index }}
+          </div>
         </van-pull-refresh>
       </van-tab>
     </van-tabs>
-  </div>
 </template>
 <script>
 import { defineComponent } from "vue";
@@ -32,18 +32,17 @@ import { defineComponent } from "vue";
 import { reactive } from "vue";
 import { Toast } from "vant";
 
+
 export default defineComponent({
-  data() {
+   data() {
     return {
       fenlist: [
-        { tite: "认识" },
-        { tite: "动物" },
-        { tite: "趣味" },
-        { tite: "科普" },
+        { tite: "全部" },
+        { tite: "已上课" },
+        { tite: "已取消" }
       ],
     };
   },
-
   setup() {
     const state = reactive({
       count: 0,
@@ -63,7 +62,7 @@ export default defineComponent({
     };
   },
   components: {},
-  props: {},
+  props:{},
   // name:'${该组件名称}',
   // data() {
   //   return {
@@ -75,15 +74,16 @@ export default defineComponent({
   // mounted() {},
 
   methods: {
-    onClickLeft() {
-      history.go(-1);
-    },
-
-    onClickRight() {
-      console.log("弹出框");
-    },
-  },
+    // 后退一步
+     onClickLeft() {
+      history.go(-1)
+    }
+    
+  }
 });
 </script>
 <style lang="less" scoped>
+.huihua_main{
+  height: 500px
+}
 </style>
