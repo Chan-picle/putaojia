@@ -5,7 +5,7 @@ import store from './store'
 // import Button from 'vant';
 //下拉刷新用
 // import { reactive } from 'vue';
-import { Tabbar, TabbarItem,Button,Swipe, SwipeItem,PullRefresh } from 'vant';
+import { Tabbar, TabbarItem,Button,Swipe, SwipeItem,PullRefresh,Icon, NavBar } from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -15,6 +15,8 @@ app.use(router);
 app.use(Button);
 app.use(Tabbar);
 app.use(TabbarItem);
+app.use(Icon);
+app.use(NavBar);
 app.mount('#app');
 // 轮播
 app.use(Swipe);
