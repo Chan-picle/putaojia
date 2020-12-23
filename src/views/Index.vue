@@ -36,9 +36,15 @@ export default defineComponent({
 .van-cell .van-field__left-icon {
     margin-right: 17px;
 }
+.van-search{
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+}
 .index{
   background-color: #f5f5f5;
   height: 50px;
-  padding-top:54px ;
+  margin-top:54px ;
 }
 </style>
