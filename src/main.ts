@@ -4,11 +4,15 @@ import router from './router'
 import store from './store'
 // import Button from 'vant';
 <<<<<<< HEAD
+<<<<<<< HEAD
 //下拉刷新用
 // import { reactive } from 'vue';
 import { Tabbar, TabbarItem,Button,Swipe, SwipeItem,PullRefresh,Icon, NavBar } from 'vant';
 =======
 import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh} from 'vant';
+>>>>>>> master
+=======
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Icon} from 'vant';
 >>>>>>> master
 import 'vant/lib/index.css';
 
@@ -20,10 +24,14 @@ app.use(Button);
 app.use(Tabbar);
 app.use(TabbarItem);
 <<<<<<< HEAD
+<<<<<<< HEAD
 app.use(Icon);
 app.use(NavBar);
 app.mount('#app');
 =======
+>>>>>>> master
+=======
+app.use(Icon);
 >>>>>>> master
 // 轮播
 app.use(Swipe);
