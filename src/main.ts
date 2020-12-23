@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Search,Icon,Empty } from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Search,Icon,Empty,Grid, GridItem } from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -33,4 +33,10 @@ app.use(Calendar);
 app.use(Search);
 //error空页面
 app.use(Empty);
+//宫格
+app.use(Grid);
+app.use(GridItem);
+
+
+
 app.mount('#app');
