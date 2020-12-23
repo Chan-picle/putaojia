@@ -19,6 +19,11 @@ app.use(Swipe);
 app.use(SwipeItem);
 //下拉刷新
 app.use(PullRefresh);
+// 头部导航标题
+app.use(NavBar);
+//标签切换
+app.use(Tab);
+app.use(Tabs);
 
 app.use(NavBar);
 app.use(Tab);
