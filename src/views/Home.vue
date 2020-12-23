@@ -1,9 +1,9 @@
 <template>
   <!-- <div class="home"> -->
-    <van-tabbar v-model="active" fixed>
+    <router-view />
+    <van-tabbar v-model="active" fixed :placeholder="true">
       <van-tabbar-item icon="home-o" v-for="(item,index) in list" :key="index" @click="jumpTo(item.to)">{{item.text}}</van-tabbar-item>
     </van-tabbar>
-    <router-view />
   <!-- </div> -->
 </template>
 
@@ -11,14 +11,7 @@
 import { defineComponent } from 'vue';
 import { Options, Vue } from 'vue-class-component';
 import { ref } from 'vue';
-// import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
-// @Options({
-//   components: {
-//     // HelloWorld,
-//   },
-// })
-// export default class Home extends Vue {}
 interface listType {text:string;to:string}
 export default defineComponent({
   data(){
@@ -31,23 +24,20 @@ export default defineComponent({
       this.$router.push(to);
     }
   },
+  mounted():void{
+    //点击底部nanbar后刷新，active保持和页面统一
+    this.list.forEach((elm,index)=>{
+      if(elm.to===this.$route.path){
+        this.active = index;
+      }
+    });
+  },
   setup() {
-    const active = ref('home');
+    const active = ref(0);
     return { active };
   },
 })
 </script>
 <style lang="less" scope>
-// .van-tabbar{
-//   background-color: #fff;
-//   display: flex;
-//   position: absolute;
-//   bottom: 0;
-//   left: 0;
-//   right: 0;
-//   .van-tabbar-item{
-//     width: 25%;
-//     text-align: center;
-//   }
-// } 
+
 </style>

@@ -51,7 +51,7 @@
     
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 // 下拉刷新用
@@ -95,7 +95,7 @@ export default defineComponent({
   // mounted() {},
 
   methods: {
-    jumpTo(to){
+    jumpTo(to:string){
       this.$router.push(to);
     }
   }

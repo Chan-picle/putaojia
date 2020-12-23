@@ -3,9 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-//下拉刷新用
-// import { reactive } from 'vue';
-import { Tabbar, TabbarItem,Button,Swipe, SwipeItem,PullRefresh,NavBar, Tab, Tabs } from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -15,7 +13,6 @@ app.use(router);
 app.use(Button);
 app.use(Tabbar);
 app.use(TabbarItem);
-app.mount('#app');
 // 轮播
 app.use(Swipe);
 app.use(SwipeItem);
@@ -27,3 +24,8 @@ app.use(NavBar);
 app.use(Tab);
 app.use(Tabs);
 
+app.use(NavBar);
+app.use(Tab);
+app.use(Tabs);
+app.use(Calendar);
+app.mount('#app');
