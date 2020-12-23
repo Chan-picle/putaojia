@@ -21,7 +21,6 @@ export default defineComponent({
   },
   methods: {
     jumpTo(to:string):void{
-      console.log(this.active);
       this.$router.push(to);
     }
   },

@@ -18,7 +18,18 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path:"/timetable",
-        component:()=>import("../views/Timetable.vue")
+        component:()=>import("../views/Timetable.vue"),
+        redirect:"/timetable/calendar",
+        children:[
+          {
+            path:"calendar",
+            component:()=>import("../views/timetable/Calendar.vue")
+          },
+          {
+            path:"list",
+            component:()=>import("../views/timetable/List.vue")
+          }
+        ]
       },
       {
         path:"/mine",
