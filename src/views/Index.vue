@@ -6,6 +6,7 @@
 </template>
 <script lang="ts">
 import { defineComponent ,ref} from "vue";
+import { getHello } from "../utils/api";
 
 
 export default defineComponent({
@@ -14,22 +15,18 @@ export default defineComponent({
     //搜索框聚焦事件
     const searchFocus = ()=>{
       console.log(1);
+    const list:any[]=[];
     };
     return { value,searchFocus };
   },
+  mounted() {
+    getHello({}).then((res:any)=>{
+      this.list = res.result;
+    })
+  },
   components: {},
   props:{},
-  // name:'${该组件名称}',
-  // data() {
-  //   return {
-
-  //   };
-  // },
-  // computed: {},
-
-  // mounted() {},
-
-  // methods: {}
+  
 });
 </script>
 <style lang="less" >
