@@ -9,12 +9,26 @@
 </template>
 
 <script>
+// import axios from "axios";
 import { defineComponent } from "vue";
 export default defineComponent({
   data() {
-    return {};
+    return {
+      //请求渲染数据
+      timeList:[]
+    };
   },
-  components: {}
+  components: {},
+  //请求数据
+  mounted() {
+    // axios.get('http://42.192.148.152:3000/classdetail')
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) =>  {
+    //     console.log(error);
+    //   });
+    }
 });
 </script>
 <style lang="less" scoped>
