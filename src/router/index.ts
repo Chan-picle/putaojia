@@ -26,6 +26,18 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+
+   // hello尝试路由
+   {
+    path:"/selected",
+    component:()=> import("../views/Hello/selected.vue")
+  },
+  {
+    path:"/custom",
+    component:()=> import("../views/Hello/custom.vue")
+  },
+
+
   {
     path: '/about',
     name: 'About',
@@ -35,6 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     path:"/error",
     component:()=> import("../views/Error.vue")
   }
+ 
 ]
 
 const router = createRouter({

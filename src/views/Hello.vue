@@ -32,12 +32,12 @@
         <p>选择你想要进行的会话主题，即可以使用丰富的平台主题，也可以根据您的喜好自己定义会话主题。</p>
 
         <div class="speak_box2_s">
-          <div>
+          <div @click="jumpTo(to1)">
             <img src="../../public/img/hello_img/hello2.jpg" alt="">
             <p>精选话题</p>
           </div>
 
-           <div>
+           <div  @click="jumpTo(to2)">
             <img src="../../public/img/hello_img/hello1.jpg" alt="">
             <p>自定义会话</p>
           </div>
@@ -68,7 +68,7 @@ export default defineComponent({
       setTimeout(() => {
         Toast('刷新成功');
         state.loading = false;
-        state.count++;
+        // state.count++;
       }, 1000);
     };
 
@@ -84,16 +84,21 @@ export default defineComponent({
 
   },
   // name:'${该组件名称}',
-  // data() {
-  //   return {
-
-  //   };
-  // },
+  data() {
+    return {
+      to1:"/selected",
+      to2:"/custom"
+    };
+  },
   // computed: {},
 
   // mounted() {},
 
-  // methods: {}
+  methods: {
+    jumpTo(to){
+      this.$router.push(to);
+    }
+  }
 });
 </script>
 <style lang="less" scoped>
