@@ -51,6 +51,10 @@ const routes: Array<RouteRecordRaw> = [
     path:"/huihua",
     component:()=> import("../views/Hello/huihua_list.vue")
   },
+  {
+    path:"/hello_details",
+    component:()=> import("../views/Hello/hello_details.vue")
+  },
 
 
   {
