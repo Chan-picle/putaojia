@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -27,6 +27,9 @@ app.use(Tabs);
 // Form 表单
 app.use(Field);
 app.use(Form);
+//宫格
+app.use(Grid);
+app.use(GridItem);
 
 app.use(NavBar);
 app.use(Tab);
