@@ -27,26 +27,26 @@ export default defineComponent({
         {
           text:"首页",
           to:"/index",
-          active: 'http://42.192.148.152/wp-content/uploads/2020/12/selected01@2x.png',
-          inactive: 'http://42.192.148.152/wp-content/uploads/2020/12/normal01@2x.png',
+          active: '/img/shouye/selected01@2x.png',
+          inactive: '/img/shouye/normal01@2x.png',
         },
         {
           text:"Hello",
           to:"/hello",
-          active: 'http://42.192.148.152/wp-content/uploads/2020/12/selected02@2x.png',
-          inactive: 'http://42.192.148.152/wp-content/uploads/2020/12/normal02@2x.png',
+          active: '/img/shouye/selected02@2x.png',
+          inactive: '/img/shouye/normal02@2x.png',
         },
         {
           text:"Timetable",
           to:"/timetable",
-          active: 'http://42.192.148.152/wp-content/uploads/2020/12/selected03@2x.png',
-          inactive: 'http://42.192.148.152/wp-content/uploads/2020/12/normal03@2x.png',
+          active: '/img/shouye/selected03@2x.png',
+          inactive: '/img/shouye/normal03@2x.png',
         },
         {
           text:"我的",
           to:"/mine",
-          active: 'http://42.192.148.152/wp-content/uploads/2020/12/selected04@2x.png',
-          inactive: 'http://42.192.148.152/wp-content/uploads/2020/12/normal04@2x.png',
+          active: '/img/shouye/selected04@2x.png',
+          inactive: '/img/shouye/normal04@2x.png',
         }
       ] as Array<iconType>
     }
