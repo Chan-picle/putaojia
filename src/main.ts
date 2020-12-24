@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Search,Icon,Empty,Grid, GridItem } from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Search,Icon,Empty,Grid, GridItem,Sticky } from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -36,6 +36,9 @@ app.use(Empty);
 //宫格
 app.use(Grid);
 app.use(GridItem);
+//粘性定位
+app.use(Sticky);
+
 
 
 
