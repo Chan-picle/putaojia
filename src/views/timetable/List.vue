@@ -1,18 +1,22 @@
 <template>
   <div class="bg">
-    <section class="cont"></section>
+    <section class="cont">
+      <img src="/TimeImg/find.png" alt="" />
+      <em>快去寻找你的专属外教吧!Go!</em>
+      <span>Go!</span>
+    </section>
     <span class="intro">课程推荐</span>
     <div class="class-intro" v-for="i in 8">
       <div class="intro-detail" v-for="item in timeList" :key="item.id">
         <div class="up">
-          <img :src="item.classimg" alt="">
+          <img :src="item.classimg" alt="" />
         </div>
         <div class="down">
           <span class="text">{{ item.textbook }}</span>
           <span class="hour">课时数：{{ item.hours }}课时</span> 
           <section class="btom">
             <div class="btom-d">
-            <img :src="item.teacherimg" alt="">
+            <img :src="item.teacherimg" alt="" />
             <span>{{ item.teachername }}</span>
             </div>
             <span class="price">{{ item.price }}元</span>
@@ -58,7 +62,7 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .bg {
-  background: #ccc;
+  background: #eee;
   padding: 0 10px;
   padding-top: 20px;
   .cont {
@@ -66,6 +70,36 @@ export default defineComponent({
     width: 100%;
     background: white;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    img {
+      height: 163px;
+      width: 180px;
+      display: block;
+      margin: 20px auto;
+
+    }
+    em {
+      font-style: normal;
+      display: block;
+      height: 22px;
+      line-height: 22px;
+      width: 160px;
+      margin: 10px auto;
+      text-align: center;
+      font-size: 12px;
+    }
+    span {
+      height: 22px;
+      line-height: 22px;
+      width: 66px;
+      display: block;
+      background: orange;
+      color: #fff;
+      border-radius: 20px;
+      text-align: center;
+      margin: 0 auto;
+    }
   }
   .intro {
     padding-top: 10px;
