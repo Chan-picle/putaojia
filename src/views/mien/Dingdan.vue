@@ -1,12 +1,20 @@
 <template>
   <div>
+    <!-- 头部 -->
     <div class="header">
-      <van-nav-bar title="我的外教" fixed placeholder />
+      <van-nav-bar title="我的订单" fixed placeholder />
       <van-icon class="left" name="arrow-left" @click="luyou" />
     </div>
-    <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
-      <p>刷新次数: {{ state.count }}</p>
-    </van-pull-refresh>
+<!-- tab选项卡 -->
+    <van-tabs  animated swipeable>
+      <van-tab v-for="(item,index) in list" :key="index" :title="item.title">
+        <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
+          <span>{{item.title}}</span>
+        </van-pull-refresh>
+      </van-tab>
+    </van-tabs>
+
+    
   </div>
 </template>
 
@@ -15,6 +23,16 @@ import { reactive } from 'vue';
 import { Toast } from 'vant';
 
 export default {
+  data() {
+    return {
+      list:[{title:"全部"},{title:"待付款"},{title:"已付款"},{title:"已取消"},{title:"已退款"}]
+    }
+  },
+  methods:{
+    luyou(){
+      this.$router.push("/mine");
+    }
+  },
   setup() {
     const state = reactive({
       count: 0,
@@ -33,11 +51,6 @@ export default {
       onRefresh,
     };
   },
-  methods:{
-    luyou(){
-      this.$router.push("/mine");
-    }
-  }
 };
 </script>
 
@@ -52,8 +65,8 @@ export default {
       z-index: 999;
     }
   }
-  .xiala{
+   .xiala{
       background-color: yellow;
-      height: 621px;
+      height: 577px;
     }
 </style>

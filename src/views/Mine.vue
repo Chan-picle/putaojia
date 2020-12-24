@@ -7,7 +7,7 @@
       <van-icon name="setting-o" />
       </span>
       <span>
-        <van-icon class="right" name="chat-o" />
+        <van-icon class="right" name="chat-o" @click="xiaoxiroot"/>
       </span>
     </div>
 
@@ -18,7 +18,7 @@
           <div class="top">
             <img src="../assets/logo.png" alt="头像">
             <b>牛牛</b>
-            <span><van-icon name="fire-o" />激活会员卡</span>
+            <span> <img src="../../public/mienimg/icon03.png" alt=""> 激活会员卡</span>
           </div>
           <div class="bottom">
             <span class="font">剩余课时:</span>
@@ -32,8 +32,9 @@
         <!-- 第一部分 -->
         <div>
           <ul>
-            <li v-for="(item,index) in onelist" :key="index" :class="item.class">
-              <van-icon name="location" />
+            <li v-for="(item,index) in onelist" :key="index" :class="item.class" @click="luyou(item.to)">
+              <!-- <van-icon name="location" /> -->
+              <img src="../../public/mienimg/icon04.png" alt="">
               <span>{{item.text}}</span>
               <span class="right">></span>
             </li>
@@ -42,8 +43,8 @@
         <!-- 第二部分 -->
         <div>
           <ul>
-            <li v-for="(item,index) in twolist" :key="index" :class="item.class">
-              <van-icon name="location" />
+            <li v-for="(item,index) in twolist" :key="index" :class="item.class" @click="luyou(item.to)">
+              <img src="../../public/mienimg/icon09.png" alt="">
               <span>{{item.text}}</span>
               <span class="right">></span>
             </li>
@@ -52,8 +53,8 @@
         <!-- 第三部分 -->
         <div>
           <ul>
-            <li v-for="(item,index) in threelist" :key="index" :class="item.class">
-              <van-icon name="location" />
+            <li v-for="(item,index) in threelist" :key="index" :class="item.class" @click="luyou(item.to)">
+              <img src="../../public/mienimg/icon04.png" alt="">
               <span>{{item.text}}</span>
               <span class="right">></span>
             </li>
@@ -73,9 +74,17 @@ import { reactive } from 'vue';
 export default defineComponent({
   data (){
     return {
-      onelist:[{text:"我的外教",to:"/waijiao"},{text:"我的订单",to:"/dingdan"},{text:"已购课程",to:"/yigou",class:"bt"}],
+      onelist:[{text:"我的外教",to:"/waijiao"},{text:"我的订单",to:"/dingdan"},{text:"已购课程",to:"/kecheng",class:"bt"}],
       twolist:[{text:"我的绘本",to:"/huiben"},{text:"我的配音",to:"/peiyin"},{text:"试听报告",to:"/baogao",class:"bt"}],
       threelist:[{text:"课程回放",to:"/huifang"},{text:"专属客服",to:"/kefu",class:"bt"}]
+    }
+  },
+  methods:{
+    luyou(to:string){
+      this.$router.push(to);
+    },
+    xiaoxiroot(){
+      this.$router.push("/xiaoxi")
     }
   },
   setup() {
@@ -93,15 +102,16 @@ export default defineComponent({
     };
   },
   components: {},
-  props:{},
+  props:{}
 });
 </script>
 
 <style lang="less" scoped>
+// 页面
 #page{
   background-color: rgb(240, 232, 232);
   // height: 100%;
-
+// 头部
   #header{
     width: 100%;
     height: 45px;
@@ -118,10 +128,11 @@ export default defineComponent({
       float: right;
     }
   }
-
+// 下拉刷新
   .xiala{
     height: 572px;
     
+// 个人信息 
     #person{
     background-color: white;
     border-bottom-right-radius: 5px;
@@ -149,6 +160,13 @@ export default defineComponent({
         position: absolute;
         right: 20px;
         top: 25px;
+
+        img{
+          width: 16px;
+          height: 16px;
+          margin: 0;
+          vertical-align:bottom;
+        }
       }
     }
 
@@ -166,10 +184,11 @@ export default defineComponent({
         display: inline-block;
         width: 60px;
         height: 18px;
+        vertical-align:bottom;
       }
     }
   }
-
+// 主体内容
   #main-part{
     margin: 0 10px;
     background-color: rgb(240, 232, 232);
@@ -181,12 +200,19 @@ export default defineComponent({
       margin-top: 15px;
 
       li{
-        padding: 15px 0;
+        padding: 13px 0;
         border-bottom: 1px solid rgb(164, 160, 160);
         position: relative;
 
+        img{
+          width: 20px;
+          height: 20px;
+          vertical-align:bottom;
+        }
+
         span{
           margin-left: 10px;
+          vertical-align:bottom;
         }
 
         .right{

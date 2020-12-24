@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="header">
-      <van-nav-bar title="我的外教" fixed placeholder />
-      <van-icon class="left" name="arrow-left" @click="luyou" />
+      <van-nav-bar title="我的专属客服" fixed placeholder />
+      <van-icon class="left" name="arrow-left" @click="luyou"/>
     </div>
-    <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
-      <p>刷新次数: {{ state.count }}</p>
-    </van-pull-refresh>
+    <div class="content">
+      <div class="box"><img src="../../../public/mienimg/1.jpg" alt=""></div>
+    </div>
   </div>
 </template>
 
@@ -52,8 +52,18 @@ export default {
       z-index: 999;
     }
   }
-  .xiala{
-      background-color: yellow;
-      height: 621px;
+  .content{
+    padding: 15px;
+
+    .box{
+      border-radius: 5px;
+      overflow: hidden;
+
+      img{
+        display: block;
+      width: 100%;
+      height: 100px;
     }
+    }
+  }
 </style>

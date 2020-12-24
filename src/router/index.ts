@@ -37,6 +37,46 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  //我的页跳转路由
+  {
+    path:"/waijiao",
+    component:()=> import("../views/mien/Waijiao.vue")
+  },
+  {
+    path:"/dingdan",
+    component:()=> import("../views/mien/Dingdan.vue")
+  },
+  {
+    path:"/kecheng",
+    component:()=> import("../views/mien/Kecheng.vue")
+  },
+  {
+    path:"/huiben",
+    component:()=> import("../views/mien/Huiben.vue")
+  },
+  {
+    path:"/peiyin",
+    component:()=> import("../views/mien/Peiyin.vue")
+  },
+  {
+    path:"/baogao",
+    component:()=> import("../views/mien/Baogao.vue")
+  },
+  {
+    path:"/huifang",
+    component:()=> import("../views/mien/Huifang.vue")
+  },
+  {
+    path:"/kefu",
+    component:()=> import("../views/mien/Kefu.vue")
+  },
+  {
+    path:"/xiaoxi",
+    component:()=> import("../views/mien/Xiaoxi.vue")
+  },
+
+  
+
   {
     path: '/about',
     name: 'About',

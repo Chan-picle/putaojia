@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="header">
-      <van-nav-bar title="我的外教" fixed placeholder />
-      <van-icon class="left" name="arrow-left" @click="luyou" />
+  <div class="header">
+    <div>
+      <van-nav-bar title="我的课程" fixed placeholder />
+      <van-icon class="left" name="arrow-left" @click="luyou"/>
     </div>
     <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
       <p>刷新次数: {{ state.count }}</p>
@@ -51,9 +51,10 @@ export default {
       left: 15px;
       z-index: 999;
     }
-  }
-  .xiala{
+
+    .xiala{
       background-color: yellow;
       height: 621px;
     }
+  }
 </style>
