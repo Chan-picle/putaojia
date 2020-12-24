@@ -7,7 +7,7 @@
     </section>
     <span class="intro">课程推荐</span>
     <div class="class-intro" v-for="i in 8">
-      <div class="intro-detail" v-for="item in timeList" :key="item.id">
+      <div class="intro-detail" v-for="item in timeList" :key="item.id" @click="goToDetail">
         <div class="up">
           <img :src="item.classimg" alt="" />
         </div>
@@ -57,6 +57,9 @@ export default defineComponent({
       console.log(res);
       this.timeList = res.result;
     },
+    goToDetail() {
+      this.$router.push('/timedetail');
+    }
   },
 });
 </script>
