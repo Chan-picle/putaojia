@@ -3,12 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-
-//下拉刷新用
-// import { reactive } from 'vue';
-
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Icon} from 'vant';
-
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -20,16 +15,38 @@ app.use(Tabbar);
 app.use(TabbarItem);
 
 app.use(Icon);
-
+//轻提示
+app.use(Toast);
 
 // 轮播
 app.use(Swipe);
 app.use(SwipeItem);
 //下拉刷新
 app.use(PullRefresh);
+// 头部导航标题
+app.use(NavBar);
+//标签切换
+app.use(Tab);
+app.use(Tabs);
+// Form 表单
+app.use(Field);
+app.use(Form);
+//宫格
+app.use(Grid);
+app.use(GridItem);
 
 app.use(NavBar);
 app.use(Tab);
 app.use(Tabs);
 app.use(Calendar);
+//搜索框
+app.use(Search);
+//error空页面
+app.use(Empty);
+//宫格
+app.use(Grid);
+app.use(GridItem);
+
+
+
 app.mount('#app');

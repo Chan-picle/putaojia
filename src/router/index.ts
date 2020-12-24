@@ -74,8 +74,40 @@ const routes: Array<RouteRecordRaw> = [
     path:"/xiaoxi",
     component:()=> import("../views/mien/Xiaoxi.vue")
   },
+  {
+    path:"/shezhi",
+    component:()=> import("../views/mien/Shezhi.vue")
+  },
+  {
+    path:"/shengyv",
+    component:()=> import("../views/mien/Shengyv.vue")
+  },
+  {
+    path:"/juan",
+    component:()=> import("../views/mien/Juan.vue")
+  },
+  // 登录注册路由
+  {
+    path:"/login",
+    component:()=> import("../views/Login.vue")
+  },
 
   
+
+   // hello路由
+   {
+    path:"/selected",
+    component:()=> import("../views/Hello/selected.vue")
+  },
+  {
+    path:"/custom",
+    component:()=> import("../views/Hello/custom.vue")
+  },
+  {
+    path:"/huihua",
+    component:()=> import("../views/Hello/huihua_list.vue")
+  },
+
 
   {
     path: '/about',
@@ -86,6 +118,7 @@ const routes: Array<RouteRecordRaw> = [
     path:"/:catchAll(.*)",
     component:()=> import("../views/Error.vue")
   }
+ 
 ]
 
 const router = createRouter({

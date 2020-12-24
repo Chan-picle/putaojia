@@ -6,6 +6,16 @@
     </div>
     <div class="content">
       <div class="box"><img src="../../../public/mienimg/1.jpg" alt=""></div>
+      <div class="contact">
+        <div @click="weixinclick">
+          <img src="../../../public/mienimg/weixin.jpg" alt="微信">
+          <span>微信</span>
+        </div>
+        <div @click="dianhuaclick">
+          <img src="../../../public/mienimg/dianhua.jpg" alt="电话">
+          <span>电话</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,6 +46,18 @@ export default {
   methods:{
     luyou(){
       this.$router.push("/mine");
+    },
+    weixinclick(){
+      Toast({
+        message: '微信复制成功',
+        position: 'bottom',
+      });
+    },
+    dianhuaclick(){
+      Toast({
+        message: '电话复制成功',
+        position: 'bottom',
+      });
     }
   }
 };
@@ -62,8 +84,29 @@ export default {
       img{
         display: block;
       width: 100%;
-      height: 100px;
+      height: 120px;
+      }
     }
+    .contact{
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 100px;
+
+      div{
+        display: flex;
+        flex-direction: column;
+
+        img{
+          width: 60px;
+          height: 60px;
+          display: inline-block;
+          border-radius: 50%;
+        }
+        span{
+          text-align: center;
+          padding-top: 15px;
+        }
+      }
     }
   }
 </style>

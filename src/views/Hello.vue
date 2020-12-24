@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="bigbox">
     <!-- 下拉刷新组件 -->
-    <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
+    <van-pull-refresh class="asd" v-model="state.loading" @refresh="onRefresh">
       <!-- <p>刷新次数: {{ state.count }}</p> -->
       <!-- 轮播图组件 -->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -14,7 +14,7 @@
         <!-- 小标题盒子 -->
         <div class="speak_list">
           <h3>会话列表</h3>
-          <a href=""><h4>前部列表</h4></a>
+          <h4 @click="jumpTo(to3)">全部列表</h4>
         </div>
         <div class="speak_box1-s">
           <p>暂时待上课程，快去约课吧~</p>
@@ -32,12 +32,12 @@
         <p>选择你想要进行的会话主题，即可以使用丰富的平台主题，也可以根据您的喜好自己定义会话主题。</p>
 
         <div class="speak_box2_s">
-          <div>
+          <div @click="jumpTo(to1)">
             <img src="../../public/img/hello_img/hello2.jpg" alt="">
             <p>精选话题</p>
           </div>
 
-           <div>
+           <div  @click="jumpTo(to2)">
             <img src="../../public/img/hello_img/hello1.jpg" alt="">
             <p>自定义会话</p>
           </div>
@@ -60,6 +60,7 @@ import { Toast } from 'vant';
 
 export default defineComponent({
   setup(){
+    //下拉刷新
     const state = reactive({
       count: 0,
       loading: false,
@@ -68,14 +69,15 @@ export default defineComponent({
       setTimeout(() => {
         Toast('刷新成功');
         state.loading = false;
-        state.count++;
+        // state.count++;
       }, 1000);
     };
-
     return {
       state,
       onRefresh,
     };
+
+
   },
   components: {},
   props:{
@@ -84,22 +86,36 @@ export default defineComponent({
 
   },
   // name:'${该组件名称}',
-  // data() {
-  //   return {
-
-  //   };
-  // },
+  data() {
+    return {
+      to1:"/selected",
+      to2:"/custom",
+      to3:"/huihua"
+    };
+  },
   // computed: {},
 
   // mounted() {},
 
-  // methods: {}
+  methods: {
+    jumpTo(to:string){
+      this.$router.push(to);
+    }
+  }
 });
 </script>
 <style lang="less" scoped>
 
 *{
   margin: 0px;
+}
+.bigbox{
+  // overflow-y:yes;
+  margin-bottom: 50px;
+  height: 100%;
+}
+.asd{
+  height: 100%;
 }
 // 轮播
 .my-swipe .van-swipe-item {
@@ -133,9 +149,7 @@ export default defineComponent({
         h4{
           float: right;
           height: 20px;
-          a{
-            color: #000;
-          }
+          
         }
     }
    

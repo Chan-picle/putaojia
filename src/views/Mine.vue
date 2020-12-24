@@ -4,7 +4,7 @@
     <!-- 头部 -->
     <div id="header">
       <span>
-      <van-icon name="setting-o" />
+      <van-icon name="setting-o" @click="shezhiroot" />
       </span>
       <span>
         <van-icon class="right" name="chat-o" @click="xiaoxiroot"/>
@@ -17,14 +17,14 @@
       <div id="person">
           <div class="top">
             <img src="../assets/logo.png" alt="头像">
-            <b>牛牛</b>
+            <b @click="login">牛牛</b>
             <span> <img src="../../public/mienimg/icon03.png" alt=""> 激活会员卡</span>
           </div>
           <div class="bottom">
-            <span class="font">剩余课时:</span>
-            <span class="num">0</span>
-            <span class="font">现金卷:</span>
-            <span class="num">0</span>
+            <span @click="shengyv" class="font">剩余课时:</span>
+            <span @click="shengyv" class="num">0</span>
+            <span @click="juan" class="font">现金卷:</span>
+            <span @click="juan" class="num">0</span>
           </div>
       </div>
       <!-- 主体内容 -->
@@ -85,6 +85,18 @@ export default defineComponent({
     },
     xiaoxiroot(){
       this.$router.push("/xiaoxi")
+    },
+    shezhiroot(){
+      this.$router.push("/shezhi")
+    },
+    shengyv(){
+      this.$router.push("/shengyv")
+    },
+    juan(){
+      this.$router.push("/juan")
+    },
+    login(){
+      this.$router.push("/login")
     }
   },
   setup() {
@@ -109,7 +121,7 @@ export default defineComponent({
 <style lang="less" scoped>
 // 页面
 #page{
-  background-color: rgb(240, 232, 232);
+  background-color: #F2F2F2;
   // height: 100%;
 // 头部
   #header{
@@ -191,7 +203,7 @@ export default defineComponent({
 // 主体内容
   #main-part{
     margin: 0 10px;
-    background-color: rgb(240, 232, 232);
+    background-color:#F2F2F2;
 
     div{
       background-color: white;
@@ -201,7 +213,7 @@ export default defineComponent({
 
       li{
         padding: 13px 0;
-        border-bottom: 1px solid rgb(164, 160, 160);
+        border-bottom: 1px solid #EEEEEE;
         position: relative;
 
         img{

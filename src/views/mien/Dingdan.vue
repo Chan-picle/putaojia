@@ -9,7 +9,7 @@
     <van-tabs  animated swipeable>
       <van-tab v-for="(item,index) in list" :key="index" :title="item.title">
         <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
-          <span>{{item.title}}</span>
+          <span class="aa">{{item.title}}</span>
         </van-pull-refresh>
       </van-tab>
     </van-tabs>
@@ -66,7 +66,13 @@ export default {
     }
   }
    .xiala{
-      background-color: yellow;
+      background-color: #F2F2F2;
       height: 577px;
+
+      .aa{
+        display: block;
+        height: 500px;
+        // background-color: red;
+      }
     }
 </style>
