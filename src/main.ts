@@ -39,4 +39,10 @@ app.use(Calendar);
 app.use(Search);
 //error空页面
 app.use(Empty);
+//宫格
+app.use(Grid);
+app.use(GridItem);
+
+
+
 app.mount('#app');
