@@ -5,7 +5,7 @@
       <!-- <p>刷新次数: {{ state.count }}</p> -->
       <!-- 轮播图组件 -->
       <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-        <van-swipe-item><img src="../../public/img/hello_img/lunbo1.jpg" alt=""></van-swipe-item>
+        <van-swipe-item><img src="../../public/img/hello_img/banner01@3x.png" alt=""></van-swipe-item>
         <van-swipe-item><img src="../../public/img/hello_img/lunbo2.jpg" alt=""></van-swipe-item>
       </van-swipe>
 
@@ -18,6 +18,7 @@
         </div>
         <div class="speak_box1-s">
           <p>暂时待上课程，快去约课吧~</p>
+          <img src="../../public/img/hello_img/bg-img01.png" alt="">
         </div>
       </div>
 
@@ -32,14 +33,16 @@
         <p>选择你想要进行的会话主题，即可以使用丰富的平台主题，也可以根据您的喜好自己定义会话主题。</p>
 
         <div class="speak_box2_s">
-          <div @click="jumpTo(to1)">
-            <img src="../../public/img/hello_img/hello2.jpg" alt="">
-            <p>精选话题</p>
+          <div @click="jumpTo(to1)" class="box">
+            <img src="../../public/img/hello_img/img01.png" alt="">
+            <div><p>精选话题</p></div>
+            
           </div>
 
-           <div  @click="jumpTo(to2)">
-            <img src="../../public/img/hello_img/hello1.jpg" alt="">
-            <p>自定义会话</p>
+           <div  @click="jumpTo(to2)" class="box">
+            <img src="../../public/img/hello_img/img-02.png" alt="">
+            <div><p>自定义会话</p></div>
+            
           </div>
 
 
@@ -136,15 +139,17 @@ export default defineComponent({
   .speak_box1{
     height: 120px;
     // background-color: yellow;
-    padding: 0px 10px;
+    margin: 0px 10px;
     .speak_list{
       margin-top: 20px;
       height: 20px;
       line-height: 10px;
+      margin-bottom: 15px;
 
        h3{
         float: left;
         height: 20px;
+        
         }
         h4{
           float: right;
@@ -159,24 +164,29 @@ export default defineComponent({
      height: 100px;
      background-color: white;
      border: 1px solid #ccc;
-     p{
-       line-height: 100px;
-       text-align: center;
-     }
+     position: relative;
 
-     
-     
+       p{
+          line-height: 100px;
+          width: 100%;
+          text-align: center;
+
+          position: absolute;
+        }
     }
   }
-
+// <!-- 会话内容 -->
   .speak_box2{
     padding: 0px 10px;
-    margin-top: 30px;
+    margin-top: 50px;
+    
+
     span{
       height: 25px;
       line-height: 25px;
       font-size: 22px;
       color: #000;
+      font-weight: 600;
       // margin-top: 20px;
       // margin-bottom: 10px;
     }
@@ -185,35 +195,60 @@ export default defineComponent({
       font-size: 15px;
       margin-top: 10px;
       margin-bottom: 10px;
+
     }
     .speak_box2_s{
       // background-color: green;
-      height: 200px;
+      // height: 200px;
 
       display: flex;
       justify-content: center;
 
-      div{
-        height: 198px;
-        width: 45%;
+      .box{
+        // height: 198px;
+        // width: 45%;
         // float: left;
-        border: black 1px solid;
-        margin: 0px 10px;
+
+        // border: black 1px solid;
+        
+       position: relative;
+
+        margin: 0px 20px;
 
         border-top-right-radius: 30px;
         border-top-left-radius: 30px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        // border-bottom-left-radius: 10px;
+        // border-bottom-right-radius: 10px;
         overflow: hidden;
 
         img{
           width: 100%;
         }
-        p{
+
+        div{
+          background-color: white;
+          position: absolute;
+          bottom: -1px;
+
+          border: 1px #ccc solid;
+          border-top:0px ;
+          width: 99%;
+
+          border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+          p{
           color: #000;
-          font-size: 16px;
+          font-size: 17px;
           text-align: center;
+          // color: red;
+          font-weight: 600;
+          
         }
+
+
+        }
+        
       }
     }
   }

@@ -21,7 +21,7 @@
       title-active-color="orange"
       color="orange"
     >
-      <van-tab v-for="(item, index) in fenlist" :title="item.tite">
+      <van-tab v-for="(i, index) in fenlist" :title="i.tite">
 
 
 
@@ -29,29 +29,29 @@
           <!-- 内容 {{ index }} -->
 
 
-          <van-grid :column-num="3">
-            <!-- <div v-for="a in 20"> -->
+          <!-- <van-grid :column-num="3">
               <van-grid-item 
-              v-for="item in list" 
+              class="aaa"
+              v-for="item in list"
               icon="img/hello_img/topic_img1.jpg" 
               :text="item.topic_title" 
-              :column-num=4 />
-              
+               />
+          </van-grid> -->
 
-              <!-- <van-grid-item v-for="item in list" icon="img/hello_img/topic_img1.jpg" :text="item.topic_title" column-num=4 /> -->
-              
-            
-            <!-- <van-grid-item icon="photo-o" text="this.list.result[0].topic_title" />
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" />
-            <van-grid-item icon="photo-o" text="文字" /> -->
-
-            <!-- </div> -->
-          </van-grid>
-
+          <div class="huadong_box">
+            <div class="img_box" v-for="item in list"  @click="jumpTo(to1)" >
+              <img :src="item.topic_img" alt="">
+              <p>{{item.topic_title}}</p>
+            </div>
+          </div>
+          <div class="huadong_box">
+            <div class="img_box" v-for="item in list">
+              <img :src="item.topic_img" alt="">
+              <p>{{item.topic_title}}</p>
+            </div>
+          </div>
 
         </van-pull-refresh>
-
 
       </van-tab>
     </van-tabs>
@@ -72,7 +72,8 @@ export default defineComponent({
         { tite: "动物" },
         { tite: "趣味" },
         { tite: "科普" },
-      ]
+      ],
+      to1:"/hello_details"
     };
   },
 
@@ -105,7 +106,9 @@ export default defineComponent({
       this.list = res.result;
       console.log(this.list);
       
+      // console.log(item.topic_img)
     })
+    
   },
   components: {},
   props: {},
@@ -127,8 +130,40 @@ export default defineComponent({
     onClickRight() {
       console.log("弹出框");
     },
+
+
+    jumpTo(to:string){
+      this.$router.push(to);
+    }
   },
 });
 </script>
 <style lang="less" scoped>
+
+.huadong_box{
+  width: 100%;
+  height: 100%;
+  background-color: red;
+  // display: flex;
+}
+.img_box{
+  // padding: 10px;
+  // margin: 10px;
+  width: 28%;
+  height: 150px;
+  background-color: yellow;
+  margin: 5px;
+  margin-bottom: 10px;
+  float: left;
+  padding: 5px;
+  img{
+    width: 100%;
+    height: 80%;
+  }
+  p{
+    text-align: center;
+    line-height: 10px;
+    height: 10px;
+  }
+}
 </style>
