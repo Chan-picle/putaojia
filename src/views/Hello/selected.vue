@@ -9,23 +9,106 @@
       @click-right="onClickRight"
     />
 
-    <van-tabs v-model:active="active" sticky :duration=0 :title-active-color="red">
-      <van-tab v-for="index in 4" :title="'选项 ' + index"   >
-        内容 {{ index }}
+    <!-- <img src="../../public/img/hello_img/topic_img.jpg" alt=""> -->
+    <!-- <img src="../../../public/img/hello_img/topic_img1.jpg" alt=""> -->
+    <!-- 下拉刷新组件 -->
+
+    <van-tabs
+      v-model:active="active"
+      sticky
+      :duration="0.2"
+      animated
+      title-active-color="orange"
+      color="orange"
+    >
+      <van-tab v-for="(item, index) in fenlist" :title="item.tite">
+
+
+
+        <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
+          <!-- 内容 {{ index }} -->
+
+
+          <van-grid :column-num="3">
+            <!-- <div v-for="a in 20"> -->
+              <van-grid-item 
+              v-for="item in list" 
+              icon="img/hello_img/topic_img1.jpg" 
+              :text="item.topic_title" 
+              :column-num=4 />
+              
+
+              <!-- <van-grid-item v-for="item in list" icon="img/hello_img/topic_img1.jpg" :text="item.topic_title" column-num=4 /> -->
+              
+            
+            <!-- <van-grid-item icon="photo-o" text="this.list.result[0].topic_title" />
+            <van-grid-item icon="photo-o" text="文字" />
+            <van-grid-item icon="photo-o" text="文字" />
+            <van-grid-item icon="photo-o" text="文字" /> -->
+
+            <!-- </div> -->
+          </van-grid>
+
+
+        </van-pull-refresh>
+
+
       </van-tab>
     </van-tabs>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
+import {getHello} from "../../utils/api";
 
+import { reactive } from "vue";
+import { Toast } from "vant";
 
 export default defineComponent({
-  setup(){
+  data() {
+    return {
+      fenlist: [
+        { tite: "认识" },
+        { tite: "动物" },
+        { tite: "趣味" },
+        { tite: "科普" },
+      ]
+    };
+  },
 
+  setup() {
+    // 请求数据
+    const state = reactive({
+      count: 0,
+      loading: false,
+    });
+    const list = reactive({});
+
+
+    const onRefresh = () => {
+      setTimeout(() => {
+        Toast("刷新成功");
+        state.loading = false;
+        state.count++;
+      }, 1000);
+    };
+
+    return {
+      state,
+      onRefresh,
+      list
+    };
+  },
+    mounted() {
+    getHello({}).then((res:any)=>{
+      console.log(res);
+      this.list = res.result;
+      console.log(this.list);
+      
+    })
   },
   components: {},
-  props:{},
+  props: {},
   // name:'${该组件名称}',
   // data() {
   //   return {
@@ -36,17 +119,16 @@ export default defineComponent({
 
   // mounted() {},
 
- methods: {
-     onClickLeft() {
-      history.go(-1)
+  methods: {
+    onClickLeft() {
+      history.go(-1);
     },
-  
+
     onClickRight() {
       console.log("弹出框");
-    }
-  }
+    },
+  },
 });
 </script>
 <style lang="less" scoped>
-
 </style>
