@@ -155,9 +155,9 @@ export default defineComponent({
     const selectorBox:HTMLElement|null = document.getElementById("selector");
     console.log(selectorBox);
     if(selectorBox){
-      selectorBox.addEventListener("scroll",function(){
+      selectorBox.addEventListener("scroll",()=>{
         this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
-    }.bind(this))
+    })
     }
     
 
