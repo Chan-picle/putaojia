@@ -1,13 +1,25 @@
 <template>
   <div class="bgcolor">
-    <van-calendar
-      title="日历"
-      :poppable="false"
-      :show-confirm="false"
-      :style="{ height: '400px' }"
-    />
+    <div class="container">
+      <div class="head-title">{{ year }}年&nbsp;{{ month }}月
+        <div class="left"><van-icon name="arrow-left" /></div>
+        <div class="right"><van-icon name="arrow" /></div>
+      </div>
+      <div class="calendar">
+        <!-- 星期 -->
+        <div v-for="(item, index) in dayArr" :key="index">{{ item }}</div>
+        <!-- 天数 -->
+        <div
+          v-for="item in dateArr"
+          :key="item"
+          :class="day == item ? 'active' : ''"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </div>
     <section class="cont">
-      <img src="/TimeImg/find.png" alt="">
+      <img src="/TimeImg/find.png" alt="" />
       <em>快去寻找你的专属外教吧!Go!</em>
       <span>Go!</span>
     </section>
@@ -15,7 +27,7 @@
     <div class="class-intro" v-for="i in 8">
       <div class="intro-detail" v-for="item in timeList" :key="item.id">
         <div class="up">
-          <img :src="item.classimg" alt="">
+          <img :src="item.classimg" alt="" />
         </div>
         <div class="down">
           <span class="text">{{ item.textbook }}</span>
@@ -36,13 +48,56 @@
 <script>
 import { defineComponent } from "vue";
 import { getTimeListApi } from "../../utils/api";
+import { onMounted, reactive, toRefs } from "vue";
 export default defineComponent({
   data() {
     return {
       timeList: [],
     };
   },
+  setup() {
+    let state = reactive({
+      year: "", // 年
+      month: "", // 月
+      day: "", // 日
+      dayArr: ["一", "二", "三", "四", "五", "六","日"], // 星期数组
+      dateArr: [], // 当前月份的天数
+    });
 
+    let addZero = (date) => {
+      // 月、日个位数 补零
+      return date.toString().padStart(2, "0");
+    };
+
+    let getDate = (newDate) => {
+      // 获得当前月份的所有天数
+      let date = new Date(newDate);
+      state.year = date.getFullYear();
+      state.month = addZero(date.getMonth() + 1); // 补零
+      state.day = addZero(date.getDate()); // 补零
+
+      let firstDay = new Date(state.year, state.month - 1, 1).getDay(); // 每月第一天星期几
+      console.log(firstDay);
+
+      let monthNum = new Date(state.year, state.month, -1).getDate() + 1; // 每月天数
+
+      for (let i = 1; i < monthNum + 1; i++) {
+        state.dateArr.push(i); // 遍历添加当前月份的每一天
+      }
+      for (let i = 0; i < firstDay -1; i++) {
+        state.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
+      }
+    };
+
+    onMounted(() => {
+      // 相当于 vue2.0 的 mounted
+      getDate(new Date());
+    });
+
+    return {
+      ...toRefs(state), // 将 state 返回出去，就可以直接使用 state 里面的属性
+    };
+  },
   components: {},
 
   computed: {},
@@ -64,6 +119,73 @@ export default defineComponent({
 .bgcolor {
   background: white;
   padding: 0 10px;
+  .container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .head-title {
+      font-size: 16px;
+      font-weight: 600;
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+      display: flex;
+      div {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background: #FFE4C4;
+        cursor: pointer;
+        .van-icon {
+          color: red;
+          font-size: 18px;
+          font-weight: 900;
+        }
+      }
+      .right {
+        position: absolute;
+        right: 20%;
+        bottom: 20%;
+        .van-icon-arrow {
+          margin-left: 6px;
+        }
+      }
+      .left {
+        position: absolute;
+        left: 20%;
+        bottom: 20%;
+        .van-icon-arrow-left {
+          margin-left: 5px;
+        }
+      }
+    }
+    .calendar {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      div {
+        width: calc(100% / 7);
+        height: calc(100% / 7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 40px;
+      }
+    }
+  }
+  .active {
+    background-color: purple;
+    color: #fff;
+    border-radius: 40%;
+  }
   .cont {
     height: 300px;
     width: 100%;
@@ -74,7 +196,6 @@ export default defineComponent({
       width: 180px;
       display: block;
       margin: 20px auto;
-
     }
     em {
       font-style: normal;
