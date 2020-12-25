@@ -153,7 +153,6 @@ export default defineComponent({
   },
   mounted() {
     const selectorBox:HTMLElement|null = document.getElementById("selector");
-    console.log(selectorBox);
     if(selectorBox){
       selectorBox.addEventListener("scroll",()=>{
         this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
@@ -174,7 +173,6 @@ export default defineComponent({
 
     },
     changetab(i:number){
-      console.log(i);
       this.active = i;
       switch(i){
         case 0:this.$router.replace("/index/course");break;
