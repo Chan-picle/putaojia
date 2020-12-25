@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky,CouponCell, CouponList, Popup} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -17,6 +17,11 @@ app.use(TabbarItem);
 app.use(Icon);
 //轻提示
 app.use(Toast);
+// 优惠券
+app.use(CouponCell);
+app.use(CouponList);
+// 弹出层
+app.use(Popup );
 
 // 轮播
 app.use(Swipe);

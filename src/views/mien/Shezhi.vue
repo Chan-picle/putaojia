@@ -10,7 +10,7 @@
           <p>个人头像</p><img class="touxiang" src="../../../public/mienimg/icon04.png" alt=""><span> ></span>
         </li>
         <li>
-          <p>昵称</p><span>牛牛 ></span>
+          <p>昵称</p><input type="text" :value="nc"><span>></span>
         </li>
         <li>
           <p>绑定微信</p><span>去绑定 ></span>
@@ -43,8 +43,14 @@
 
 <script>
 import { reactive } from 'vue';
+let zhi=document.querySelector('.gai');
 
 export default {
+  data() {
+    return {
+      nc:"牛牛"
+    }
+  },
   setup() {
     const state = reactive({
       loading: false,
@@ -101,10 +107,19 @@ export default {
           padding: 15px 0;
           margin: 0;
         }
+        input{
+          border: none;
+          text-align: right;
+          position: absolute;
+          right: 10px;
+          line-height: 46px;
+          font-size: 15px;
+          color: rgb(154, 151, 151);
+        }
 
         span{
           padding: 15px 0;
-          font-size: 14px;
+          font-size: 15px;
           color: rgb(154, 151, 151);
         }
       }
