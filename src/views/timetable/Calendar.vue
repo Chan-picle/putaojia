@@ -1,9 +1,10 @@
 <template>
   <div class="bgcolor">
     <div class="container">
-      <div class="head-title">{{ year }}年&nbsp;{{ month }}月
-        <div class="left"><van-icon name="arrow-left" /></div>
-        <div class="right"><van-icon name="arrow" /></div>
+      <div class="head-title">
+        {{ year }}年&nbsp;{{ month }}月
+        <div class="left"><van-icon name="arrow-left" @click="goLeft" /></div>
+        <div class="right"><van-icon name="arrow" @click="goRight" /></div>
       </div>
       <div class="calendar">
         <!-- 星期 -->
@@ -60,7 +61,7 @@ export default defineComponent({
       year: "", // 年
       month: "", // 月
       day: "", // 日
-      dayArr: ["一", "二", "三", "四", "五", "六","日"], // 星期数组
+      dayArr: ["一", "二", "三", "四", "五", "六", "日"], // 星期数组
       dateArr: [], // 当前月份的天数
     });
 
@@ -77,14 +78,13 @@ export default defineComponent({
       state.day = addZero(date.getDate()); // 补零
 
       let firstDay = new Date(state.year, state.month - 1, 1).getDay(); // 每月第一天星期几
-      console.log(firstDay);
 
       let monthNum = new Date(state.year, state.month, -1).getDate() + 1; // 每月天数
 
       for (let i = 1; i < monthNum + 1; i++) {
         state.dateArr.push(i); // 遍历添加当前月份的每一天
       }
-      for (let i = 0; i < firstDay -1; i++) {
+      for (let i = 0; i < firstDay - 1; i++) {
         state.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
       }
     };
@@ -111,6 +111,63 @@ export default defineComponent({
       const res = await getTimeListApi({});
       console.log(res);
       this.timeList = res.result;
+    },
+    goLeft() {
+      if (this.month > 1) {
+        this.month = this.month - 1;
+
+        let firstDay = new Date(this.year, this.month - 1, 1).getDay(); // 每月第一天星期几
+        console.log(firstDay);
+        let monthNum = new Date(this.year, this.month, -1).getDate() + 1; // 每月天数
+        console.log(monthNum);
+        this.dateArr = [];
+        for (let i = 1; i < monthNum + 1; i++) {
+          this.dateArr.push(i); // 遍历添加当前月份的每一天
+        }
+        for (let i = 0; i < firstDay; i++) {
+          this.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
+        }
+      } else if ((this.month = 1)) {
+        this.month = 12;
+        this.year -= 1;
+        let firstDay = new Date(this.year, this.month - 1, 1).getDay(); // 每月第一天星期几
+        console.log(firstDay);
+        let monthNum = new Date(this.year, this.month, -1).getDate() + 1; // 每月天数
+        console.log(monthNum);
+        this.dateArr = [];
+        for (let i = 1; i < monthNum + 1; i++) {
+          this.dateArr.push(i); // 遍历添加当前月份的每一天
+        }
+        for (let i = 0; i < firstDay; i++) {
+          this.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
+        }
+      }
+    },
+    goRight() {
+      if (this.month < 12) {
+        this.month = this.month + 1;
+        let firstDay = new Date(this.year, this.month - 1, 1).getDay(); // 每月第一天星期几
+        let monthNum = new Date(this.year, this.month, -1).getDate() + 1; // 每月天数
+        this.dateArr = [];
+        for (let i = 1; i < monthNum + 1; i++) {
+          this.dateArr.push(i); // 遍历添加当前月份的每一天
+        }
+        for (let i = 0; i < firstDay; i++) {
+          this.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
+        }
+      } else if ((this.month = 12)) {
+        this.month = 1;
+        this.year += 1;
+        let firstDay = new Date(this.year, this.month - 1, 1).getDay(); // 每月第一天星期几
+        let monthNum = new Date(this.year, this.month, -1).getDate() + 1; // 每月天数
+        this.dateArr = [];
+        for (let i = 1; i < monthNum + 1; i++) {
+          this.dateArr.push(i); // 遍历添加当前月份的每一天
+        }
+        for (let i = 0; i < firstDay; i++) {
+          this.dateArr.unshift(""); // 根据第一天在数组前填充字符串，确定第一天是星期几
+        }
+      }
     },
   },
 });
@@ -140,7 +197,7 @@ export default defineComponent({
         height: 30px;
         width: 30px;
         border-radius: 50%;
-        background: #FFE4C4;
+        background: #ffe4c4;
         cursor: pointer;
         .van-icon {
           color: red;
