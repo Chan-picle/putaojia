@@ -1,18 +1,22 @@
 <template>
   <div class="bg">
-    <section class="cont"></section>
+    <section class="cont">
+      <img src="/TimeImg/find.png" alt="" />
+      <em>快去寻找你的专属外教吧!Go!</em>
+      <span>Go!</span>
+    </section>
     <span class="intro">课程推荐</span>
     <div class="class-intro" v-for="i in 8">
-      <div class="intro-detail" v-for="item in timeList" :key="item.id">
+      <div class="intro-detail" v-for="item in timeList" :key="item.id" @click="goToDetail">
         <div class="up">
-          <img :src="item.classimg" alt="">
+          <img :src="item.classimg" alt="" />
         </div>
         <div class="down">
           <span class="text">{{ item.textbook }}</span>
           <span class="hour">课时数：{{ item.hours }}课时</span> 
           <section class="btom">
             <div class="btom-d">
-            <img :src="item.teacherimg" alt="">
+            <img :src="item.teacherimg" alt="" />
             <span>{{ item.teachername }}</span>
             </div>
             <span class="price">{{ item.price }}元</span>
@@ -53,12 +57,15 @@ export default defineComponent({
       console.log(res);
       this.timeList = res.result;
     },
+    goToDetail() {
+      this.$router.push('/timedetail');
+    }
   },
 });
 </script>
 <style lang="less" scoped>
 .bg {
-  background: #ccc;
+  background: #eee;
   padding: 0 10px;
   padding-top: 20px;
   .cont {
@@ -66,6 +73,36 @@ export default defineComponent({
     width: 100%;
     background: white;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    img {
+      height: 163px;
+      width: 180px;
+      display: block;
+      margin: 20px auto;
+
+    }
+    em {
+      font-style: normal;
+      display: block;
+      height: 22px;
+      line-height: 22px;
+      width: 160px;
+      margin: 10px auto;
+      text-align: center;
+      font-size: 12px;
+    }
+    span {
+      height: 22px;
+      line-height: 22px;
+      width: 66px;
+      display: block;
+      background: orange;
+      color: #fff;
+      border-radius: 20px;
+      text-align: center;
+      margin: 0 auto;
+    }
   }
   .intro {
     padding-top: 10px;
@@ -80,15 +117,15 @@ export default defineComponent({
     // width: 100%;
     .intro-detail {
       width: 45%;
-      height: 160px;
-      margin-top: 20px;
+      height: 200px;
+      margin-top: 10px;
       border-radius: 10px;
       .up {
-        height: 100px;;
+        height: 125px;;
         width: 100%;
         display: flex;
         img {
-          height: 100px;
+          height: 100%;
           width: 100%;
           display: block;
         }
@@ -96,13 +133,13 @@ export default defineComponent({
       .down {
         display: flex;
         flex-direction: column;
-        height: 60px;
         width: 100%;
         .text {
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
-          height: 20px;
-          line-height:20px;
+          height: 30px;
+          line-height: 30px;
+          margin-top: 5px;
         }
       
         .hour {
@@ -116,15 +153,15 @@ export default defineComponent({
           justify-content: space-between;
           .btom-d {
             display: flex;
-            padding: 0 10px;
             span {
               font-size: 12px;
               height: 20px;
               line-height: 20px;
+              margin-top: 5px;
             }
             img {
-              height: 20px;
-              width: 20px;
+              height: 25px;
+              width: 25px;
               border-radius: 50%;
               display: block;
             }
@@ -132,6 +169,7 @@ export default defineComponent({
           .price {
             color: red;
             font-size: 12px;
+            margin-top: 5px;
           }
         }
       }
