@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     //timetable详情页
-    path:"/timedetail",
+    path:"/timedetail/:id",
     component: () => import('../views/TimeDetail.vue'),
     //传参
     props: true

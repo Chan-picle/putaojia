@@ -8,15 +8,15 @@
       fixed
       placeholder="true"
     />
-    <section class="all-content">
+    <section class="all-content" v-if="timeDetail.textbook">
       <div class="head">
         <img src="TimeImg/jiaocai.jpg" alt="" />
         <div class="h-left">
-          <em>外研版英语-1A</em>
+          <em>{{ timeDetail.textbook }}</em>
           <div class="hours">
-            <span>20节</span>课时 <span>10674人</span>已购买
+            <span>{{ timeDetail.hours }}节</span>课时 <span>{{ timeDetail.buyers }}人</span>已购买
           </div>
-          <div class="pratice"><span>25分钟</span>练习时长</div>
+          <div class="pratice"><span>{{ timeDetail.practicehour }}分钟</span>练习时长</div>
         </div>
       </div>
       <div class="class-detail">
@@ -26,19 +26,17 @@
       <div class="main">
         <span>课程内容</span>
         <p>
-          近日，市场监管总局根据举报，在前期核查研究的基础上，对阿里巴巴集团控股有限公司实施“二选一”等涉嫌垄断行为立案调查。这是我国在互联网领域加强反垄断监管的一项重要举措，有利于规范行业秩序、促进平台经济长远健康发展。
-          近年来，我国线上经济蓬勃发展，新业态、新模式层出不穷，对推动经济高质量发展、满足人民日益增长的美好生活需要发挥了重要作用。但与此同时，线上经济凭借数据、技术、资本优势也呈现市场集中度越来越高的趋势，市场资源加速向头部平台集中，关于平台垄断问题的反映和举报日益增加，显示线上经济发展中存在一些风险和隐患。近期召开的中央政治局会议和中央经济工作会议均明确要求强化反垄断和防止资本无序扩张，得到社会热烈反响和广泛支持。可见，反垄断已成为关系全局的紧迫议题。
-          反垄断、反不正当竞争，是完善社会主义市场经济体制、推动高质量发展的内在要求。公平竞争是市场经济的核心，只有竞争环境公平，才能实现资源有效配置和企业优胜劣汰，而垄断阻碍公平竞争、扭曲资源配置、损害市场主体和消费者利益、扼杀技术进步，是监管者一直高度警惕的发展和安全隐患。自线上。
+          {{ timeDetail.content }}
         </p>
 
         <span>级别</span>
-        <em>level1</em>
+        <em>{{ timeDetail.level }}</em>
         <span>适合年龄段</span>
-        <em>6岁</em>
+        <em>{{ timeDetail.age }}</em>
         <span>核心词汇数</span>
-        <em>128+</em>
+        <em>{{ timeDetail.keywords }}</em>
         <span>拓展词汇</span>
-        <em>0+</em>
+        <em>{{ timeDetail.outwords }}</em>
       </div>
     </section>
     <span class="teacher-msg">外教信息</span>
@@ -74,12 +72,14 @@
 <script>
 import { defineComponent } from "vue";
 import { Toast } from "vant";
+import { getTimeDetailApi } from "../utils/api";
 
 export default defineComponent({
   props: ["id"],
   data() {
     return {
       StarCount: 5,
+      timeDetail: {}
     };
   },
   setup() {
@@ -96,13 +96,31 @@ export default defineComponent({
   },
   components: {},
 
-  computed: {},
+  computed: {
+    // arr(){
+    //   return msg.filter(elm => {
+    //    return elm.id == that.id;
+    //  })
+     
+    // }
+  },
 
-  mounted() {},
+  mounted() {
+    this.getTimeDetail();
+  },
 
   methods: {
     onClickLeft() {
       Toast("返回");
+      this.$router.go(-1);  
+    },
+    async getTimeDetail() {
+      const res = await getTimeDetailApi({});
+      // console.log(res.result );
+      this.timeDetail = res.result.filter(elm => {
+        // console.log(this.id == elm.id)
+       return elm.id == this.id;
+     })[0];
     },
   },
 });

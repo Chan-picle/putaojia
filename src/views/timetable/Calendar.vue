@@ -14,9 +14,14 @@
           v-for="item in dateArr"
           :key="item"
           :class="day == item ? 'active' : ''"
+          @click="addItem(item)"
         >
           {{ item }}
         </div>
+      </div>
+      <div class="toggle" @click="changeTog">
+        <van-icon name="arrow-up" v-if="tog" />
+        <van-icon name="arrow-down" v-if="!tog" />
       </div>
     </div>
     <section class="cont">
@@ -26,7 +31,7 @@
     </section>
     <span class="intro">课程推荐</span>
     <div class="class-intro" v-for="i in 8">
-      <div class="intro-detail" v-for="item in timeList" :key="item.id">
+      <div class="intro-detail" v-for="item in timeList" :key="item.id" @click="goToDetail(item.id)">
         <div class="up">
           <img :src="item.classimg" alt="" />
         </div>
@@ -63,6 +68,7 @@ export default defineComponent({
       day: "", // 日
       dayArr: ["一", "二", "三", "四", "五", "六", "日"], // 星期数组
       dateArr: [], // 当前月份的天数
+      tog: true
     });
 
     let addZero = (date) => {
@@ -131,9 +137,9 @@ export default defineComponent({
         this.month = 12;
         this.year -= 1;
         let firstDay = new Date(this.year, this.month - 1, 1).getDay(); // 每月第一天星期几
-        console.log(firstDay);
+
         let monthNum = new Date(this.year, this.month, -1).getDate() + 1; // 每月天数
-        console.log(monthNum);
+
         this.dateArr = [];
         for (let i = 1; i < monthNum + 1; i++) {
           this.dateArr.push(i); // 遍历添加当前月份的每一天
@@ -169,6 +175,15 @@ export default defineComponent({
         }
       }
     },
+    addItem(i) {
+      this.day = i;
+    },
+    changeTog() {
+      this.tog = !this.tog;
+    },
+    goToDetail(id) {
+      this.$router.push('/timedetail/' + id);
+    }
   },
 });
 </script>
@@ -229,19 +244,28 @@ export default defineComponent({
       display: flex;
       flex-wrap: wrap;
       div {
-        width: calc(100% / 7);
-        height: calc(100% / 7);
+        width: calc(100% / 14);
+        height: calc(100% / 14);
         display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 40px;
+        line-height: 26px;
+        margin: calc(100% / 28) calc(100% / 28);
       }
+    }
+    .toggle {
+      height: 20px;
+      width: 100%;
+      line-height: 20px;
+      display: flex;
+      justify-content: center;
+      padding-top: 10px;
     }
   }
   .active {
     background-color: purple;
     color: #fff;
-    border-radius: 40%;
+    border-radius: 30%;
   }
   .cont {
     height: 300px;
