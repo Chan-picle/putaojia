@@ -111,15 +111,15 @@ export default defineComponent({
     // width: 100%;
     .intro-detail {
       width: 45%;
-      height: 160px;
-      margin-top: 20px;
+      height: 200px;
+      margin-top: 10px;
       border-radius: 10px;
       .up {
-        height: 100px;
+        height: 125px;
         width: 100%;
         display: flex;
         img {
-          height: 100px;
+          height: 100%;
           width: 100%;
           display: block;
         }
@@ -127,13 +127,13 @@ export default defineComponent({
       .down {
         display: flex;
         flex-direction: column;
-        height: 60px;
         width: 100%;
         .text {
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
-          height: 20px;
-          line-height: 20px;
+          height: 30px;
+          line-height: 30px;
+          margin-top: 5px;
         }
 
         .hour {
@@ -147,15 +147,16 @@ export default defineComponent({
           justify-content: space-between;
           .btom-d {
             display: flex;
-            padding: 0 10px;
             span {
               font-size: 12px;
               height: 20px;
               line-height: 20px;
+              padding-left: 5px;
+              margin-top: 5px;
             }
             img {
-              height: 20px;
-              width: 20px;
+              height: 25px;
+              width: 25px;
               border-radius: 50%;
               display: block;
             }
@@ -163,6 +164,7 @@ export default defineComponent({
           .price {
             color: red;
             font-size: 12px;
+            margin-top: 5px;
           }
         }
       }
