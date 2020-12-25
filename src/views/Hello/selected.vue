@@ -23,8 +23,6 @@
     >
       <van-tab v-for="(i, index) in fenlist" :title="i.tite">
 
-
-
         <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
           <!-- 内容 {{ index }} -->
 
@@ -38,18 +36,27 @@
                />
           </van-grid> -->
 
+<div class="asd">
           <div class="huadong_box">
             <div class="img_box" v-for="item in list"  @click="jumpTo(to1)" >
               <img :src="item.topic_img" alt="">
               <p>{{item.topic_title}}</p>
+              
+            </div>
+            <div class="img_box" v-for="item in list"  @click="jumpTo(to1)" >
+              <img :src="item.topic_img" alt="">
+              <p>{{item.topic_title}}</p>
+              
             </div>
           </div>
-          <div class="huadong_box">
+          <!-- <div class="huadong_box">
             <div class="img_box" v-for="item in list">
               <img :src="item.topic_img" alt="">
               <p>{{item.topic_title}}</p>
             </div>
-          </div>
+          </div> -->
+</div>
+          
 
         </van-pull-refresh>
 
@@ -140,11 +147,17 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 
+.asd{
+  // padding-bottom: 400px;
+  // margin-bottom: 300px;
+}
 .huadong_box{
   width: 100%;
   height: 100%;
   background-color: red;
   // display: flex;
+
+  // margin-bottom: 10px;
 }
 .img_box{
   // padding: 10px;
@@ -156,6 +169,8 @@ export default defineComponent({
   margin-bottom: 10px;
   float: left;
   padding: 5px;
+
+  
   img{
     width: 100%;
     height: 80%;
