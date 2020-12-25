@@ -3,17 +3,17 @@
   <div class="index-container">
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div class="index">
-            <div class="i-selector">
-              <van-grid :column-num="5" square :border="false">
-                <van-grid-item v-for="(item,index) in selectorList" :key="index" >
-                  <img :src="item.icon">
+            <div id="selector" class="i-selector">
+              <ul>
+                <li v-for="(item,index) in selectorList" :key="index">
+                  <img :src="item.icon" alt="">
                   <span>{{item.text}}</span>
-                </van-grid-item>
-              </van-grid>
-              <div class="dot">
-                  <div class="left"></div>
-                  <div class="right"></div>
-              </div>
+                </li>
+              </ul>
+            </div>
+            <div class="dot">
+                  <div class="left" :class="{scroll:!isOver}"></div>
+                  <div class="right" :class="{scroll:isOver}"></div>
             </div>
             <div class="banner">
               <p><span>推荐外教</span><span>全部外教<van-icon name="arrow" /></span></p>
@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="main">
-              <div style="float:left;width:169px;margin:0 10px">
+              <div style="float:left;width:169px;margin-right:15px">
                 <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" :width="169">
                   <van-swipe-item>
                     <img src="/img/shouye/tu04.png" alt="" style="border-radius:15px;width:169px">
@@ -45,7 +45,7 @@
               </div>
               <img src="/img/shouye/tu05.png" alt="" class="main-pic">
               <img src="/img/shouye/tu06.png" alt="" class="main-pic">
-              <img src="/img/shouye/tu07.png" alt="" class="main-pic" style="margin:0 10px">
+              <img src="/img/shouye/tu07.png" alt="" class="main-pic" style="margin-right:15px">
               <img src="/img/shouye/tu08.png" alt="" class="main-pic">
             </div>
             <!-- tab切换 -->
@@ -99,8 +99,9 @@ export default defineComponent({
     const searchFocus = ()=>{
       console.log(1);
     };
+    const isOver=false;
     const list = reactive([]);
-    return { value, searchFocus, list };
+    return { value, searchFocus, list,isOver};
   },
   data(){
     return {
@@ -135,6 +136,15 @@ export default defineComponent({
       },{
         icon:"/img/shouye/icon10@2x.png",
         text:"英语游戏"
+      },{
+        icon:"/img/shouye/icon17.png",
+        text:"创意AD"
+      },{
+        icon:"/img/shouye/icon16.png",
+        text:"探索发现"
+      },{
+        icon:"/img/shouye/icon18.png",
+        text:"国家地理"
       }] as Array<selectType>,
       //tab切换
       active:1,
@@ -142,7 +152,15 @@ export default defineComponent({
     }
   },
   mounted() {
+    const selectorBox:HTMLElement|null = document.getElementById("selector");
+    console.log(selectorBox);
+    if(selectorBox){
+      selectorBox.addEventListener("scroll",function(){
+        this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
+    }.bind(this))
+    }
     
+
   },
   methods: {
    onRefresh() {
@@ -190,41 +208,78 @@ export default defineComponent({
   right:0;
 }
 .index{
-  .van-grid-item{
-    .van-grid-item__content{
-      background-color:#F2F2F2;
-    }
-      img{
-        width: 31px;
-      }
-      span{
-        font-size:11px;
-        margin-top:8px;
-        color:#333;
-        transform: scale(0.8);
-        width: 75px;
-        text-align: center;
+  //图标
+  .i-selector{
+    overflow-x: auto;
+    ul{
+        width: 525px;
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          height: 75px;
+          width: 75px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          img{
+            width: 31px;
+          }
+          span{
+            font-size:11px;
+            margin-top:8px;
+            color:#333;
+            transform: scale(0.8);
+            width: 75px;
+            text-align: center;
+          }
+        }
       }
   }
+  
+  // .van-grid-item{
+  //   .van-grid-item__content{
+  //     background-color:#F2F2F2;
+  //   }
+  //     img{
+  //       width: 31px;
+  //     }
+  //     span{
+  //       font-size:11px;
+  //       margin-top:8px;
+  //       color:#333;
+  //       transform: scale(0.8);
+  //       width: 75px;
+  //       text-align: center;
+  //     }
+  // }
   .dot{
     width: 20px;
     height: 11px;
     margin: 0 auto;
     .left{
-      width: 11px;
       height: 4px;
       border-radius: 2px;
-      background-color: @themeclolr;
+      width: 4px;
+      background-color:#D8D8D8;
       float: left;
       margin-top: 4px;
+      &.scroll{
+        width: 11px;
+        background-color: @themeclolr;
+      }
     }
     .right{
-      width: 4px;
       height: 4px;
+      width: 4px;
       border-radius: 2px;
       background-color: #D8D8D8;
       float: right;
       margin-top: 4px;
+      &.scroll{
+        width: 11px;
+        background-color: @themeclolr;
+      }
     }
   }
   .banner{
@@ -251,6 +306,8 @@ export default defineComponent({
   }
   .main{
     overflow: hidden;
+    width: 353px;
+    margin:0 auto;
     .main-pic{
       float: left;
       width: 169px;
