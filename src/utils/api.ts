@@ -7,3 +7,5 @@ interface paramType{
 export const getHello = (params:paramType) => http.get("/hello", params);
 
 export const getTimeListApi = (params:paramType) => http.get("/timefirst", params);
+
+export const getTimeDetailApi = (params:paramType) => http.get("/particulars", params);
