@@ -59,9 +59,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/About.vue')
   },
   {
-    //timetable详情页
+    //timeDetail详情页
     path:"/timedetail/:id",
     component: () => import('../views/TimeDetail.vue'),
+    //传参
+    props: true
+  },
+  {
+    //teacherdetail详情页
+    path:"/teacherdetail",
+    component: () => import('../views/TeacherDetail.vue'),
     //传参
     props: true
   },

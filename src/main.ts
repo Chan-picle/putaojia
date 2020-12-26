@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem,ActionBar, ActionBarIcon, ActionBarButton} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem,ActionBar, ActionBarIcon, ActionBarButton, Rate} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -46,6 +46,8 @@ app.use(GridItem);
 app.use(ActionBar);
 app.use(ActionBarIcon);
 app.use(ActionBarButton);
+//评分
+app.use(Rate);
 
 
 

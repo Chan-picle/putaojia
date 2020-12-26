@@ -15,7 +15,11 @@
           :key="item"
           :class="day == item ? 'active' : ''"
           @click="addItem(item)"
+          v-if="tog"
         >
+          {{ item }}
+        </div>
+        <div  v-if="!tog" v-for="item in dateShow" :key="item">
           {{ item }}
         </div>
       </div>
@@ -68,7 +72,8 @@ export default defineComponent({
       day: "", // 日
       dayArr: ["一", "二", "三", "四", "五", "六", "日"], // 星期数组
       dateArr: [], // 当前月份的天数
-      tog: true
+      tog: true,
+      dateShow: [1 ,2, 3, 4, 5, 6, 7]
     });
 
     let addZero = (date) => {

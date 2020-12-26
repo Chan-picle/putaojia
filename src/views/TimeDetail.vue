@@ -41,7 +41,7 @@
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
-    <div class="teacher">
+    <div class="teacher" @click="goTeacherDetail">
       <img src="TimeImg/waijiao.jpg" alt="" />
       <div class="teacher-right">
         <span>Andy</span>
@@ -122,6 +122,9 @@ export default defineComponent({
        return elm.id == this.id;
      })[0];
     },
+    goTeacherDetail() {
+      this.$router.push("/teacherdetail");
+    }
   },
 });
 </script>
