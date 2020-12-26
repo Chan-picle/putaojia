@@ -36,16 +36,44 @@
         <span>细致</span>
       </div>
     </div>
+    <section class="bg-br"></section>
+    <div class="his-class">TA的课程</div>
+    <section class="class-detail">
+      <div class="detail" v-for="item in 3">
+        <img src="TimeImg/jiaocai.jpg" alt="" />
+        <section class="d-right">
+          <em>外研版英语-1A</em>
+          <span class="first">包括10个学习模块(modules)</span>
+          <div class="second">
+            <span>20课时</span>
+            <span>6-12岁</span>
+          </div>
+          <div class="third">
+            <span>￥1170</span>
+            <div>购买</div>
+          </div>
+        </section>
+      </div>
+    </section>
+    <div class="more">
+      <span>查看更多</span>
+      <van-icon name="arrow" />
+    </div>
+    <div class="bottom-br"></div>
+    <div class="evaluate">TA收到的评价(0人评价)</div>
   </div>
 </template>
 
 <script>
 import { Toast } from "vant";
 import { defineComponent, ref } from "vue";
+import { getTimeDeailApi } from "../utils/api";
 
 export default defineComponent({
   data() {
-    return {};
+    return {
+      timeDetail: {},
+    };
   },
   setup() {
     const value = ref(5);
@@ -55,11 +83,21 @@ export default defineComponent({
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+    this.getTimeDetail();
+  },
 
   methods: {
     goback() {
       this.$router.go(-1);
+    },
+    async getTimeDetail() {
+      const res = await getTimeDetailApi({});
+      // console.log(res.result );
+      this.timeDetail = res.result.filter((elm) => {
+        // console.log(this.id == elm.id)
+        return elm.id == this.id;
+      })[0];
     },
   },
 });
@@ -79,7 +117,7 @@ export default defineComponent({
     height: 160px;
     width: 100%;
     border-radius: 5px;
-    background: #ccc;
+    background: #eee;
   }
   .teacher {
     height: 160px;
@@ -173,14 +211,117 @@ export default defineComponent({
       span {
         height: 20px;
         line-height: 20px;
-        background: #FFEBCD;
+        background: #ffebcd;
         font-size: 12px;
         width: 40px;
         text-align: center;
         margin-right: 50px;
-        color: #F4A460;
+        color: #f4a460;
       }
     }
+  }
+  .bg-br {
+    height: 5px;
+    width: 100%;
+    background: #eee;
+  }
+  .his-class {
+    height: 24px;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+  .class-detail {
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    .detail {
+      height: 100px;
+      width: 100%;
+      display: flex;
+      margin-bottom: 20px;
+      img {
+        height: 100%;
+        width: 40%;
+        border-radius: 20px;
+        margin-right: 5%;
+      }
+      .d-right {
+        height: 100%;
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+        em {
+          font-style: normal;
+          font-size: 16px;
+          font-weight: 600;
+          height: 20px;
+          line-height: 20px;
+        }
+        .first {
+          font-size: 12px;
+          color: #ccc;
+          display: block;
+          margin-top: 5px;
+          margin-bottom: 5px;
+          height: 20px;
+          line-height: 20px;
+        }
+        .second {
+          font-size: 14px;
+          height: 20px;
+          line-height: 20px;
+          display: flex;
+          span {
+            display: block;
+            margin-right: 20px;
+          }
+        }
+        .third {
+          height: 30px;
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          span {
+            color: red;
+            font-weight: 600;
+            font-size: 16px;
+          }
+          div {
+            width: 60px;
+            border-radius: 20px;
+            border: 2px orange solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: orange;
+          }
+        }
+      }
+    }
+  }
+  .more {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: #ccc;
+    justify-content: center;
+  }
+  .bottom-br {
+    height: 3px;
+    width: 100%;
+    background: #eee;
+  }
+  .evaluate {
+    height: 20px;
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 20px 0;
   }
 }
 </style>
