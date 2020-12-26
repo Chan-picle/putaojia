@@ -1,11 +1,12 @@
 <template>
-  配音
+  <pei-yin />
 </template>
 <script>
 import { defineComponent } from "vue";
+import PeiYin from "../../components/shouye/PeiYin";
 
 export default defineComponent({
-  components: {},
+  components: {PeiYin},
   props:{},
   data() {
     return {
