@@ -51,7 +51,6 @@
             <!-- tab切换 -->
             <div class="index-tabs" style="height:800px">
               <van-sticky :offset-top="54" @scroll="tabNavScroll">
-                <!-- <van-button type="primary">吸顶距离</van-button> -->
                 <div>
                   <ul style="background-color:#F2F2F2">
                     <li @click="changetab(0)" :class="{active:active===0}">
@@ -75,7 +74,6 @@
               <router-view />
             </div>
         </div>
-        <img :src="imgurl1" alt="">
       </van-pull-refresh>
   </div>
 
@@ -97,7 +95,6 @@ export default defineComponent({
     const value = ref('');
     //搜索框聚焦事件
     const searchFocus = ()=>{
-      console.log(1);
     };
     const isOver=false;
     const list = reactive([]);
@@ -153,14 +150,11 @@ export default defineComponent({
   },
   mounted() {
     const selectorBox:HTMLElement|null = document.getElementById("selector");
-    console.log(selectorBox);
     if(selectorBox){
-      selectorBox.addEventListener("scroll",function(){
+      selectorBox.addEventListener("scroll",()=>{
         this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
-    }.bind(this))
+    })
     }
-    
-
   },
   methods: {
    onRefresh() {
@@ -174,7 +168,6 @@ export default defineComponent({
 
     },
     changetab(i:number){
-      console.log(i);
       this.active = i;
       switch(i){
         case 0:this.$router.replace("/index/course");break;

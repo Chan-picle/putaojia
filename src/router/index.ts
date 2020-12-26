@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         ]
       },
       {
+        path:"/foreignlist",
+        component:()=>import("../views/indexTo/ForeignList.vue")
+      },
+      {
         path:"/hello",
         component:()=>import("../views/Hello.vue")
       },
