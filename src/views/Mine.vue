@@ -122,7 +122,6 @@ export default defineComponent({
 // 页面
 #page{
   background-color: #F2F2F2;
-  // height: 100%;
 // 头部
   #header{
     width: 100%;

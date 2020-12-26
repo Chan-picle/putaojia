@@ -1,11 +1,13 @@
 <template>
-  课程
+  <product-item />
+  <product-item />
 </template>
 <script>
 import { defineComponent } from "vue";
+import ProductItem from "../../components/shouye/ProductItem.vue";
 
 export default defineComponent({
-  components: {},
+  components: {ProductItem},
   props:{},
   data() {
     return {

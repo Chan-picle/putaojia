@@ -49,7 +49,7 @@
               <img src="/img/shouye/tu08.png" alt="" class="main-pic">
             </div>
             <!-- tab切换 -->
-            <div class="index-tabs" style="height:800px">
+            <div class="index-tabs">
               <van-sticky :offset-top="54" @scroll="tabNavScroll">
                 <div>
                   <ul style="background-color:#F2F2F2">
