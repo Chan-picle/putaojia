@@ -9,3 +9,5 @@ export const getHello = (params:paramType) => http.get("/hello", params);
 export const getTimeListApi = (params:paramType) => http.get("/timefirst", params);
 
 export const getTimeDetailApi = (params:paramType) => http.get("/particulars", params);
+//获得首页外教展示列表
+export const getForeignListApi = (params:paramType) => http.get("/getindexlist", params);

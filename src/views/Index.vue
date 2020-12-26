@@ -49,9 +49,8 @@
               <img src="/img/shouye/tu08.png" alt="" class="main-pic">
             </div>
             <!-- tab切换 -->
-            <div class="index-tabs" style="height:800px">
+            <div class="index-tabs">
               <van-sticky :offset-top="54" @scroll="tabNavScroll">
-                <!-- <van-button type="primary">吸顶距离</van-button> -->
                 <div>
                   <ul style="background-color:#F2F2F2">
                     <li @click="changetab(0)" :class="{active:active===0}">
@@ -75,7 +74,6 @@
               <router-view />
             </div>
         </div>
-        <img :src="imgurl1" alt="">
       </van-pull-refresh>
   </div>
 
@@ -97,7 +95,6 @@ export default defineComponent({
     const value = ref('');
     //搜索框聚焦事件
     const searchFocus = ()=>{
-      console.log(1);
     };
     const isOver=false;
     const list = reactive([]);
@@ -158,8 +155,6 @@ export default defineComponent({
         this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
     })
     }
-    
-
   },
   methods: {
    onRefresh() {
