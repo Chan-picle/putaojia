@@ -17,17 +17,11 @@
             </div>
             <div class="banner">
               <p><span>推荐外教</span><span>全部外教<van-icon name="arrow" /></span></p>
-              <div class="cards">
+              <div class="cards" v-if="bannerList.length">
                 <!-- 轮播 -->
                 <van-swipe class="my-swipe" :show-indicators="false" :width="360">
-                  <van-swipe-item>
-                    <banner-card />
-                  </van-swipe-item>
-                  <van-swipe-item>
-                    <banner-card />
-                  </van-swipe-item>
-                   <van-swipe-item>
-                    <banner-card />
+                  <van-swipe-item v-for="(item,index) in bannerList" :key="index">
+                    <banner-card :msg="item"/>
                   </van-swipe-item>
                 </van-swipe>
               </div>
@@ -49,6 +43,7 @@
               <img src="/img/shouye/tu08.png" alt="" class="main-pic">
             </div>
             <!-- tab切换 -->
+            
             <div class="index-tabs">
               <van-sticky :offset-top="54" @scroll="tabNavScroll">
                 <div>
@@ -71,7 +66,11 @@
                   </ul>
                 </div>
               </van-sticky>
-              <router-view />
+              <!-- <router-view> -->
+                <keep-alive>
+                  <component :is="currentView"></component>
+                </keep-alive>
+              <!-- </router-view> -->
             </div>
         </div>
       </van-pull-refresh>
@@ -83,6 +82,11 @@
 import { defineComponent ,reactive,ref} from "vue";
 import { getBannerApi } from "../utils/api";
 import BannerCard from "../components/shouye/BannerCard.vue";
+
+//引入tab切换组件
+import Foreign from "../views/indexTab/Foreign.vue";
+import Echo from "../views/indexTab/Echo.vue";
+import Course from "../views/indexTab/Course.vue";
 
 interface selectType{
   icon:string,
@@ -145,8 +149,19 @@ export default defineComponent({
       }] as Array<selectType>,
       //tab切换
       active:1,
-      isFixed:false
+      isFixed:false,
+      currentView:"Foreign",
+      bannerList:[]
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    let result:Array<any> = [];
+    getBannerApi({}).then((res:any)=>{
+      result = res.result;
+      next((vm:any)=>{
+        vm.bannerList = result;
+      })
+    });
   },
   mounted() {
     const selectorBox:HTMLElement|null = document.getElementById("selector");
@@ -155,8 +170,16 @@ export default defineComponent({
         this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
     })
     }
+    
+    console.log(this.bannerList.length);
+    this.$forceUpdate();
+
   },
   methods: {
+    fn(){
+      // console.log(this.bannerList);
+    console.log(this.bannerList.length);
+    },
    onRefresh() {
      setTimeout(() => {
         this.isLoading = false;
@@ -170,13 +193,22 @@ export default defineComponent({
     changetab(i:number){
       this.active = i;
       switch(i){
-        case 0:this.$router.replace("/index/course");break;
-        case 1:this.$router.replace("/index/foreign");break;
-        case 2:this.$router.replace("/index/echo");break;
+        case 0:
+          // this.$router.replace("/index/course");
+          this.currentView = "Course";
+          break;
+        case 1:
+          // this.$router.replace("/index/foreign");
+          this.currentView = "Foreign";
+          break;
+        case 2:
+          // this.$router.replace("/index/echo");
+          this.currentView = "Echo";
+          break;
       }
     }
   },
-  components: {BannerCard},
+  components: {BannerCard,Foreign,Echo,Course},
   props:{},
 });
 </script>

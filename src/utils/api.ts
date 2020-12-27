@@ -13,4 +13,4 @@ export const getTimeDetailApi = (params:paramType) => http.get("/particulars", p
 export const getForeignListApi = (params:paramType) => http.get("/getindexlist", params);
 
 //首页轮播信息
-export const getBannerApi = (params:paramType) => http.get("/getindexlist", params);
+export const getBannerApi = (params:paramType) => http.get("/getbanner", params);

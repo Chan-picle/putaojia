@@ -43,6 +43,9 @@ export default defineComponent({
   },
   computed: {},
 
+  // deactivated(){
+  //   console.log("deactived")
+  // },
   mounted() {
     getForeignListApi({})
           .then((res:any)=>{

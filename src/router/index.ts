@@ -11,21 +11,21 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:"/index",
         component:()=>import("../views/Index.vue"),
-        redirect:"/index/foreign",
-        children:[
-          {
-            path:"course",
-            component:()=>import("../views/indexTab/Course.vue"),
-          },
-          {
-            path:"foreign",
-            component:()=>import("../views/indexTab/Foreign.vue"),
-          },
-          {
-            path:"echo",
-            component:()=>import("../views/indexTab/Echo.vue"),
-          }
-        ]
+        // redirect:"/index/foreign",
+        // children:[
+        //   {
+        //     path:"course",
+        //     component:()=>import("../views/indexTab/Course.vue"),
+        //   },
+        //   {
+        //     path:"foreign",
+        //     component:()=>import("../views/indexTab/Foreign.vue"),
+        //   },
+        //   {
+        //     path:"echo",
+        //     component:()=>import("../views/indexTab/Echo.vue"),
+        //   }
+        // ]
       },
       {
         path:"/foreignlist",

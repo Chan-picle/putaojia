@@ -1,23 +1,23 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" :style="{background:info.cBg}">
     <div class="c-wrapper">
       <div class="c-header">
-        <img src="/img/shouye/touxiang01.png" alt="">
+        <img :src="info.cTou" alt="">
         <div>
-          <span>Kim</span>
-          <img src="/img/flags/xixik-8accb7e51f5673c1.png" alt="">
-          <p>3年教学经验</p>
+          <span style="text-transform: capitalize;">{{info.cName}}</span>
+          <img :src="info.cFlag" alt="">
+          <p>{{info.cExp}}年教学经验</p>
         </div>
       </div>
-      <p class="c-info">学识渊博，擅长对各国文化进行拓展，多彩多艺，有亲和力</p>
+      <p class="c-info">{{info.cInfo}}</p>
       <div class="c-tag">
         <div v-for="(item,index) in info.cTag">{{item}}</div>
         <!-- <div>工商管理硕士</div> -->
       </div>
       <div class="c-img">
-        <img src="http://42.192.148.152/wp-content/uploads/2020/12/tu01.png" alt="">
-        <img src="http://42.192.148.152/wp-content/uploads/2020/12/tu02.png" alt="">
-        <img src="http://42.192.148.152/wp-content/uploads/2020/12/tu03.png" alt="">
+        <img v-for="(item,i) in info.cImg" :src="item" :key="i" alt="">
+        <!-- <img src="/img/shouye/tu02.png" alt="">
+        <img src="/img/shouye/tu03.png" alt=""> -->
       </div>
     </div>
     <div class="bottom"></div>
@@ -38,41 +38,44 @@ interface infoType{
 }
 
 export default defineComponent({
-  props:{},
+  props:["msg"],
   data(){
     return {
       info: {
-        cTou:"/img/shouye/touxiang01.png",
-        cName:"Kim",
-        cFlag:"/img/flags/xixik-8accb7e51f5673c1.png",
-        cExp:3,
-        cInfo:"学识渊博，擅长对各国文化进行拓展，多彩多艺，有亲和力",
-        cImg:["http://42.192.148.152/wp-content/uploads/2020/12/tu01.png","http://42.192.148.152/wp-content/uploads/2020/12/tu02.png","http://42.192.148.152/wp-content/uploads/2020/12/tu03.png"],
-        cBg:"#002253",
-        cTag:["TEFL","工商管理硕士"]
+        // cTou:"/img/shouye/touxiang01.png",
+        // cName:"Kim",
+        // cFlag:"/img/flags/xixik-8accb7e51f5673c1.png",
+        // cExp:3,
+        // cInfo:"学识渊博，擅长对各国文化进行拓展，多彩多艺，有亲和力",
+        // cImg:["http://42.192.148.152/wp-content/uploads/2020/12/tu01.png","http://42.192.148.152/wp-content/uploads/2020/12/tu02.png","http://42.192.148.152/wp-content/uploads/2020/12/tu03.png"],
+        // cBg:"#002253",
+        // cTag:["TEFL","工商管理硕士"]
       }as infoType
     }
   },
   setup(){
-    const info1 = reactive(
-      {
-        cTou:"/img/shouye/touxiang01.png",
-        cName:"Kim",
-        cFlag:"/img/flags/xixik-8accb7e51f5673c1.png",
-        cExp:3,
-        cInfo:"学识渊博，擅长对各国文化进行拓展，多彩多艺，有亲和力",
-        cImg:["http://42.192.148.152/wp-content/uploads/2020/12/tu01.png","http://42.192.148.152/wp-content/uploads/2020/12/tu02.png","http://42.192.148.152/wp-content/uploads/2020/12/tu03.png"],
-        cBg:"#002253",
-        cTag:["TEFL","工商管理硕士"]
-      }as infoType);
-    return {info1}
   },
   computed: {},
 
   mounted() {
+    console.log(JSON.parse(this.msg.t_imgs));  
+    this.filterMsg(this.msg)
   },
 
-  methods: {}
+  methods: {
+    filterMsg(msg:any){
+      this.info = {
+        cTou:"/img/shouye/" + msg.pic,
+        cName:msg.t_name,
+        cFlag:"/img/flags/"+ msg.flag,
+        cExp:msg.t_experience,
+        cInfo:msg.t_info,
+        cImg:JSON.parse(msg.t_imgs),
+        cBg:msg.t_bg,
+        cTag:JSON.parse(msg.t_tag)
+      }
+    }
+  }
 });
 </script>
 <style lang="less" scoped>
@@ -135,6 +138,10 @@ export default defineComponent({
       justify-content: space-between;
       z-index: 2;
       position: relative;
+      img{
+        width: 100px;
+        height: 75px;
+      }
     }
   }
   .bottom{
