@@ -11,7 +11,7 @@
  */
 import { defineComponent, reactive } from "vue";
 import ForeignItem from "../../components/shouye/ForeignItem.vue";
-import {getForeignListApi} from "@/utils/api";
+import {getForeignListApi} from "../../utils/api";
 
 export default defineComponent({
   components: {ForeignItem},
