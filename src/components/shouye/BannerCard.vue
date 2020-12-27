@@ -58,7 +58,6 @@ export default defineComponent({
   computed: {},
 
   mounted() {
-    console.log(JSON.parse(this.msg.t_imgs));  
     this.filterMsg(this.msg)
   },
 
