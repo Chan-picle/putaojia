@@ -81,7 +81,7 @@
 </template>
 <script lang="ts">
 import { defineComponent ,reactive,ref} from "vue";
-import { getHello } from "../utils/api";
+import { getBannerApi } from "../utils/api";
 import BannerCard from "../components/shouye/BannerCard.vue";
 
 interface selectType{

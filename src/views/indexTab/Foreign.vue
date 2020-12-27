@@ -11,7 +11,7 @@
  */
 import { defineComponent, reactive } from "vue";
 import ForeignItem from "../../components/shouye/ForeignItem.vue";
-import {getForeignListApi} from "@/utils/api.ts";
+import {getForeignListApi} from "@/utils/api";
 
 export default defineComponent({
   components: {ForeignItem},
@@ -45,14 +45,14 @@ export default defineComponent({
 
   mounted() {
     getForeignListApi({})
-          .then(res=>{
+          .then((res:any)=>{
             this.foreignList =  res.result;
           })
           .catch(err=>{
             throw err;
           });
-    const box:HTMLElement = document.getElementsByClassName("index-container")[0];
-    const container:HTMLElement = document.getElementsByClassName("index")[0];
+    const box:Element = document.getElementsByClassName("index-container")[0];
+    const container:Element = document.getElementsByClassName("index")[0];
     box.addEventListener("scroll",()=>{
       if(box.scrollTop+box.clientHeight===container.clientHeight){
         //到底部了
@@ -68,7 +68,7 @@ export default defineComponent({
   },
   methods: {
     async getDate(){
-      const res = await getForeignListApi({});
+      const res:any = await getForeignListApi({});
       this.foreignList = this.foreignList.concat(res.result);
     },
   }
