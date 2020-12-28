@@ -11,8 +11,8 @@
     <div class="middle">
       <span class="checkbox" :class="class" @click="change"></span>
       <span class="tick" :class="class2" @click="change"></span>
-      <span class="shuojin shenme">注册登录即代表阅读并同意</span>
-      <a href="javascript:;">用户协议</a> <span class="shenme">及</span> <a href="javascript:;">隐私政策</a>
+      <span class="retract gray-font">注册登录即代表阅读并同意</span>
+      <a href="javascript:;">用户协议</a> <span class="gray-font">及</span> <a href="javascript:;">隐私政策</a>
     </div>
     <div class="login">
       <van-button class="button" type="default">登 录</van-button>
@@ -149,10 +149,10 @@ export default {
     border-bottom: 2px solid white;
   }
 
-  .shuojin {
+  .retract {
     margin-left: 30px;
   }
-  .shenme {
+  .gray-font {
     font-size: 14px;
     color: #9b9b9b;
     display: inline-block;
