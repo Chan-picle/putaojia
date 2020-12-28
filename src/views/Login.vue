@@ -1,11 +1,11 @@
 <template>
   <div class="page">
-    <van-icon class="arrows" name="arrow-left" @click="luyou" />
+    <van-icon class="arrows" name="arrow-left" @click="backTo" />
 
     <div class="up">
       <h2>手机号登录</h2>
-      <input type="text" placeholder="输入手机号" />
-      <input type="text" placeholder="输入验证码" />
+      <input type="text" placeholder="输入手机号" v-model="phone" />
+      <input type="text" placeholder="输入验证码" v-model="code" />
       <button class="send" @click="send">{{ verify }}</button>
     </div>
     <div class="middle">
@@ -15,11 +15,13 @@
       <a href="javascript:;">用户协议</a> <span class="gray-font">及</span> <a href="javascript:;">隐私政策</a>
     </div>
     <div class="login">
-      <van-button class="button" type="default">登 录</van-button>
+      <van-button class="button" type="default" @click="login">登 录</van-button>
     </div>
   </div>
 </template>
 <script>
+import { Toast } from 'vant';
+import {loginApi,getVertifyCodeApi} from "../utils/api";
 export default {
   data() {
     return {
@@ -27,11 +29,16 @@ export default {
       time : 60,
       num: -1,
       class: "checkbox-begin-class",
-      class2: "tick-begin-class"
+      class2: "tick-begin-class",
+      code:"",
+      phone:""
     };
   },
   methods: {
     send() {
+      getVertifyCodeApi({phone:phone}).then(res=>{
+        Toast(res.msg);
+      })
       let timer;
       let data = this;
       if(this.time ===60){
@@ -60,10 +67,23 @@ export default {
       }
     },
     backTo() {
-      this.$router.push("/mine");
+      this.$router.go(-1);
     },
+    login(){
+      loginApi({phone:this.phone,code:this.code}).then(res=>{
+        Toast(res.msg);
+        if(!res.status){
+          sessionStorage.setItem("token",res.result.token);
+          sessionStorage.setItem("phone",res.result.phone);
+          sessionStorage.setItem("userid",res.result.userid);
+          this.$router.push(this.$route.query.redirect)
+        }
+      })
+    }
   },
   mounted() {
+    //登陆成功跳转
+    // console.log(this.$route.query.redirect);
   },
 };
 </script>
