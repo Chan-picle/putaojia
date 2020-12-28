@@ -59,9 +59,11 @@ export default {
         this.class2 = "tick";
       }
     },
-    luyou() {
+    backTo() {
       this.$router.push("/mine");
     },
+  },
+  mounted() {
   },
 };
 </script>

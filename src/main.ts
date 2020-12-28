@@ -3,70 +3,78 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky,ActionBar, ActionBarIcon, ActionBarButton,CouponCell, CouponList, Popup,ActionSheet,Rate,Loading,Collapse, CollapseItem} from 'vant';
+// import { Tabbar, TabbarItem, Button, NavBar,
+//    Tab, Tabs, Calendar,Swipe ,
+//    SwipeItem,PullRefresh,Field,Form,
+//    Search,Icon,Empty,Grid, GridItem,
+//    Toast,Sticky,ActionBar, ActionBarIcon,
+//     ActionBarButton,CouponCell, CouponList, Popup,
+//     ActionSheet,Rate,Loading} from 'vant';
+//引入全部vant
+import Vant from 'vant';
 import 'vant/lib/index.css';
 
 
 const app = createApp(App);
 app.use(store);
 app.use(router);
-app.use(Button);
-app.use(Tabbar);
-app.use(TabbarItem);
+app.use(Vant);
 
-app.use(Icon);
-//轻提示
-app.use(Toast);
-// 优惠券
-app.use(CouponCell);
-app.use(CouponList);
-// 弹出层
-app.use(Popup );
+// app.use(Button);
+// app.use(Tabbar);
+// app.use(TabbarItem);
 
-// 轮播
-app.use(Swipe);
-app.use(SwipeItem);
-//下拉刷新
-app.use(PullRefresh);
-// 头部导航标题
-app.use(NavBar);
-//标签切换
-app.use(Tab);
-app.use(Tabs);
-// Form 表单
-app.use(Field);
-app.use(Form);
-//宫格
-app.use(Grid);
-app.use(GridItem);
+// app.use(Icon);
+// //轻提示
+// app.use(Toast);
+// // 优惠券
+// app.use(CouponCell);
+// app.use(CouponList);
+// // 弹出层
+// app.use(Popup );
 
-app.use(NavBar);
-app.use(Tab);
-app.use(Tabs);
-app.use(Calendar);
-//搜索框
-app.use(Search);
-//error空页面
-app.use(Empty);
-//宫格
-app.use(Grid);
-app.use(GridItem);
-//粘性定位
-app.use(Sticky);
-// 动作面板
-app.use(ActionSheet);
+// // 轮播
+// app.use(Swipe);
+// app.use(SwipeItem);
+// //下拉刷新
+// app.use(PullRefresh);
+// // 头部导航标题
+// app.use(NavBar);
+// //标签切换
+// app.use(Tab);
+// app.use(Tabs);
+// // Form 表单
+// app.use(Field);
+// app.use(Form);
+// //宫格
+// app.use(Grid);
+// app.use(GridItem);
 
-//底部购买
-app.use(ActionBar);
-app.use(ActionBarIcon);
-app.use(ActionBarButton);
-//评分
-app.use(Rate);
+// app.use(NavBar);
+// app.use(Tab);
+// app.use(Tabs);
+// app.use(Calendar);
+// //搜索框
+// app.use(Search);
+// //error空页面
+// app.use(Empty);
+// //宫格
+// app.use(Grid);
+// app.use(GridItem);
+// //粘性定位
+// app.use(Sticky);
+// // 动作面板
+// app.use(ActionSheet);
 
-//刷新图片
-app.use(Loading);
-//下拉菜单
-app.use(Collapse);
-app.use(CollapseItem);
+// //底部购买
+// app.use(ActionBar);
+// app.use(ActionBarIcon);
+// app.use(ActionBarButton);
+// //评分
+// app.use(Rate);
+
+// //刷新图片
+// app.use(Loading);
+
 
 app.mount('#app');
