@@ -9,7 +9,7 @@
       
     />
     </div>
-
+    <!-- <p>{{chw.topic_subtitle}}</p> -->
     <div class="title_box"> 
       <img :src="list[0].topic_img" alt="" v-if="isLoad">
       
@@ -86,6 +86,7 @@ export default defineComponent({
   data() {
     return {
       isLoad:false,
+      chw:{},
       // list:{},
       fenlist: [
         { tite: "学习目标" },
@@ -95,7 +96,7 @@ export default defineComponent({
   },
 
   setup() {
-    ''
+    // ''
     // 请求数据
     const state = reactive({
       count: 0,
@@ -110,10 +111,19 @@ export default defineComponent({
   },
   // 路由前置守卫，获取数据
   beforeRouteEnter (to, from, next) {
-  next(vm => {
-    getHello({}).then((res)=>{
-      // console.log(res);
-      vm.list = res.result;
+     getHello({}).then((res)=>{
+      console.log(res.result  );
+      next(vm=>{
+        vm.list = res.result;
+        vm.isLoad = true;
+      })
+    })
+  // next(vm => {
+  //   getHello({}).then((res)=>{
+  //     console.log(res.result);
+  //     vm.list = res.result;
+  //     vm.isLoad = true;
+  //   })
       // console.log("before",vm.list[0].topic_img)
 
 
@@ -126,11 +136,8 @@ export default defineComponent({
       // console.log(1);
       // console.log(this.list111);
       
-      console.log(1);
-      vm.isLoad = true;
       
-    })
-  })
+  // })
 },
     beforeCreate() {
     // getHello({}).then((res:any)=>{
@@ -152,7 +159,17 @@ export default defineComponent({
   //  if(list[0].topic_img){
   //    console.log("mounted",this.list[0].topic_img);
 
-  //  }
+  // //  }
+  // console.log("list",this.list);
+  // console.log(this.$route.params.id);
+  // console.log(this.list)
+  this.list.forEach((elm,i)=>{
+    // console.log(i,elm)
+    if(elm.id == this.$route.params.id){
+      this.chw = elm;
+      console.log("cwh",this.chw)
+    }
+  })
  },
   components: {},
   props: {},
@@ -167,9 +184,21 @@ export default defineComponent({
   // mounted() {},
 
   methods: {
+    // fn(){console.log(this.list)},
     onClickLeft() {
       history.go(-1);
     },
+
+
+     getQueryVariable(variable) {//获取参数id
+      var query = window.location.search.substring(1);
+      var vars = query.split("&");
+      for (var i=0;i<vars.length;i++) {
+          var pair = vars[i].split("=");
+          if(pair[0] == variable){return pair[1];}
+      }
+      return(false);
+  },
 
 // 无用
     // gotoDetail(id) {
@@ -185,8 +214,10 @@ export default defineComponent({
   computed:{
     imgurl(){
       // this.list[0].topic_imgv
-    }
-  }
+    },
+    
+  },
+  
 });
 </script>
 <style lang="less" scoped>
