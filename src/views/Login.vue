@@ -1,20 +1,20 @@
 <template>
-  <div class="wai">
-    <van-icon class="jiantou" name="arrow-left" @click="luyou" />
+  <div class="page">
+    <van-icon class="arrows" name="arrow-left" @click="luyou" />
 
-    <div class="nei">
+    <div class="up">
       <h2>手机号登录</h2>
       <input type="text" placeholder="输入手机号" />
       <input type="text" placeholder="输入验证码" />
-      <button class="dingwei" @click="fasongyzm">{{ yzm }}</button>
+      <button class="send" @click="send">{{ verify }}</button>
     </div>
-    <div class="dian">
-      <span class="tao" :class="class" @click="taobian"></span>
-      <span class="gou" :class="class2" @click="taobian"></span>
+    <div class="middle">
+      <span class="checkbox" :class="class" @click="change"></span>
+      <span class="tick" :class="class2" @click="change"></span>
       <span class="shuojin shenme">注册登录即代表阅读并同意</span>
       <a href="javascript:;">用户协议</a> <span class="shenme">及</span> <a href="javascript:;">隐私政策</a>
     </div>
-    <div class="denglu">
+    <div class="login">
       <van-button class="button" type="default">登 录</van-button>
     </div>
   </div>
@@ -23,41 +23,40 @@
 export default {
   data() {
     return {
-      yzm: "发送验证码",
-      jishi: 60,
+      verify: "发送验证码",
+      time : 60,
       num: -1,
-      class: "taobian",
-      class2: "goubian"
+      class: "checkbox-begin-class",
+      class2: "tick-begin-class"
     };
   },
   methods: {
-    fasongyzm() {
+    send() {
       let timer;
-      let sujv = this;
-      if(this.jishi===60){
-        if (this.jishi > 0) {
-          this.disable="true"
+      let data = this;
+      if(this.time ===60){
+        if (this.time  > 0) {
           timer = setInterval(function () {
-            sujv.yzm = sujv.jishi + "秒后可再次发送";
-            sujv.jishi--;
-            if (sujv.jishi < 0) {
+            data.verify = data.time  + "秒后可再次发送";
+            data.time --;
+            if (data.time  < 0) {
               clearInterval(timer);
-              sujv.yzm = "发送验证码";
-              sujv.jishi=60;
-              sujv.disable="false"
+              data.verify = "发送验证码";
+              data.time =60;
             }
           }, 1000);
         }
       }
     },
-    taobian() {
+    change() {
       this.num = this.num * -1;
       if (this.num < 0) {
-        this.class = "taobian";
-        this.class2 = "goubian";
-      } else {
-        this.class = "gaibian";
-        this.class2 = "zaibain";
+        this.class = "checkbox-begin-class";
+        this.class2 = "tick-begin-class";
+      } 
+      else {
+        this.class = "checkbox";
+        this.class2 = "tick";
       }
     },
     luyou() {
@@ -68,10 +67,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.wai {
+.page {
   padding: 15px 10px;
 
-  .jiantou {
+  .arrows {
     color: white;
     display: inline-block;
     width: 30px;
@@ -84,7 +83,7 @@ export default {
     border-radius: 50%;
   }
 
-  .nei {
+  .up {
     padding: 0 20px;
     margin-top: 60px;
     position: relative;
@@ -98,7 +97,7 @@ export default {
       padding: 18px 0;
       width: 100%;
     }
-    .dingwei {
+    .send {
       border: none;
       display: inline-block;
       padding: 5px 15px;
@@ -111,12 +110,12 @@ export default {
     }
   }
 }
-.dian {
+.middle {
   padding: 0 20px;
   margin-top: 20px;
   position: relative;
 
-  .tao {
+  .checkbox {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -127,12 +126,12 @@ export default {
     left: 25px;
     top: -1px;
   }
-  .taobian {
+  .checkbox-begin-class {
     background-color: #ff9803;
     border: 2px solid #ff9803;
   }
 
-  .gou {
+  .tick {
     display: inline-block;
     width: 6px;
     height: 3px;
@@ -144,7 +143,7 @@ export default {
     top: 6px;
     transform: rotate(-45deg);
   }
-  .goubian {
+  .tick-begin-class {
     color: #ff9803;
     border-left: 2px solid white;
     border-bottom: 2px solid white;
@@ -164,7 +163,7 @@ export default {
     font-size: 14px;
   }
 }
-.denglu {
+.login {
   margin: 20px 20px;
   border-radius: 22px;
   background-color: #ff9803;
