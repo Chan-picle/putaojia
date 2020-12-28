@@ -11,12 +11,15 @@
     </div>
     <!-- <p>{{chw.topic_subtitle}}</p> -->
     <div class="title_box"> 
-      <img :src="list[0].topic_img" alt="" v-if="isLoad">
+      <!-- <img :src="list[0].topic_img" alt="" v-if="isLoad"> -->
+      <img :src="chw.topic_img" alt="" v-if="isLoad">
       
       
       <div class="title_top_box">
-        <h2  v-if="isLoad">{{list[0].topic_title}}</h2>
+        <h2  v-if="isLoad">{{chw.topic_title}}</h2>
         <p class="left">25分钟</p>
+
+        <!-- 数据库未添加 -->
         <p class="right">3847 <span> 已学习</span></p>
       </div>
       
@@ -37,38 +40,53 @@
       
     >
 
-    <div class="mar" >
+    <!-- <div class="mar" > -->
+      <!-- mar头部 -->
 
       <!-- 下面是学习目标&课件预览的内容 -->
-      <van-tab    v-for="(i, index) in fenlist" :title="i.tite" @click="gotoDetail(i.id)">
+      <van-tab     title="学习目标">
         <!-- <p v-for="q in list" v-if="item.id===q">123</p> -->
         <!-- 学习目标 -->
-        <div  v-for="a in list" v-if="index===0" >
-          <span v-if="a.id===1">
+        <div class="huadong_box_1" >
              <div>
-               {{a.topic_subtitle}}
+               {{chw.topic_subtitle}}
              </div>
              <div class="mar-top">
-               {{a.topic_content}}
+               {{chw.topic_content}}
+               {{chw.topic_content}}
+               {{chw.topic_content}}
+               {{chw.topic_content}}
+               {{chw.topic_content}}
              </div>
-
-          </span> 
         </div>
+      </van-tab>
+      <!-- 课件预览 -->
+      <van-tab title="课件预览">
+         
+        <div    class=" huadong_box_2">
+          <img :src="chw.details_img" alt="">
+          <img :src="chw.details_img" alt="">
+          <img :src="chw.details_img" alt="">
+          <img :src="chw.details_img" alt="">
 
-        <!-- 课件预览 -->
-        <div v-for="a in list" v-if="index===1" class="kejian_imgbox">
-          <img v-if="a.id===1" :src="a.details_img" alt="">
-          <img v-if="a.id===1" :src="a.details_img" alt="">
-          <img v-if="a.id===1" :src="a.details_img" alt="">
-          <img v-if="a.id===1" :src="a.details_img" alt="">
 
+          <!-- <img v-if="a.id===1" :src="a.details_img" alt=""> -->
           <!-- <img :src="list[0].topic_img" alt="" v-if="isLoad"> -->
         </div>
+       </van-tab>
 
-      </van-tab>
-      
 
-    </div>
+
+
+
+
+<!-- mar 底部 -->
+    <!-- </div> -->
+
+
+
+
+    
 
     
     </van-tabs>
@@ -135,8 +153,6 @@ export default defineComponent({
       // this.list111=res.result;
       // console.log(1);
       // console.log(this.list111);
-      
-      
   // })
 },
     beforeCreate() {
@@ -144,21 +160,12 @@ export default defineComponent({
     //   console.log(res);
     //   this.list = res.result;
     //   // console.log(this.list[0].topic_img);
-    //   // this.list1=res.list;
-
-    //   // console.log(this.list[0].topic_title);
-      
-    //   // this.list111=res.result;
-    //   // console.log(1);
-    //   // console.log(this.list111);
-      
       
     // })
  },
  mounted(){
   //  if(list[0].topic_img){
   //    console.log("mounted",this.list[0].topic_img);
-
   // //  }
   // console.log("list",this.list);
   // console.log(this.$route.params.id);
@@ -180,15 +187,12 @@ export default defineComponent({
   //   };
   // },
   // computed: {},
-
   // mounted() {},
-
   methods: {
     // fn(){console.log(this.list)},
     onClickLeft() {
       history.go(-1);
     },
-
 
      getQueryVariable(variable) {//获取参数id
       var query = window.location.search.substring(1);
@@ -198,36 +202,24 @@ export default defineComponent({
           if(pair[0] == variable){return pair[1];}
       }
       return(false);
-  },
-
-// 无用
-    // gotoDetail(id) {
-    //   console.log(id);
-    //   this.$router.push("/hello_details/" + id);
-    // }
-
-
-    // onClickRight() {
-    //   console.log("弹出框");
-    // },
+  }
   },
   computed:{
     imgurl(){
       // this.list[0].topic_imgv
     },
-    
-  },
+  }
   
 });
 </script>
 <style lang="less" scoped>
 .details_body{
   background-color:#ccc;
+  height: 100%;
 }
 
-
 .title_top_box{
-  background-color: red;
+  background-color:white;
   padding-top: 10px;
 
   h2{
@@ -240,7 +232,9 @@ export default defineComponent({
     // margin-top: 10px;
 
     span{
-      color: #000;
+      color: #555;
+      margin-left: 2px;
+      margin-right: 10px;
     }
   }
   .left{
@@ -262,37 +256,52 @@ export default defineComponent({
     float: left;
     margin-left: 20px;
     margin-right: 20px;
-    // margin: 20px,40px,0px,0px;
+    border-radius:10px;
   }
-  // padding: 20px;
   margin-bottom: 20px;
 }
 
-
 .mar-top{
-  margin-top: 50px;
+  margin-top: 25px;
 }
 .mar{
   margin-top: 10px;
   position: relative;
 }
 
-// 课件预览盒子
-.kejian_imgbox{
-width: 100%;
-// height: 500px;
-margin-top: 20px;
 
+// 滑动盒子
+.huadong_box_1{
+  width: 100%;
+  height: 400px;
+  padding-top: 10px;
+  background-color: white;
+
+  overflow-y:scroll;
+  div{
+    padding-top: 10px;
+
+  }
+}
+// 课件预览盒子
+.huadong_box_2{
+  overflow-y:scroll;
+  height: 400px;
+  width: 90%;
+
+  padding: 5%;
+  
+background-color: white;
 // background-color: yellow;
 
   img{
-    //待修改
-    // ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
     width: 100%;
+    border-radius:25px;
     height: 200px;
-    // margin: 0 10%;
-    margin-left: 372px;
-    
+    margin-bottom: 20px;
+
+    // height: 200px;
+    // margin-left: 100%;
   }
 }
 </style>

@@ -12,8 +12,6 @@
     />
 
 <!-- <button @click="fn">aa</button> -->
-    <!-- <img src="../../../public/img/hello_img/topic_img1.jpg" alt=""> -->
-    <!-- 下拉刷新组件 -->
     <van-tabs
       v-model:active="active"
       :duration="0.2"
@@ -23,10 +21,10 @@
 
       sticky 
       offset-top="46px"
-      
     >
       <van-tab v-for="(i, index) in fenlist" :title="i.tite" >
-        <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
+          <!-- 下拉刷新组件 -->
+        <van-pull-refresh v-model="state.loading" @refresh="onRefresh" success-text="刷新成功">
           <!-- 内容 {{ index }} -->
 
           <div class="huadong_box" v-if="list.list.length" style="overflow:hidden">
@@ -37,6 +35,8 @@
               <!-- <p>{{ item.id  }}</p> -->
             </div>
           </div>
+
+
           <div class="huadong_box">
             <div class="img_box" v-for="item in list">
               <img :src="item.topic_img" alt="" />
@@ -73,7 +73,7 @@ export default defineComponent({
   setup() {
     // 请求数据
     const state = reactive({
-      count: 0,
+      // count: 0,
       loading: false,
     });
     const list = reactive({
@@ -82,9 +82,9 @@ export default defineComponent({
 
     const onRefresh = () => {
       setTimeout(() => {
-        Toast("刷新成功");
+        // Toast("刷新成功");
         state.loading = false;
-        state.count++;
+        // state.count++;
       }, 1000);
     };
 
@@ -151,24 +151,20 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   // background-color: red;
-  // display: flex;
-
   // margin-bottom: 10px;
 }
 .img_box {
-  // padding: 10px;
-  // margin: 10px;
   width: 28%;
   height: 150px;
   // background-color: yellow;
-  margin: 5px;
-  margin-bottom: 10px;
   float: left;
   padding: 5px;
-
+  margin: 5px;  
+  margin-bottom: 10px;
   img {
     width: 100%;
     height: 80%;
+    border-radius:10px;
   }
   p {
     text-align: center;
