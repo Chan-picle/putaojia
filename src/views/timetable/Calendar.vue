@@ -45,7 +45,7 @@
           <section class="btom">
             <div class="btom-d">
               <img :src="item.teacherimg" alt="" />
-              <span>{{ item.teachername }}</span>
+              <span>Mark</span>
             </div>
             <span class="price">{{ item.price }}元</span>
           </section>
@@ -185,7 +185,8 @@ export default defineComponent({
     changeTog() {
       this.tog = !this.tog;
     },
-    goToDetail(id) {
+    goToDetail(i) {
+      let id = 1000 + i;
       this.$router.push('/timedetail/' + id);
     }
   },
@@ -195,6 +196,7 @@ export default defineComponent({
 .bgcolor {
   background: white;
   padding: 0 10px;
+  padding-bottom: 5px;
   .container {
     width: 100%;
     height: 100%;
