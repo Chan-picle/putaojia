@@ -62,7 +62,7 @@ export default defineComponent({
       { name: '举报' },
       { name: '取消' }
     ];
-    const onSelect = (item) => {
+    const onSelect = () => {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
       show1.value = false;
