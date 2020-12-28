@@ -157,17 +157,17 @@ export default defineComponent({
   flex-direction: column;
   .head {
     width: 100%;
-    height: 120px;
+    height: 100px;
     display: flex;
     padding: 10px 0;
     img {
-      height: 120px;
+      height: 100px;
       width: 40%;
       display: block;
       border-radius: 10px;
     }
     .h-left {
-      height: 120px;
+      height: 100px;
       padding-left: 10px;
       display: flex;
       flex-direction: column;

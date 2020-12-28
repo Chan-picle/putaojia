@@ -120,7 +120,6 @@ export default defineComponent({
   methods: {
     async getTimeList() {
       const res = await getTimeListApi({});
-      console.log(res);
       this.timeList = res.result;
     },
     goLeft() {

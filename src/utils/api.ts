@@ -14,3 +14,7 @@ export const getForeignListApi = (params:paramType) => http.get("/getindexlist",
 
 //首页轮播信息
 export const getBannerApi = (params:paramType) => http.get("/getbanner", params);
+
+
+//通过商品id获得商品所有信息params{id:1000}
+export const getProductInfoApi = (params:paramType) => http.post("/product/getproduct", params);
