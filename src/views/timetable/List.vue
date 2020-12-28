@@ -65,7 +65,7 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .bg {
-  background: #eee;
+  background: #efefef;
   padding: 0 10px;
   padding-top: 20px;
   .cont {
