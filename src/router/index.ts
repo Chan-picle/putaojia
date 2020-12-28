@@ -56,6 +56,10 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  {
+    path:"/teacherlist",
+    component:()=> import("../views/TeacherList.vue")
+  },
   //我的页跳转路由
   {
     path:"/waijiao",

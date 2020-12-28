@@ -1,6 +1,6 @@
 <template>
   <div class="wai">
-    <van-icon class="jiantou" name="arrow-left" @click="luyou" />
+    <van-icon class="jiantou" name="arrow-left" @click="backTo" />
 
     <div class="nei">
       <h2>手机号登录</h2>
@@ -13,13 +13,13 @@
       <span class="gou" :class="class2" @click="taobian"></span>
       <span class="shuojin shenme">注册登录即代表阅读并同意</span>
       <a href="javascript:;">用户协议</a> <span class="shenme">及</span> <a href="javascript:;">隐私政策</a>
-    </div>
+    </div> 
     <div class="denglu">
       <van-button class="button" type="default">登 录</van-button>
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -60,9 +60,11 @@ export default {
         this.class2 = "zaibain";
       }
     },
-    luyou() {
+    backTo() {
       this.$router.push("/mine");
     },
+  },
+  mounted() {
   },
 };
 </script>
