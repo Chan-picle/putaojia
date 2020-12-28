@@ -127,7 +127,7 @@ const routes: Array<RouteRecordRaw> = [
     component:()=> import("../views/Hello/huihua_list.vue")
   },
   {
-    path:"/hello_details",
+    path:"/hello_details/:id",
     component:()=> import("../views/Hello/hello_details.vue")
   },
 
