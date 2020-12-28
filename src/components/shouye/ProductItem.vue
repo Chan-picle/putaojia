@@ -1,20 +1,20 @@
 <template>
   <div class="bg">
-    <!-- <section class="cont"></section> -->
+    <section class="cont"></section>
     <div class="class-intro" v-for="i in 1">
-      <div class="intro-detail" v-for="item in timeList" :key="item.id">
+      <div class="intro-detail">
         <div class="up">
-          <img class="ingone" :src="item.classimg" alt="">
+          <img class="ingone" src="img/products/img01.png" alt="">
         </div>
         <div class="down">
-          <span class="text">{{ item.textbook }}</span>
-          <span class="hour">课时数：{{ item.hours }}课时</span> 
+          <span class="text">123</span>
+          <span class="hour">课时数：22课时</span> 
           <section class="btom">
             <div class="btom-d">
-            <img :src="item.teacherimg" alt="">
-            <span>{{ item.teachername }}</span>
+            <img src="img/products/img01.png" alt="">
+            <span>Lisa</span>
             </div>
-            <span class="price">{{ item.price }}元</span>
+            <span class="price">2000元</span>
           </section>
         </div>
       </div>

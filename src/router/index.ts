@@ -11,21 +11,25 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:"/index",
         component:()=>import("../views/Index.vue"),
-        redirect:"/index/foreign",
-        children:[
-          {
-            path:"course",
-            component:()=>import("../views/indexTab/Course.vue"),
-          },
-          {
-            path:"foreign",
-            component:()=>import("../views/indexTab/Foreign.vue"),
-          },
-          {
-            path:"echo",
-            component:()=>import("../views/indexTab/Echo.vue"),
-          }
-        ]
+        // redirect:"/index/foreign",
+        // children:[
+        //   {
+        //     path:"course",
+        //     component:()=>import("../views/indexTab/Course.vue"),
+        //   },
+        //   {
+        //     path:"foreign",
+        //     component:()=>import("../views/indexTab/Foreign.vue"),
+        //   },
+        //   {
+        //     path:"echo",
+        //     component:()=>import("../views/indexTab/Echo.vue"),
+        //   }
+        // ]
+      },
+      {
+        path:"/foreignlist",
+        component:()=>import("../views/indexTo/ForeignList.vue")
       },
       {
         path:"/hello",
@@ -134,9 +138,23 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/About.vue')
   },
   {
+    //timeDetail详情页
+    path:"/timedetail/:id",
+    component: () => import('../views/TimeDetail.vue'),
+    //传参
+    props: true
+  },
+  {
+    //teacherdetail详情页
+    path:"/teacherdetail",
+    component: () => import('../views/TeacherDetail.vue'),
+    //传参
+    props: true
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=> import("../views/Error.vue")
-  }
+  },
  
 ]
 

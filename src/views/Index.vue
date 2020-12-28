@@ -3,37 +3,31 @@
   <div class="index-container">
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <div class="index">
-            <div class="i-selector">
-              <van-grid :column-num="5" square :border="false">
-                <van-grid-item v-for="(item,index) in selectorList" :key="index" >
-                  <img :src="item.icon">
+            <div id="selector" class="i-selector">
+              <ul>
+                <li v-for="(item,index) in selectorList" :key="index">
+                  <img :src="item.icon" alt="">
                   <span>{{item.text}}</span>
-                </van-grid-item>
-              </van-grid>
-              <div class="dot">
-                  <div class="left"></div>
-                  <div class="right"></div>
-              </div>
+                </li>
+              </ul>
+            </div>
+            <div class="dot">
+                  <div class="left" :class="{scroll:!isOver}"></div>
+                  <div class="right" :class="{scroll:isOver}"></div>
             </div>
             <div class="banner">
               <p><span>推荐外教</span><span>全部外教<van-icon name="arrow" /></span></p>
-              <div class="cards">
+              <div class="cards" v-if="bannerList.length">
                 <!-- 轮播 -->
                 <van-swipe class="my-swipe" :show-indicators="false" :width="360">
-                  <van-swipe-item>
-                    <banner-card />
-                  </van-swipe-item>
-                  <van-swipe-item>
-                    <banner-card />
-                  </van-swipe-item>
-                   <van-swipe-item>
-                    <banner-card />
+                  <van-swipe-item v-for="(item,index) in bannerList" :key="index">
+                    <banner-card :msg="item"/>
                   </van-swipe-item>
                 </van-swipe>
               </div>
             </div>
             <div class="main">
-              <div style="float:left;width:169px;margin:0 10px">
+              <div style="float:left;width:169px;margin-right:15px">
                 <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" :width="169">
                   <van-swipe-item>
                     <img src="/img/shouye/tu04.png" alt="" style="border-radius:15px;width:169px">
@@ -45,13 +39,13 @@
               </div>
               <img src="/img/shouye/tu05.png" alt="" class="main-pic">
               <img src="/img/shouye/tu06.png" alt="" class="main-pic">
-              <img src="/img/shouye/tu07.png" alt="" class="main-pic" style="margin:0 10px">
+              <img src="/img/shouye/tu07.png" alt="" class="main-pic" style="margin-right:15px">
               <img src="/img/shouye/tu08.png" alt="" class="main-pic">
             </div>
             <!-- tab切换 -->
-            <div class="index-tabs" style="height:800px">
+            
+            <div class="index-tabs">
               <van-sticky :offset-top="54" @scroll="tabNavScroll">
-                <!-- <van-button type="primary">吸顶距离</van-button> -->
                 <div>
                   <ul style="background-color:#F2F2F2">
                     <li @click="changetab(0)" :class="{active:active===0}">
@@ -72,10 +66,13 @@
                   </ul>
                 </div>
               </van-sticky>
-              <router-view />
+              <!-- <router-view> -->
+                <keep-alive>
+                  <component :is="currentView"></component>
+                </keep-alive>
+              <!-- </router-view> -->
             </div>
         </div>
-        <img :src="imgurl1" alt="">
       </van-pull-refresh>
   </div>
 
@@ -83,8 +80,13 @@
 </template>
 <script lang="ts">
 import { defineComponent ,reactive,ref} from "vue";
-import { getHello } from "../utils/api";
+import { getBannerApi } from "../utils/api";
 import BannerCard from "../components/shouye/BannerCard.vue";
+
+//引入tab切换组件
+import Foreign from "../views/indexTab/Foreign.vue";
+import Echo from "../views/indexTab/Echo.vue";
+import Course from "../views/indexTab/Course.vue";
 
 interface selectType{
   icon:string,
@@ -97,10 +99,10 @@ export default defineComponent({
     const value = ref('');
     //搜索框聚焦事件
     const searchFocus = ()=>{
-      console.log(1);
     };
+    const isOver=false;
     const list = reactive([]);
-    return { value, searchFocus, list };
+    return { value, searchFocus, list,isOver};
   },
   data(){
     return {
@@ -135,16 +137,49 @@ export default defineComponent({
       },{
         icon:"/img/shouye/icon10@2x.png",
         text:"英语游戏"
+      },{
+        icon:"/img/shouye/icon17.png",
+        text:"创意AD"
+      },{
+        icon:"/img/shouye/icon16.png",
+        text:"探索发现"
+      },{
+        icon:"/img/shouye/icon18.png",
+        text:"国家地理"
       }] as Array<selectType>,
       //tab切换
       active:1,
-      isFixed:false
+      isFixed:false,
+      currentView:"Foreign",
+      bannerList:[]
     }
   },
+  beforeRouteEnter (to, from, next) {
+    let result:Array<any> = [];
+    getBannerApi({}).then((res:any)=>{
+      result = res.result;
+      next((vm:any)=>{
+        vm.bannerList = result;
+      })
+    });
+  },
   mounted() {
+    const selectorBox:HTMLElement|null = document.getElementById("selector");
+    if(selectorBox){
+      selectorBox.addEventListener("scroll",()=>{
+        this.isOver = selectorBox.scrollLeft===525-selectorBox.offsetWidth;
+    })
+    }
     
+    console.log(this.bannerList.length);
+    this.$forceUpdate();
+
   },
   methods: {
+    fn(){
+      // console.log(this.bannerList);
+    console.log(this.bannerList.length);
+    },
    onRefresh() {
      setTimeout(() => {
         this.isLoading = false;
@@ -156,16 +191,24 @@ export default defineComponent({
 
     },
     changetab(i:number){
-      console.log(i);
       this.active = i;
       switch(i){
-        case 0:this.$router.replace("/index/course");break;
-        case 1:this.$router.replace("/index/foreign");break;
-        case 2:this.$router.replace("/index/echo");break;
+        case 0:
+          // this.$router.replace("/index/course");
+          this.currentView = "Course";
+          break;
+        case 1:
+          // this.$router.replace("/index/foreign");
+          this.currentView = "Foreign";
+          break;
+        case 2:
+          // this.$router.replace("/index/echo");
+          this.currentView = "Echo";
+          break;
       }
     }
   },
-  components: {BannerCard},
+  components: {BannerCard,Foreign,Echo,Course},
   props:{},
 });
 </script>
@@ -190,41 +233,78 @@ export default defineComponent({
   right:0;
 }
 .index{
-  .van-grid-item{
-    .van-grid-item__content{
-      background-color:#F2F2F2;
-    }
-      img{
-        width: 31px;
-      }
-      span{
-        font-size:11px;
-        margin-top:8px;
-        color:#333;
-        transform: scale(0.8);
-        width: 75px;
-        text-align: center;
+  //图标
+  .i-selector{
+    overflow-x: auto;
+    ul{
+        width: 525px;
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          height: 75px;
+          width: 75px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          img{
+            width: 31px;
+          }
+          span{
+            font-size:11px;
+            margin-top:8px;
+            color:#333;
+            transform: scale(0.8);
+            width: 75px;
+            text-align: center;
+          }
+        }
       }
   }
+  
+  // .van-grid-item{
+  //   .van-grid-item__content{
+  //     background-color:#F2F2F2;
+  //   }
+  //     img{
+  //       width: 31px;
+  //     }
+  //     span{
+  //       font-size:11px;
+  //       margin-top:8px;
+  //       color:#333;
+  //       transform: scale(0.8);
+  //       width: 75px;
+  //       text-align: center;
+  //     }
+  // }
   .dot{
     width: 20px;
     height: 11px;
     margin: 0 auto;
     .left{
-      width: 11px;
       height: 4px;
       border-radius: 2px;
-      background-color: @themeclolr;
+      width: 4px;
+      background-color:#D8D8D8;
       float: left;
       margin-top: 4px;
+      &.scroll{
+        width: 11px;
+        background-color: @themeclolr;
+      }
     }
     .right{
-      width: 4px;
       height: 4px;
+      width: 4px;
       border-radius: 2px;
       background-color: #D8D8D8;
       float: right;
       margin-top: 4px;
+      &.scroll{
+        width: 11px;
+        background-color: @themeclolr;
+      }
     }
   }
   .banner{
@@ -251,6 +331,8 @@ export default defineComponent({
   }
   .main{
     overflow: hidden;
+    width: 353px;
+    margin:0 auto;
     .main-pic{
       float: left;
       width: 169px;
