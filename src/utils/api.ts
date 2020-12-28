@@ -14,3 +14,6 @@ export const getForeignListApi = (params:paramType) => http.get("/getindexlist",
 
 //首页轮播信息
 export const getBannerApi = (params:paramType) => http.get("/getbanner", params);
+
+//首页tab切换 course
+export const getCourseListApi = (params:paramType) => http.get("/product/productlist", params);
