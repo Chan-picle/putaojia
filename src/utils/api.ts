@@ -20,3 +20,4 @@ export const getCourseListApi = (params:paramType) => http.get("/product/product
 
 //通过商品id获得商品所有信息params{id:1000}
 export const getProductInfoApi = (params:paramType) => http.post("/product/getproduct", params);
+

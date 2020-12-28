@@ -8,15 +8,18 @@
       fixed
       placeholder="true"
     />
-    <section class="all-content" v-if="timeDetail.textbook">
+    <section class="all-content" v-if="timeDetail.id">
       <div class="head">
-        <img src="TimeImg/jiaocai.jpg" alt="" />
+        <img :src="timeDetail.c_img" alt="" />
         <div class="h-left">
-          <em>{{ timeDetail.textbook }}</em>
+          <em>{{ timeDetail.title }}</em>
           <div class="hours">
-            <span>{{ timeDetail.hours }}节</span>课时 <span>{{ timeDetail.buyers }}人</span>已购买
+            <span>{{ timeDetail.time }}节</span>课时 <span class="hours-l">{{ timeDetail.bought }}人</span>已购买
           </div>
-          <div class="pratice"><span>{{ timeDetail.practicehour }}分钟</span>练习时长</div>
+          <div class="pratice">
+            <van-icon name="clock-o" size="14px" />
+            <span>{{ timeDetail.lasting }}</span>练习时长
+          </div>
         </div>
       </div>
       <div class="class-detail">
@@ -26,17 +29,17 @@
       <div class="main" v-if="show">
         <span>课程内容</span>
         <p>
-          {{ timeDetail.content }}
+          {{ timeDetail.detail.content }}
         </p>
 
         <span>级别</span>
-        <em>{{ timeDetail.level }}</em>
+        <em>{{ timeDetail.detail.level }}</em>
         <span>适合年龄段</span>
-        <em>{{ timeDetail.age }}</em>
+        <em>{{ timeDetail.detail.fit }}</em>
         <span>核心词汇数</span>
-        <em>{{ timeDetail.keywords }}</em>
+        <em>{{ timeDetail.detail.core }}</em>
         <span>拓展词汇</span>
-        <em>{{ timeDetail.outwords }}</em>
+        <em>{{ timeDetail.detail.expand }}</em>
       </div>
       <div class="main-2" v-if="!show">
         <van-collapse v-model="activeNames">
@@ -51,10 +54,10 @@
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
-    <div class="teacher" @click="goTeacherDetail">
-      <img src="TimeImg/waijiao.jpg" alt="" />
+    <div class="teacher" @click="goTeacherDetail(timeDetail.productId)">
+      <img :src="timeDetail.pic" alt="" />
       <div class="teacher-right">
-        <span>Andy</span>
+        <span>{{ timeDetail.t_name }}</span>
         <div class="star">
           <van-rate v-model="value" size="12px" color="#ffd21e" />
           <span>5.0分</span>
@@ -66,7 +69,7 @@
     </div>
     <div class="bottom-br"></div>
     <div class="buy">
-      <span>￥1790</span>
+      <span>￥{{ timeDetail.c_price }}</span>
       <div class="btn">
         <em class="btn-l">免费试听</em>
         <em class="btn-r">立即购买</em>
@@ -78,7 +81,7 @@
 <script>
 import { defineComponent } from "vue";
 import { Toast } from "vant";
-import { getTimeDetailApi } from "../utils/api";
+import { getProductInfoApi } from "../utils/api";
 import { ref } from 'vue';
 
 export default defineComponent({
@@ -116,13 +119,14 @@ export default defineComponent({
     //  })
      
     // }
+    
   },
 
   mounted() {
     // this.$store.dispatch("getTimeDetail", {
     //   id: this.id
     // });
-    this.getTimeDetail();
+    this.getProductInfo();
   },
 
   methods: {
@@ -130,16 +134,29 @@ export default defineComponent({
       Toast("返回");
       this.$router.go(-1);  
     },
-    async getTimeDetail() {
-      const res = await getTimeDetailApi({});
-      // console.log(res.result );
-      this.timeDetail = res.result.filter(elm => {
-        // console.log(this.id == elm.id)
-       return elm.id == this.id;
-     })[0];
+    async getProductInfo() {
+      const res = await getProductInfoApi({id: this.id});
+      let msg = res.result[0];
+      this.timeDetail = {
+        bought: msg.bought,
+        detail: JSON.parse( msg.c_detail),
+        c_img:"img/products/" + msg.c_img,
+        c_price:msg.c_price,
+        id: msg.id,
+        lasting: msg.lasting,
+        pic:"img/shouye/" + msg.pic,
+        productId:msg.productId,
+        title:msg.title,
+        t_name:msg.t_name,
+        time:msg.time
+      }
+    //   this.timeDetail = res.result.filter(elm => {
+    //     // console.log(this.id == elm.id)
+    //    return elm.id == this.id;
+    //  })[0];
     },
-    goTeacherDetail() {
-      this.$router.push("/teacherdetail");
+    goTeacherDetail(id) {
+      this.$router.push("/teacherdetail/" + id);
     },
     chageClass() {
       this.show = !this.show;
@@ -184,8 +201,12 @@ export default defineComponent({
         height: 24px;
         line-height: 24px;
         margin-top: 5px;
+        color: #aaa;
         span {
           color: orange;
+        }
+        .hours-l {
+          margin-left: 10px;
         }
       }
       .pratice {
@@ -193,8 +214,12 @@ export default defineComponent({
         height: 24px;
         line-height: 24px;
         margin-top: 10px;
+        display: flex;
+        align-items: center;
+        color: #aaa;
         span {
           color: orange;
+          margin-left: 5px;
         }
       }
     }
@@ -210,6 +235,9 @@ export default defineComponent({
     }
     .class-detail-second {
       color: #ccc;
+      &:hover {
+        color: #000;
+      }
     }
   }
   .main {
@@ -302,7 +330,7 @@ export default defineComponent({
     padding-top: 5px;
     span {
       font-weight: 600;
-      font-size: 16px;
+      font-size: 18px;
       height: 24px;
       line-height: 24px;
     }

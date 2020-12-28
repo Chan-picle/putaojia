@@ -17,7 +17,7 @@
           <section class="btom">
             <div class="btom-d">
             <img :src="item.teacherimg" alt="" />
-            <span>{{ item.teachername }}</span>
+            <span>Mark</span>
             </div>
             <span class="price">{{ item.price }}元</span>
           </section>
@@ -57,7 +57,8 @@ export default defineComponent({
       console.log(res);
       this.timeList = res.result;
     },
-    goToDetail(id) {
+    goToDetail(i) {
+      let id = 1000 + i;
       this.$router.push('/timedetail/' + id);
     }
   },
@@ -68,6 +69,7 @@ export default defineComponent({
   background: #efefef;
   padding: 0 10px;
   padding-top: 20px;
+  padding-bottom: 5px;
   .cont {
     height: 300px;
     width: 100%;
@@ -158,6 +160,7 @@ export default defineComponent({
               height: 20px;
               line-height: 20px;
               margin-top: 5px;
+              margin-left: 5px;
             }
             img {
               height: 25px;

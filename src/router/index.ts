@@ -150,7 +150,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     //teacherdetail详情页
-    path:"/teacherdetail",
+    path:"/teacherdetail/:id",
     component: () => import('../views/TeacherDetail.vue'),
     //传参
     props: true
