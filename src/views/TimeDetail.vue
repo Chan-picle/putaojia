@@ -20,10 +20,10 @@
         </div>
       </div>
       <div class="class-detail">
-        <span class="class-detail-first">课程详情</span>
-        <span class="class-detail-second">课件预览</span>
+        <span class="class-detail-first" @click="chageClass">课程详情</span>
+        <span class="class-detail-second" @click="chageClass">课件预览</span>
       </div>
-      <div class="main">
+      <div class="main" v-if="show">
         <span>课程内容</span>
         <p>
           {{ timeDetail.content }}
@@ -38,6 +38,16 @@
         <span>拓展词汇</span>
         <em>{{ timeDetail.outwords }}</em>
       </div>
+      <div class="main-2" v-if="!show">
+        <van-collapse v-model="activeNames">
+        <van-collapse-item title="上册" name="1" size="large">
+          <div class="unit" v-for="item in 9">
+            <span>一(上)-M1-Unit1</span>
+            <div>查看</div>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
+      </div>
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
@@ -46,11 +56,7 @@
       <div class="teacher-right">
         <span>Andy</span>
         <div class="star">
-          <img
-            src="TimeImg/star-not-graded.png"
-            alt=""
-            v-for="item in StarCount"
-          />
+          <van-rate v-model="value" size="12px" color="#ffd21e" />
           <span>5.0分</span>
         </div>
       </div>
@@ -73,13 +79,15 @@
 import { defineComponent } from "vue";
 import { Toast } from "vant";
 import { getTimeDetailApi } from "../utils/api";
+import { ref } from 'vue';
 
 export default defineComponent({
   props: ["id"],
   data() {
     return {
       StarCount: 5,
-      timeDetail: {}
+      timeDetail: {},
+      show: true
     };
   },
   setup() {
@@ -89,10 +97,15 @@ export default defineComponent({
     const onClickButton = () => {
       Toast("点击按钮");
     };
+    const value = ref(5);
+    const activeNames = ref(['1']);
     return {
       onClickIcon,
       onClickButton,
+      value,
+      activeNames
     };
+   
   },
   components: {},
 
@@ -106,6 +119,9 @@ export default defineComponent({
   },
 
   mounted() {
+    // this.$store.dispatch("getTimeDetail", {
+    //   id: this.id
+    // });
     this.getTimeDetail();
   },
 
@@ -124,6 +140,9 @@ export default defineComponent({
     },
     goTeacherDetail() {
       this.$router.push("/teacherdetail");
+    },
+    chageClass() {
+      this.show = !this.show;
     }
   },
 });
@@ -220,6 +239,29 @@ export default defineComponent({
       color: #aaa;
     }
   }
+  .main-2 {
+    .unit {
+      height: 50px;
+      display: flex;
+      padding: 0 10px;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      align-items: center;
+      span {
+        font-size: 16px;
+      }
+      div {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        color: orange;
+        border: 1px solid orange;
+        border-radius: 20px;
+        width: 60px;
+        justify-content: center;
+      }
+    }
+  }
 }
 .teacher-msg {
   height: 30px;
@@ -236,26 +278,28 @@ export default defineComponent({
   background: #eee;
 }
 .teacher {
-  height: 80px;
+  height: 60px;
   width: 100%;
   background: #fff;
   display: flex;
-  padding-top: 10px;
+  padding: 10px 0 ;
   img {
-    height: 80px;
-    width: 80px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
+    padding-left: 10px;
   }
   .go {
-    height: 60px;
+    height: 40px;
     padding-right: 10px;
     padding-top: 20px;
   }
   .teacher-right {
-    height: 80px;
+    height: 55px;
     background: white;
     width: 235px;
     padding-left: 5px;
+    padding-top: 5px;
     span {
       font-weight: 600;
       font-size: 16px;
@@ -263,20 +307,12 @@ export default defineComponent({
       line-height: 24px;
     }
     .star {
-      margin-top: 30px;
       display: flex;
-      padding-top: 5px;
-      img {
-        height: 10px;
-        width: 10px;
-        vertical-align: bottom;
-      }
+      align-items: center;
+      margin-top: 10px;
       span {
-        color: orange;
+        color: #ffd21e;
         font-size: 12px;
-        height: 14px;
-        line-height: 14px;
-        display: block;
         margin-left: 5px;
       }
     }

@@ -5,7 +5,7 @@
       <van-icon name="star-o" size="20px" />
     </header>
     <section class="video"></section>
-    <div class="teacher">
+    <div class="teacher" v-if="timeDetail.textbook">
       <div class="t-up">
         <img src="TimeImg/waijiao.jpg" alt="" />
         <section class="up-right">
