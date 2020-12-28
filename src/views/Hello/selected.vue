@@ -100,6 +100,10 @@ export default defineComponent({
       console.log(res);
       this.list.list = res.result;
       this.$forceUpdate();
+
+
+
+      
       // console.log(this.list);
       // console.log(item.topic_img)
     });
