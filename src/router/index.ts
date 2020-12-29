@@ -159,6 +159,13 @@ const routes: Array<RouteRecordRaw> = [
     props: true
   },
   {
+    //morecalss 详情页
+    path:"/moreclass/:id",
+    component: () => import('../views/More.vue'),
+    //传参
+    props: true
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=> import("../views/Error.vue")
   },
@@ -170,17 +177,17 @@ const router = createRouter({
   routes
 });
 router.beforeEach((to, from, next) => {
-  if (to.path === "/login") {next();}
-  else { // 判断该路由是否需要登录权限
-  if (to.meta.requiresAuth && !sessionStorage.getItem("token")) { // 判断当前的token是否存在
-    next({
-      path: "/login",
-      query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
-    });
-  }else{
+  // if (to.path === "/login") {next();}
+  // else { // 判断该路由是否需要登录权限
+  // if (to.meta.requiresAuth && !sessionStorage.getItem("token")) { // 判断当前的token是否存在
+  //   next({
+  //     path: "/login",
+  //     query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+  //   });
+  // }else{
     next();
-  }
-  }
+  // }
+  // }
 })
 
 export default router

@@ -57,7 +57,7 @@
         </section>
       </div>
     </section>
-    <div class="more">
+    <div class="more" @click="goMore(id)">
       <span>查看更多</span>
       <van-icon name="arrow" />
     </div>
@@ -113,6 +113,9 @@ export default defineComponent({
         experience:msg.t_experence
       }as any;
     },
+    goMore(id:any) {
+      this.$router.push("/moreclass/" + id)
+    }
   },
 });
 </script>

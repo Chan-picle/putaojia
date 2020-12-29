@@ -242,7 +242,7 @@ export default defineComponent({
   }
   .main {
     width: 100%;
-    background: #eee;
+    background: #F2F2F2;
     display: flex;
     flex-direction: column;
     padding: 10px 0 20px 0;
