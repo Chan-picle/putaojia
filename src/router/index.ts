@@ -39,6 +39,7 @@ const routes: Array<RouteRecordRaw> = [
         path:"/timetable",
         component:()=>import("../views/Timetable.vue"),
         redirect:"/timetable/calendar",
+        meta: { requiresAuth: true },
         children:[
           {
             path:"calendar",
@@ -52,9 +53,14 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path:"/mine",
-        component:()=>import("../views/Mine.vue")
+        component:()=>import("../views/Mine.vue"),
+        meta: { requiresAuth: true }
       }
     ]
+  },
+  {
+    path:"/teacherlist",
+    component:()=> import("../views/TeacherList.vue")
   },
   //我的页跳转路由
   {
@@ -124,7 +130,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path:"/huihua",
-    component:()=> import("../views/Hello/huihua_list.vue")
+    component:()=> import("../views/Hello/huihua_list.vue"),
+    meta: { requiresAuth: true }
   },
   {
     path:"/hello_details/:id",
@@ -146,7 +153,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     //teacherdetail详情页
-    path:"/teacherdetail",
+    path:"/teacherdetail/:id",
     component: () => import('../views/TeacherDetail.vue'),
     //传参
     props: true
@@ -161,6 +168,19 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+});
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login") {next();}
+  else { // 判断该路由是否需要登录权限
+  if (to.meta.requiresAuth && !sessionStorage.getItem("token")) { // 判断当前的token是否存在
+    next({
+      path: "/login",
+      query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+    });
+  }else{
+    next();
+  }
+  }
 })
 
 export default router

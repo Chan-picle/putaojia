@@ -1,128 +1,128 @@
 <template>
-  <div class="bg">
-    <section class="cont"></section>
-    <div class="class-intro" v-for="i in 1">
-      <div class="intro-detail">
-        <div class="up">
-          <img class="ingone" src="img/products/img01.png" alt="">
-        </div>
-        <div class="down">
-          <span class="text">123</span>
-          <span class="hour">课时数：22课时</span> 
-          <section class="btom">
-            <div class="btom-d">
-            <img src="img/products/img01.png" alt="">
-            <span>Lisa</span>
-            </div>
-            <span class="price">2000元</span>
-          </section>
-        </div>
+  <div class="course-container">
+    <div class="imgBox">
+      <img :src="info.pimg" alt="">
+      <div class="purple-tag">官方课</div>
+    </div>
+    <div class="text-container">
+      <h5>{{info.title}}</h5>
+      <p class="ks">课时数：{{info.time}}课时</p>
+      <div class="t-info">
+        <img src="/img/shouye/touxiang01.png" alt="">
+        <span class="t-name">{{info.teacher}}</span>
+        <span class="price">{{info.price}}元</span>
       </div>
     </div>
+    
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 
+interface courseType{
+  title:string,
+  time:number,
+  productId:number,
+  price:string,
+  pimg:string,
+  teacher:string
+}
 export default defineComponent({
+  props:["msg"],
   data(){
     return {
-     
+      info:{} as courseType
     }
   },
-  components: {},
   //请求数据
   mounted() {
-    
+    this.fliterMsg(this.msg);
+  },
+  computed:{
   },
   methods: {
-    
+    fliterMsg(msg:any){
+      this.info = {
+        title:msg.title,
+        time:msg.time,
+        productId:msg.productId,
+        price:msg.c_price,
+        pimg:"/img/products/"+msg.c_img,
+        teacher:msg.t_name
+      }
+    }
   },
 });
 </script>
 <style lang="less" scoped>
-.bg {
-  padding: 0 10px;
-  .cont {
-    height: 300px;
+.course-container{
+  background-color: #fff;
+  height: 215px;
+  width: 170px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  .imgBox{
+    position: relative;
     width: 100%;
-    background: white;
-    border-radius: 10px;
+    height: 125px;
+    img{
+      height: 100%;
+      width: 100%;
+    }
+    .purple-tag{
+      position: absolute;
+      top:0;
+      left:0;
+      background-color: #8D52C0;
+      border-radius: 10px 0 10px 0;
+      padding:5px;
+      color:#fff;
+      font-size: 12px;
+    }
   }
-  .intro {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: block;
-  }
-  .class-intro {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    // height: 100%;
-    // width: 100%;
-    .intro-detail {
-      width: 48%;
-      height: 185px;
-      margin-top: 20px;
-      border-radius: 10px;
+  .text-container{
+    flex: 1;
+    padding:10px;
+
+    h5{
+      font-size: 15px;
+      width: 150px;
       overflow: hidden;
-      .up {
-        height: 100px;;
-        width: 100%;
-        display: flex;
-        img {
-          height: 100px;
-          width: 100%;
-          display: block;
-        }
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-bottom: 5px;
+    }
+    .ks{
+      font-size: 12px;
+      color:#7B7B7B;
+      margin-bottom: 5px;
+    }
+    .t-info{
+      display: flex;
+      justify-content: space-between;
+      img{
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
       }
-      .down {
-        display: flex;
-        flex-direction: column;
-        height: 70px;
-        // width: 100%;
-        background-color: white;
-        padding: 10px;
-        // border-radius: 10px;
-        .text {
-          font-size: 14px;
-          font-weight: 600;
-          height: 20px;
-          line-height:20px;
-          font-weight: 900;
-        }
-      
-        .hour {
-          font-size: 12px;
-          color: rgb(167, 170, 174);
-          height: 20px;
-          line-height:20px;
-          margin-bottom: 5px;
-        }
-        .btom {
-          display: flex;
-          justify-content: space-between;
-          .btom-d {
-            display: flex;
-            // padding: 0 10px;
-            span {
-              font-size: 14px;
-              height: 20px;
-              line-height: 20px;
-            }
-            img {
-              height: 20px;
-              width: 20px;
-              border-radius: 50%;
-              display: block;
-              margin-right: 8px;
-            }
-          }
-          .price {
-            color: red;
-            font-size: 15px;
-          }
-        }
+      .t-name{
+        text-transform: capitalize;
+        font-size: 13px;
+        color:#2D2D2D;
+        flex: 1;
+        line-height: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .price{
+        color:#E31716;
+        font-size: 15px;
+        line-height: 25px;
       }
     }
   }

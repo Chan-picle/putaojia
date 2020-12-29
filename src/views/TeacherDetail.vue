@@ -2,15 +2,17 @@
   <div class="bg">
     <header class="head">
       <van-icon name="arrow-left" size="20px" @click="goback" />
-      <van-icon name="star-o" size="20px" />
+      <van-icon name="star-o" size="20px"/>
     </header>
-    <section class="video"></section>
-    <div class="teacher">
+    <section class="video">
+      <img src="TimeImg/shipin01.png" alt="" />
+    </section>
+    <div class="teacher" v-if="timeDetail.id">
       <div class="t-up">
         <img src="TimeImg/waijiao.jpg" alt="" />
         <section class="up-right">
           <div class="score">
-            <span>Andy</span>
+            <span>{{ timeDetail.t_name }}</span>
             <van-rate v-model="value" color="#ffd21e" :size="14" />
             <em>5.0分</em>
           </div>
@@ -42,14 +44,14 @@
       <div class="detail" v-for="item in 3">
         <img src="TimeImg/jiaocai.jpg" alt="" />
         <section class="d-right">
-          <em>外研版英语-1A</em>
+          <em>{{ timeDetail.title }}</em>
           <span class="first">包括10个学习模块(modules)</span>
           <div class="second">
-            <span>20课时</span>
+            <span>{{ timeDetail.time }}课时</span>
             <span>6-12岁</span>
           </div>
           <div class="third">
-            <span>￥1170</span>
+            <span>￥{{ timeDetail.c_price }}</span>
             <div>购买</div>
           </div>
         </section>
@@ -64,12 +66,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Toast } from "vant";
 import { defineComponent, ref } from "vue";
-import { getTimeDeailApi } from "../utils/api";
+import { getProductInfoApi } from "../utils/api";
+
 
 export default defineComponent({
+  props:["id"],
   data() {
     return {
       timeDetail: {},
@@ -84,20 +88,30 @@ export default defineComponent({
   computed: {},
 
   mounted() {
-    this.getTimeDetail();
+    this.getProductInfo();
   },
 
   methods: {
     goback() {
       this.$router.go(-1);
     },
-    async getTimeDetail() {
-      const res = await getTimeDetailApi({});
-      // console.log(res.result );
-      this.timeDetail = res.result.filter((elm) => {
-        // console.log(this.id == elm.id)
-        return elm.id == this.id;
-      })[0];
+    async getProductInfo() {
+      const res:any = await getProductInfoApi({id: this.id});
+      let msg = res.result[0];
+      this.timeDetail = {
+        bought: msg.bought,
+        detail: JSON.parse( msg.c_detail),
+        c_img:"img/products/" + msg.c_img,
+        c_price:msg.c_price,
+        id: msg.id,
+        lasting: msg.lasting,
+        pic:"img/shouye/" + msg.pic,
+        productId:msg.productId,
+        title:msg.title,
+        t_name:msg.t_name,
+        time:msg.time,
+        experience:msg.t_experence
+      }as any;
     },
   },
 });
@@ -117,7 +131,11 @@ export default defineComponent({
     height: 160px;
     width: 100%;
     border-radius: 5px;
-    background: #eee;
+    img {
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+    }
   }
   .teacher {
     height: 160px;

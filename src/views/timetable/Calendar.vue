@@ -45,7 +45,7 @@
           <section class="btom">
             <div class="btom-d">
               <img :src="item.teacherimg" alt="" />
-              <span>{{ item.teachername }}</span>
+              <span>Mark</span>
             </div>
             <span class="price">{{ item.price }}元</span>
           </section>
@@ -72,7 +72,7 @@ export default defineComponent({
       day: "", // 日
       dayArr: ["一", "二", "三", "四", "五", "六", "日"], // 星期数组
       dateArr: [], // 当前月份的天数
-      tog: true,
+      tog: false,
       dateShow: [1 ,2, 3, 4, 5, 6, 7]
     });
 
@@ -120,7 +120,6 @@ export default defineComponent({
   methods: {
     async getTimeList() {
       const res = await getTimeListApi({});
-      console.log(res);
       this.timeList = res.result;
     },
     goLeft() {
@@ -186,7 +185,8 @@ export default defineComponent({
     changeTog() {
       this.tog = !this.tog;
     },
-    goToDetail(id) {
+    goToDetail(i) {
+      let id = 1000 + i;
       this.$router.push('/timedetail/' + id);
     }
   },
@@ -196,6 +196,7 @@ export default defineComponent({
 .bgcolor {
   background: white;
   padding: 0 10px;
+  padding-bottom: 5px;
   .container {
     width: 100%;
     height: 100%;

@@ -5,7 +5,7 @@
         <div class="index">
             <div id="selector" class="i-selector">
               <ul>
-                <li v-for="(item,index) in selectorList" :key="index">
+                <li v-for="(item,index) in selectorList" :key="index" @click="toTeacherList">
                   <img :src="item.icon" alt="">
                   <span>{{item.text}}</span>
                 </li>
@@ -16,7 +16,7 @@
                   <div class="right" :class="{scroll:isOver}"></div>
             </div>
             <div class="banner">
-              <p><span>推荐外教</span><span>全部外教<van-icon name="arrow" /></span></p>
+              <p><span>推荐外教</span><span @click="toTeacherList">全部外教<van-icon name="arrow" /></span></p>
               <div class="cards" v-if="bannerList.length">
                 <!-- 轮播 -->
                 <van-swipe class="my-swipe" :show-indicators="false" :width="360">
@@ -176,9 +176,9 @@ export default defineComponent({
 
   },
   methods: {
-    fn(){
+    toTeacherList(){
       // console.log(this.bannerList);
-    console.log(this.bannerList.length);
+    this.$router.push("/teacherlist")
     },
    onRefresh() {
      setTimeout(() => {
