@@ -1,5 +1,5 @@
 <template>
-  <div class="card-container" :style="{background:info.cBg}">
+  <div class="card-container" :style="{background:info.cBg}" @click="toTeacher(msg.t_no)">
     <div class="c-wrapper">
       <div class="c-header">
         <img :src="info.cTou" alt="">
@@ -62,6 +62,9 @@ export default defineComponent({
   },
 
   methods: {
+    toTeacher(id:number){
+      this.$router.push("/teacherdetail/"+id);
+    },
     filterMsg(msg:any){
       this.info = {
         cTou:"/img/shouye/" + msg.pic,
