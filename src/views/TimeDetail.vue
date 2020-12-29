@@ -54,7 +54,7 @@
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
-    <div class="teacher" @click="goTeacherDetail(timeDetail.productId)">
+    <div class="teacher" @click="goTeacherDetail(timeDetail.t_id)">
       <img :src="timeDetail.pic" alt="" />
       <div class="teacher-right">
         <span>{{ timeDetail.t_name }}</span>
@@ -148,7 +148,8 @@ export default defineComponent({
         productId:msg.productId,
         title:msg.title,
         t_name:msg.t_name,
-        time:msg.time
+        time:msg.time,
+        t_id: msg.t_no
       }
     //   this.timeDetail = res.result.filter(elm => {
     //     // console.log(this.id == elm.id)

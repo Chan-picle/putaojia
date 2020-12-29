@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { getProductInfoApi } from "../utils/api";
+import { getTeacherCourseApi } from "../utils/api";
 export default defineComponent({
   props:["id"],
   data() {
@@ -46,20 +46,20 @@ export default defineComponent({
   computed: {},
 
   mounted() {
-    this.getProductInfo();
+    this.getTeacherCourse();
   },
 
   methods: {
     goback() {
       this.$router.go(-1);
     },
-    async getProductInfo() {
-      const res:any = await getProductInfoApi({id: this.id});
+    async getTeacherCourse() {
+      const res:any = await getTeacherCourseApi({id: this.id});
       let msg = res.result[0];
       this.moreList = {
         bought: msg.bought,
         detail: JSON.parse( msg.c_detail),
-        c_img:"img/products/" + msg.c_img,
+        c_img:"img/products/" + msg.c_img[0],
         c_price:msg.c_price,
         id: msg.id,
         lasting: msg.lasting,
@@ -72,7 +72,8 @@ export default defineComponent({
       }as any;
     },
     goDetail(id:any) {
-      this.$router.push('/timedetail/' + id);
+      let i = 100 + id;
+      this.$router.push('/timedetail/' + i);
     }
   }
 })
@@ -85,6 +86,7 @@ export default defineComponent({
     padding: 20px 0;
     display: flex;
     flex-direction: column;
+    margin-top: 46px;
     .detail {
       height: 100px;
       width: 100%;

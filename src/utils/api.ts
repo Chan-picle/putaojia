@@ -25,3 +25,6 @@ export const getVertifyCodeApi = (params:paramType) => http.post("/user/sendcode
 
 //用户登陆/注册params{phone:"15300000000",code:"1236"}
 export const loginApi = (params:paramType) => http.post("/user/login", params);
+
+//教师信息
+export const getTeacherCourseApi = (params:paramType) => http.post("/product/teachercourse", params);
