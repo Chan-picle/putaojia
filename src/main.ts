@@ -2,14 +2,23 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky,ActionBar, ActionBarIcon, ActionBarButton,CouponCell, CouponList, Popup,ActionSheet,Rate,Loading,RadioGroup, Radio} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar,
+   Tab, Tabs, Calendar,Swipe ,
+   SwipeItem,PullRefresh,Field,Form,
+   Search,Icon,Empty,Grid, GridItem,
+   Toast,Sticky,ActionBar, ActionBarIcon,
+    ActionBarButton,CouponCell, CouponList, Popup,
+    ActionSheet,Rate,Loading,RadioGroup,Radio} from 'vant';
+//引入全部vant
+// import Vant from 'vant';
 import 'vant/lib/index.css';
 
 
 const app = createApp(App);
 app.use(store);
 app.use(router);
+// app.use(Vant);
+
 app.use(Button);
 app.use(Tabbar);
 app.use(TabbarItem);

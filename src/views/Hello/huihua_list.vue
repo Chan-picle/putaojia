@@ -17,10 +17,10 @@
       color="orange"
     >
       <van-tab v-for="(item, index) in fenlist" :title="item.tite">
-        <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
+        <van-pull-refresh v-model="state.loading" @refresh="onRefresh" success-text="刷新成功">
           
           <div class="huihua_main">
-            内容 {{ index }}
+            暂时没有内容 {{ index }}
           </div>
         </van-pull-refresh>
       </van-tab>
@@ -45,14 +45,14 @@ export default defineComponent({
   },
   setup() {
     const state = reactive({
-      count: 0,
+      // count: 0,
       loading: false,
     });
     const onRefresh = () => {
       setTimeout(() => {
-        Toast("刷新成功");
+        // Toast("刷新成功");
         state.loading = false;
-        state.count++;
+        // state.count++;
       }, 1000);
     };
 

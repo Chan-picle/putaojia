@@ -59,7 +59,9 @@ export default defineComponent({
   mounted():void{
     //点击底部nanbar后刷新，active保持和页面统一
     this.iconList.forEach((elm,index)=>{
-      if(elm.to===this.$route.path){
+      //模糊匹配
+      let path = "/"+this.$route.path.split("/")[1]
+      if(elm.to===path){
         this.active = index;
       }
     });

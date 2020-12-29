@@ -8,49 +8,58 @@
       fixed
       placeholder="true"
     />
-    <section class="all-content" v-if="timeDetail.textbook">
+    <section class="all-content" v-if="timeDetail.id">
       <div class="head">
-        <img src="TimeImg/jiaocai.jpg" alt="" />
+        <img :src="timeDetail.c_img" alt="" />
         <div class="h-left">
-          <em>{{ timeDetail.textbook }}</em>
+          <em>{{ timeDetail.title }}</em>
           <div class="hours">
-            <span>{{ timeDetail.hours }}节</span>课时 <span>{{ timeDetail.buyers }}人</span>已购买
+            <span>{{ timeDetail.time }}节</span>课时 <span class="hours-l">{{ timeDetail.bought }}人</span>已购买
           </div>
-          <div class="pratice"><span>{{ timeDetail.practicehour }}分钟</span>练习时长</div>
+          <div class="pratice">
+            <van-icon name="clock-o" size="14px" />
+            <span>{{ timeDetail.lasting }}</span>练习时长
+          </div>
         </div>
       </div>
       <div class="class-detail">
-        <span class="class-detail-first">课程详情</span>
-        <span class="class-detail-second">课件预览</span>
+        <span class="class-detail-first" @click="chageClass">课程详情</span>
+        <span class="class-detail-second" @click="chageClass">课件预览</span>
       </div>
-      <div class="main">
+      <div class="main" v-if="show">
         <span>课程内容</span>
         <p>
-          {{ timeDetail.content }}
+          {{ timeDetail.detail.content }}
         </p>
 
         <span>级别</span>
-        <em>{{ timeDetail.level }}</em>
+        <em>{{ timeDetail.detail.level }}</em>
         <span>适合年龄段</span>
-        <em>{{ timeDetail.age }}</em>
+        <em>{{ timeDetail.detail.fit }}</em>
         <span>核心词汇数</span>
-        <em>{{ timeDetail.keywords }}</em>
+        <em>{{ timeDetail.detail.core }}</em>
         <span>拓展词汇</span>
-        <em>{{ timeDetail.outwords }}</em>
+        <em>{{ timeDetail.detail.expand }}</em>
+      </div>
+      <div class="main-2" v-if="!show">
+        <van-collapse v-model="activeNames">
+        <van-collapse-item title="上册" name="1" size="large">
+          <div class="unit" v-for="item in 9">
+            <span>一(上)-M1-Unit1</span>
+            <div>查看</div>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
       </div>
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
-    <div class="teacher" @click="goTeacherDetail">
-      <img src="TimeImg/waijiao.jpg" alt="" />
+    <div class="teacher" @click="goTeacherDetail(timeDetail.productId)">
+      <img :src="timeDetail.pic" alt="" />
       <div class="teacher-right">
-        <span>Andy</span>
+        <span>{{ timeDetail.t_name }}</span>
         <div class="star">
-          <img
-            src="TimeImg/star-not-graded.png"
-            alt=""
-            v-for="item in StarCount"
-          />
+          <van-rate v-model="value" size="12px" color="#ffd21e" />
           <span>5.0分</span>
         </div>
       </div>
@@ -60,7 +69,7 @@
     </div>
     <div class="bottom-br"></div>
     <div class="buy">
-      <span>￥1790</span>
+      <span>￥{{ timeDetail.c_price }}</span>
       <div class="btn">
         <em class="btn-l">免费试听</em>
         <em class="btn-r" @click="route">立即购买</em>
@@ -72,14 +81,16 @@
 <script>
 import { defineComponent } from "vue";
 import { Toast } from "vant";
-import { getTimeDetailApi } from "../utils/api";
+import { getProductInfoApi } from "../utils/api";
+import { ref } from 'vue';
 
 export default defineComponent({
   props: ["id"],
   data() {
     return {
       StarCount: 5,
-      timeDetail: {}
+      timeDetail: {},
+      show: true
     };
   },
   setup() {
@@ -89,10 +100,15 @@ export default defineComponent({
     const onClickButton = () => {
       Toast("点击按钮");
     };
+    const value = ref(5);
+    const activeNames = ref(['1']);
     return {
       onClickIcon,
       onClickButton,
+      value,
+      activeNames
     };
+   
   },
   components: {},
 
@@ -103,10 +119,14 @@ export default defineComponent({
     //  })
      
     // }
+    
   },
 
   mounted() {
-    this.getTimeDetail();
+    // this.$store.dispatch("getTimeDetail", {
+    //   id: this.id
+    // });
+    this.getProductInfo();
   },
 
   methods: {
@@ -114,19 +134,40 @@ export default defineComponent({
       Toast("返回");
       this.$router.go(-1);  
     },
-    async getTimeDetail() {
-      const res = await getTimeDetailApi({});
-      // console.log(res.result );
-      this.timeDetail = res.result.filter(elm => {
-        // console.log(this.id == elm.id)
-       return elm.id == this.id;
-     })[0];
+    async getProductInfo() {
+      const res = await getProductInfoApi({id: this.id});
+      let msg = res.result[0];
+      this.timeDetail = {
+        bought: msg.bought,
+        detail: JSON.parse( msg.c_detail),
+        c_img:"img/products/" + msg.c_img,
+        c_price:msg.c_price,
+        id: msg.id,
+        lasting: msg.lasting,
+        pic:"img/shouye/" + msg.pic,
+        productId:msg.productId,
+        title:msg.title,
+        t_name:msg.t_name,
+        time:msg.time
+      }
+    //   this.timeDetail = res.result.filter(elm => {
+    //     // console.log(this.id == elm.id)
+    //    return elm.id == this.id;
+    //  })[0];
     },
+    goTeacherDetail(id) {
+      this.$router.push("/teacherdetail/" + id);
+    },
+<<<<<<< HEAD
     goTeacherDetail() {
       this.$router.push("/teacherdetail");
     },
     route() {
       this.$router.push("/closing");
+=======
+    chageClass() {
+      this.show = !this.show;
+>>>>>>> master
     }
   },
 });
@@ -141,17 +182,17 @@ export default defineComponent({
   flex-direction: column;
   .head {
     width: 100%;
-    height: 120px;
+    height: 100px;
     display: flex;
     padding: 10px 0;
     img {
-      height: 120px;
+      height: 100px;
       width: 40%;
       display: block;
       border-radius: 10px;
     }
     .h-left {
-      height: 120px;
+      height: 100px;
       padding-left: 10px;
       display: flex;
       flex-direction: column;
@@ -168,8 +209,12 @@ export default defineComponent({
         height: 24px;
         line-height: 24px;
         margin-top: 5px;
+        color: #aaa;
         span {
           color: orange;
+        }
+        .hours-l {
+          margin-left: 10px;
         }
       }
       .pratice {
@@ -177,8 +222,12 @@ export default defineComponent({
         height: 24px;
         line-height: 24px;
         margin-top: 10px;
+        display: flex;
+        align-items: center;
+        color: #aaa;
         span {
           color: orange;
+          margin-left: 5px;
         }
       }
     }
@@ -194,6 +243,9 @@ export default defineComponent({
     }
     .class-detail-second {
       color: #ccc;
+      &:hover {
+        color: #000;
+      }
     }
   }
   .main {
@@ -223,6 +275,29 @@ export default defineComponent({
       color: #aaa;
     }
   }
+  .main-2 {
+    .unit {
+      height: 50px;
+      display: flex;
+      padding: 0 10px;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      align-items: center;
+      span {
+        font-size: 16px;
+      }
+      div {
+        height: 30px;
+        display: flex;
+        align-items: center;
+        color: orange;
+        border: 1px solid orange;
+        border-radius: 20px;
+        width: 60px;
+        justify-content: center;
+      }
+    }
+  }
 }
 .teacher-msg {
   height: 30px;
@@ -239,47 +314,41 @@ export default defineComponent({
   background: #eee;
 }
 .teacher {
-  height: 80px;
+  height: 60px;
   width: 100%;
   background: #fff;
   display: flex;
-  padding-top: 10px;
+  padding: 10px 0 ;
   img {
-    height: 80px;
-    width: 80px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
+    padding-left: 10px;
   }
   .go {
-    height: 60px;
+    height: 40px;
     padding-right: 10px;
     padding-top: 20px;
   }
   .teacher-right {
-    height: 80px;
+    height: 55px;
     background: white;
     width: 235px;
     padding-left: 5px;
+    padding-top: 5px;
     span {
       font-weight: 600;
-      font-size: 16px;
+      font-size: 18px;
       height: 24px;
       line-height: 24px;
     }
     .star {
-      margin-top: 30px;
       display: flex;
-      padding-top: 5px;
-      img {
-        height: 10px;
-        width: 10px;
-        vertical-align: bottom;
-      }
+      align-items: center;
+      margin-top: 10px;
       span {
-        color: orange;
+        color: #ffd21e;
         font-size: 12px;
-        height: 14px;
-        line-height: 14px;
-        display: block;
         margin-left: 5px;
       }
     }

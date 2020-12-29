@@ -1,11 +1,11 @@
 <template>
   <div class="page">
-    <van-icon class="arrows" name="arrow-left" @click="luyou" />
+    <van-icon class="arrows" name="arrow-left" @click="backTo" />
 
     <div class="up">
       <h2>手机号登录</h2>
-      <input type="text" placeholder="输入手机号" />
-      <input type="text" placeholder="输入验证码" />
+      <input type="text" placeholder="输入手机号" v-model="phone" />
+      <input type="text" placeholder="输入验证码" v-model="code" />
       <button class="send" @click="send">{{ verify }}</button>
     </div>
     <div class="middle">
@@ -15,11 +15,13 @@
       <a href="javascript:;">用户协议</a> <span class="gray-font">及</span> <a href="javascript:;">隐私政策</a>
     </div>
     <div class="login">
-      <van-button class="button" type="default">登 录</van-button>
+      <van-button class="button" type="default" @click="login">登 录</van-button>
     </div>
   </div>
 </template>
 <script>
+import { Toast } from 'vant';
+import {loginApi,getVertifyCodeApi} from "../utils/api";
 export default {
   data() {
     return {
@@ -27,11 +29,22 @@ export default {
       time : 60,
       num: -1,
       class: "checkbox-begin-class",
-      class2: "tick-begin-class"
+      class2: "tick-begin-class",
+      code:"",
+      phone:""
     };
   },
   methods: {
     send() {
+      //判断手机号码正则
+      let reg = /^[1]([3-9])[0-9]{9}$/;
+      if(!reg.test(this.phone)){
+        Toast("请输入正确的手机号码")  
+        return
+      }
+      getVertifyCodeApi({phone:this.phone}).then(res=>{
+        Toast(res.msg);
+      })
       let timer;
       let data = this;
       if(this.time ===60){
@@ -50,6 +63,9 @@ export default {
     },
     change() {
       this.num = this.num * -1;
+      if(this.num ==1){
+        Toast("请阅读并同意遵守《葡萄架用户协议》")
+      }
       if (this.num < 0) {
         this.class = "checkbox-begin-class";
         this.class2 = "tick-begin-class";
@@ -59,9 +75,26 @@ export default {
         this.class2 = "tick";
       }
     },
-    luyou() {
-      this.$router.push("/mine");
+    backTo() {
+      this.$router.go(-1);
     },
+    login(){
+      if(this.num>0){
+        Toast("请阅读并同意遵守《葡萄架用户协议》");
+        return;
+      }
+      loginApi({phone:this.phone,code:this.code}).then(res=>{
+        Toast(res.msg);
+        if(!res.status){
+          sessionStorage.setItem("token",res.result.token);
+          sessionStorage.setItem("phone",res.result.phone);
+          sessionStorage.setItem("userid",res.result.userid);
+          this.$router.push(this.$route.query.redirect)
+        }
+      })
+    }
+  },
+  mounted() {
   },
 };
 </script>

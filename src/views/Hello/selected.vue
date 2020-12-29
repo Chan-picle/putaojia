@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="asd">
     <van-nav-bar
       title="话题库"
       left-text="返回"
@@ -7,66 +7,51 @@
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
+      fixed
+      placeholder
     />
 
-    <!-- <img src="../../public/img/hello_img/topic_img.jpg" alt=""> -->
-    <!-- <img src="../../../public/img/hello_img/topic_img1.jpg" alt=""> -->
-    <!-- 下拉刷新组件 -->
-
+<!-- <button @click="fn">aa</button> -->
     <van-tabs
       v-model:active="active"
-      sticky
       :duration="0.2"
       animated
       title-active-color="orange"
       color="orange"
-    >
-      <van-tab v-for="(i, index) in fenlist" :title="i.tite">
 
-        <van-pull-refresh v-model="state.loading" @refresh="onRefresh">
+      sticky 
+      offset-top="46px"
+    >
+      <van-tab v-for="(i, index) in fenlist" :title="i.tite" >
+          <!-- 下拉刷新组件 -->
+        <van-pull-refresh v-model="state.loading" @refresh="onRefresh" success-text="刷新成功">
           <!-- 内容 {{ index }} -->
 
-
-          <!-- <van-grid :column-num="3">
-              <van-grid-item 
-              class="aaa"
-              v-for="item in list"
-              icon="img/hello_img/topic_img1.jpg" 
-              :text="item.topic_title" 
-               />
-          </van-grid> -->
-
-<div class="asd">
-          <div class="huadong_box">
-            <div class="img_box" v-for="item in list"  @click="jumpTo(to1)" >
-              <img :src="item.topic_img" alt="">
-              <p>{{item.topic_title}}</p>
-              
-            </div>
-            <div class="img_box" v-for="item in list"  @click="jumpTo(to1)" >
-              <img :src="item.topic_img" alt="">
-              <p>{{item.topic_title}}</p>
-              
+          <div class="huadong_box" v-if="list.list.length" style="overflow:hidden">
+            <div class="img_box" v-for="(item,i) in list.list" @click="jumpTo(to1,item.id)" :key="i">
+              <!-- <p>{{item}}</p> -->
+              <img :src="item.topic_img" alt="" />
+              <p>{{ item.topic_title }}</p>
+              <!-- <p>{{ item.id  }}</p> -->
             </div>
           </div>
-          <!-- <div class="huadong_box">
+
+
+          <div class="huadong_box">
             <div class="img_box" v-for="item in list">
-              <img :src="item.topic_img" alt="">
-              <p>{{item.topic_title}}</p>
+              <img :src="item.topic_img" alt="" />
+              <p>{{ item.topic_title }}</p>
             </div>
-          </div> -->
-</div>
-          
-
+          </div>
         </van-pull-refresh>
-
       </van-tab>
     </van-tabs>
   </div>
+
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
-import {getHello} from "../../utils/api";
+import { defineComponent, onMounted } from "vue";
+import { getHello } from "../../utils/api";
 
 import { reactive } from "vue";
 import { Toast } from "vant";
@@ -74,48 +59,57 @@ import { Toast } from "vant";
 export default defineComponent({
   data() {
     return {
+      aaa:3,
       fenlist: [
         { tite: "认识" },
         { tite: "动物" },
         { tite: "趣味" },
         { tite: "科普" },
       ],
-      to1:"/hello_details"
+      to1: "/hello_details/",
     };
   },
 
   setup() {
     // 请求数据
     const state = reactive({
-      count: 0,
+      // count: 0,
       loading: false,
     });
-    const list = reactive({});
-
+    const list = reactive({
+      list: []
+    });
 
     const onRefresh = () => {
       setTimeout(() => {
-        Toast("刷新成功");
+        // Toast("刷新成功");
         state.loading = false;
-        state.count++;
+        // state.count++;
       }, 1000);
     };
 
     return {
       state,
       onRefresh,
-      list
+      list,
     };
   },
-    mounted() {
-    getHello({}).then((res:any)=>{
+  mounted() {
+    // this.list = [1, 2]
+    getHello({}).then((res: any) => {
       console.log(res);
-      this.list = res.result;
-      console.log(this.list);
+      this.list.list = res.result;
+      this.$forceUpdate();
+
+
+
       
+      // console.log(this.list);
       // console.log(item.topic_img)
-    })
-    
+    });
+    // setTimeout((): void => {
+    //   this.list.list = [1,2];
+    // }, 2000)
   },
   components: {},
   props: {},
@@ -130,6 +124,7 @@ export default defineComponent({
   // mounted() {},
 
   methods: {
+    fn(){console.log(this.list)},
     onClickLeft() {
       history.go(-1);
     },
@@ -138,44 +133,40 @@ export default defineComponent({
       console.log("弹出框");
     },
 
-
-    jumpTo(to:string){
-      this.$router.push(to);
-    }
+//需要的数据要用参数来接收，this就试过垃圾
+    jumpTo(to: string,a: string) {
+      let allto = to + a;
+      this.$router.push(allto);
+    },
   },
 });
 </script>
 <style lang="less" scoped>
 
-.asd{
+.asd {
   // padding-bottom: 400px;
-  // margin-bottom: 300px;
+  margin-bottom: 100px;
 }
-.huadong_box{
+.huadong_box {
   width: 100%;
   height: 100%;
-  background-color: red;
-  // display: flex;
-
+  // background-color: red;
   // margin-bottom: 10px;
 }
-.img_box{
-  // padding: 10px;
-  // margin: 10px;
+.img_box {
   width: 28%;
   height: 150px;
-  background-color: yellow;
-  margin: 5px;
-  margin-bottom: 10px;
+  // background-color: yellow;
   float: left;
   padding: 5px;
-
-  
-  img{
+  margin: 5px;  
+  margin-bottom: 10px;
+  img {
     width: 100%;
     height: 80%;
+    border-radius:10px;
   }
-  p{
+  p {
     text-align: center;
     line-height: 10px;
     height: 10px;
