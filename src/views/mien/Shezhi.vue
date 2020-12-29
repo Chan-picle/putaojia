@@ -1,5 +1,21 @@
 <template>
   <div>
+    <div id="nc" v-show="nckg">
+      <van-nav-bar
+      title="修改昵称"
+      left-text=""
+      right-text="完成"
+      left-arrow
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+      fixed
+      placeholder
+       />
+     <div class="z_index">
+       <input class="nicheng" type="text" placeholder="请输入昵称" v-model="bjnr">
+       <van-icon class="nicheng_x" size=30 name="cross" @click="nicheng_x_click()" />
+     </div>
+    </div>
     <div class="header">
       <van-nav-bar title="设置" fixed placeholder />
       <van-icon class="left" name="arrow-left" @click="luyou"/>
@@ -9,7 +25,7 @@
         <li>
           <p>个人头像</p><img class="touxiang" src="../../../public/mienimg/icon04.png" alt=""><span> ></span>
         </li>
-        <li>
+        <li @click="nc_click()">
           <p>昵称</p><input type="text" :value="nc"><span>></span>
         </li>
         <li>
@@ -43,12 +59,18 @@
 
 <script>
 import { reactive } from 'vue';
+
 let zhi=document.querySelector('.gai');
 
 export default {
   data() {
     return {
-      nc:"牛牛"
+      nc:"牛牛",
+      //nc开关
+      nckg:false,
+      // 昵称编辑内容
+      bjnr:"牛牛1"
+
     }
   },
   setup() {
@@ -69,12 +91,71 @@ export default {
   methods:{
     luyou(){
       this.$router.push("/mine");
+    },
+    //进入编辑昵称
+    nc_click(){
+      console.log(this.nc);
+      this.nckg=true
+      console.log(this.nc);
+      this.bjnr=this.nc
+    },
+    //放弃编辑昵称返回
+    onClickLeft(){
+      this.nckg=false
+    },
+    // 昵称完成
+    onClickRight(){
+      this.nckg=false
+      if(this.bjnr===""){
+        // console.log(不更改);
+      }else{
+        this.nc=this.bjnr
+      }
+      
+    },
+    //清除昵称
+    nicheng_x_click(){
+      this.bjnr="";
+      console.log(11);
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
+
+  #nc{
+    // background-color: red;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    // z-index: 1111;
+    position: absolute;
+    top: 0px;
+    z-index: 1000;
+    
+  }
+  // 昵称表单
+  .nicheng{
+    width: 88%;
+    margin: 0 3%;
+    height: 45px;
+    border-radius: 10px;
+    // margin-left: 5px;
+    padding-left: 20px;
+    border: 0px;
+    background-color: rgba(0, 0, 0, .15);
+  }
+  .nicheng_x{
+    position: absolute;
+    right: 25px;
+    top: 55px;
+  }
+  .z_index{
+    z-index: 2000;
+    margin-top: 46px;
+    
+  }
   .header{
 
     .left{
