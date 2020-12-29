@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     send() {
-      getVertifyCodeApi({phone:phone}).then(res=>{
+      getVertifyCodeApi({phone:this.phone}).then(res=>{
         Toast(res.msg);
       })
       let timer;
