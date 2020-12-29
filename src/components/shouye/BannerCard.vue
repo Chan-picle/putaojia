@@ -94,6 +94,7 @@ export default defineComponent({
       img{
         width: 40px;
         height: 40px;
+        border-radius: 50%;
       }
       >div{
         height: 40px;

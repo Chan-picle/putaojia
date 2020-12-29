@@ -27,7 +27,7 @@ export const getVertifyCodeApi = (params:paramType) => http.post("/user/sendcode
 export const loginApi = (params:paramType) => http.post("/user/login", params);
 
 //普通外教列表
-export const sortListApi = (params:paramType) => http.get("/product/soldList", params);
+export const sortListApi = (params:paramType) => http.get("/product/sortList", params);
 
 //评分外教列表
 export const scoreListApi = (params:paramType) => http.get("/product/scoreList", params);
