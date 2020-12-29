@@ -94,7 +94,7 @@ export default defineComponent({
     padding:12px 13px 0;
     .c-header{
       display: flex;
-      img{
+      >img{
         width: 40px;
         height: 40px;
         border-radius: 50%;
