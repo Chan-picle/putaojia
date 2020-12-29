@@ -349,7 +349,7 @@ export default defineComponent({
 .bottom-br {
   height: 30px;
   width: 100%;
-  background: #eee;
+  background: #F2F2F2;
   margin-bottom: 40px;
 }
 .buy {
