@@ -36,6 +36,12 @@ export default {
   },
   methods: {
     send() {
+      //判断手机号码正则
+      let reg = /^[1]([3-9])[0-9]{9}$/;
+      if(!reg.test(this.phone)){
+        Toast("请输入正确的手机号码")  
+        return
+      }
       getVertifyCodeApi({phone:this.phone}).then(res=>{
         Toast(res.msg);
       })
@@ -57,6 +63,9 @@ export default {
     },
     change() {
       this.num = this.num * -1;
+      if(this.num ==1){
+        Toast("请阅读并同意遵守《葡萄架用户协议》")
+      }
       if (this.num < 0) {
         this.class = "checkbox-begin-class";
         this.class2 = "tick-begin-class";
@@ -70,6 +79,10 @@ export default {
       this.$router.go(-1);
     },
     login(){
+      if(this.num>0){
+        Toast("请阅读并同意遵守《葡萄架用户协议》");
+        return;
+      }
       loginApi({phone:this.phone,code:this.code}).then(res=>{
         Toast(res.msg);
         if(!res.status){
@@ -82,8 +95,6 @@ export default {
     }
   },
   mounted() {
-    //登陆成功跳转
-    // console.log(this.$route.query.redirect);
   },
 };
 </script>

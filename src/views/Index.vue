@@ -171,7 +171,7 @@ export default defineComponent({
     })
     }
     
-    console.log(this.bannerList.length);
+    // console.log(this.bannerList.length);
     this.$forceUpdate();
 
   },

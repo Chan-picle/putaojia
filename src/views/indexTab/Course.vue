@@ -1,6 +1,6 @@
 <template>
 <div class="product-container" v-if="courseList.length">
-  <product-item v-for="(item,i) in courseList" :key="i" :msg="item" />
+  <product-item v-for="(item,i) in courseList" :key="i" :msg="item" @click="jumpToDetail(item.productId)"/>
   <!-- <product-item />
   <product-item /> -->
 </div>
@@ -26,8 +26,11 @@ export default defineComponent({
       this.courseList = res.result;
     });
   },
-
-  methods: {}
+  methods: {
+    jumpToDetail(id:any){
+      this.$router.push("/timedetail/"+id)
+    }
+  }
 });
 </script>
 <style lang="less" scoped>

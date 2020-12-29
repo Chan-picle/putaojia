@@ -25,3 +25,12 @@ export const getVertifyCodeApi = (params:paramType) => http.post("/user/sendcode
 
 //用户登陆/注册params{phone:"15300000000",code:"1236"}
 export const loginApi = (params:paramType) => http.post("/user/login", params);
+
+//普通外教列表
+export const sortListApi = (params:paramType) => http.get("/product/soldList", params);
+
+//评分外教列表
+export const scoreListApi = (params:paramType) => http.get("/product/scoreList", params);
+
+//销量外教列表
+export const soldListApi = (params:paramType) => http.get("/product/soldList", params);
