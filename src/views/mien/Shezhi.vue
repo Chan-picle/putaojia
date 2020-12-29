@@ -35,7 +35,7 @@
         </li>
       </ul>
       <div class="tuichu">
-        <p>退出登录</p>
+        <button @click="logout">退出登录</button>
       </div>
     </div>
   </div>
@@ -69,6 +69,10 @@ export default {
   methods:{
     luyou(){
       this.$router.push("/mine");
+    },
+    logout() {
+      session.invalidate();
+      window.reload();
     }
   }
 };
@@ -126,14 +130,17 @@ export default {
     }
   .tuichu{
     margin-top: 60px;
-    background-color: rgb(247, 242, 242);
     border-radius: 20px;
     box-shadow: 0 1px 2px 1px rgb(220, 216, 216);
+    overflow: hidden;
 
-    p{
+    button{
+      width: 100%;
+      border: 0;
       text-align: center;
       padding: 10px 0;
       color: red;
+    background-color: rgb(247, 242, 242);
     }
   }
 </style>

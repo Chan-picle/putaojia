@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // import Button from 'vant';
-import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky,ActionBar, ActionBarIcon, ActionBarButton,CouponCell, CouponList, Popup,ActionSheet,Rate,Loading} from 'vant';
+import { Tabbar, TabbarItem, Button, NavBar, Tab, Tabs, Calendar,Swipe ,SwipeItem,PullRefresh,Field,Form,Search,Icon,Empty,Grid, GridItem, Toast,Sticky,ActionBar, ActionBarIcon, ActionBarButton,CouponCell, CouponList, Popup,ActionSheet,Rate,Loading,RadioGroup, Radio} from 'vant';
 import 'vant/lib/index.css';
 
 
@@ -65,6 +65,8 @@ app.use(Rate);
 
 //刷新图片
 app.use(Loading);
-
+// 单选框
+app.use(RadioGroup);
+app.use(Radio);
 
 app.mount('#app');

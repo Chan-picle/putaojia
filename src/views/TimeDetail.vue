@@ -63,7 +63,7 @@
       <span>￥1790</span>
       <div class="btn">
         <em class="btn-l">免费试听</em>
-        <em class="btn-r">立即购买</em>
+        <em class="btn-r" @click="route">立即购买</em>
       </div>
     </div>
   </div>
@@ -124,6 +124,9 @@ export default defineComponent({
     },
     goTeacherDetail() {
       this.$router.push("/teacherdetail");
+    },
+    route() {
+      this.$router.push("/closing");
     }
   },
 });
