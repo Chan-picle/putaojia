@@ -72,7 +72,7 @@
       <span>￥{{ timeDetail.c_price }}</span>
       <div class="btn">
         <em class="btn-l">免费试听</em>
-        <em class="btn-r" @click="route">立即购买</em>
+        <em class="btn-r" @click="route(id)">立即购买</em>
       </div>
     </div>
   </div>
@@ -158,16 +158,11 @@ export default defineComponent({
     goTeacherDetail(id) {
       this.$router.push("/teacherdetail/" + id);
     },
-<<<<<<< HEAD
-    goTeacherDetail() {
-      this.$router.push("/teacherdetail");
+    route(id) {
+      this.$router.push("/closing/" + id);
     },
-    route() {
-      this.$router.push("/closing");
-=======
     chageClass() {
       this.show = !this.show;
->>>>>>> master
     }
   },
 });

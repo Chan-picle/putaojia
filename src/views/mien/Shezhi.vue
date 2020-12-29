@@ -71,8 +71,8 @@ export default {
       this.$router.push("/mine");
     },
     logout() {
-      session.invalidate();
-      window.reload();
+      sessionStorage.clear();
+      this.$router.push("/login");
     }
   }
 };

@@ -8,22 +8,22 @@
     <!-- 中部内容 -->
     <div class="content">
       <div class="top">
-        <img src="../../public/img/shouye/touxiang01.png" alt="头像">
-        <span>Olie</span>
-        <span>乌克兰</span>
+        <img :src="orderdata.touxiang" alt="头像">
+        <span>{{ orderdata.t_name }}</span>
+        <span>{{ orderdata.t_nation }}</span>
         <div class="introduce">
-          <img src="../../public/TimeImg/jiaocai.jpg" alt="教材">
+          <img :src="orderdata.c_img" alt="教材">
           <div>
-            <span>小小科学家-少儿版</span>
+            <span>{{ orderdata.title }}</span>
             <p>课时:3节;适合年龄:6-12</p>
-            <span><i>￥</i>1170</span>
+            <span><i>￥</i>{{ orderdata.c_price }}</span>
           </div>
         </div>
       </div>
       <div class="middle">
-        <p><span>课程价格</span><b>￥1170</b></p>
+        <p><span>课程价格</span><b>￥{{ orderdata.c_price }}</b></p>
         <p><span>优惠券</span><b class="arrows">></b></p>
-        <p><span>实付总额</span><b>￥1170</b></p>
+        <p><span>实付总额</span><b>￥{{ orderdata.c_price }}</b></p>
       </div>
       <div class="next">
         <div>
@@ -42,7 +42,7 @@
     </div>
     <!-- 底部 -->
     <div class="bottom">
-        <button>提交订单</button> <b>1170</b> <i>￥</i> <em>合计:</em> <span>已优惠￥0</span>
+        <button>提交订单</button> <b>{{ orderdata.c_price }}</b> <i>￥</i> <em>合计:</em> <span>已优惠￥0</span>
       </div>
   </div>
 </template>
@@ -50,11 +50,14 @@
 <script>
 import { reactive } from 'vue';
 import {getProductInfoApi} from "../utils/api";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
+  props:["id"],
   data() {
     return {
       radio: '1',
+      orderdata:{}
     };
   },
   setup() {
@@ -70,12 +73,27 @@ export default {
       onRefresh,
     };
   },
+  mounted() {
+    this.getProductInfo();
+  },
   methods:{
     luyou(){
-      this.$router.push("/mine");
+      this.$router.go(-1);
+    },
+    async getProductInfo() {
+      const res = await getProductInfoApi({id: this.id});
+      let msg = res.result[0];
+      this.orderdata = {
+        touxiang:"img/shouye/" + msg.pic,
+        t_nation:msg.t_nation,
+        c_img:"img/products/" + msg.c_img,
+        c_price:msg.c_price,
+        title:msg.title,
+        t_name:msg.t_name,
+      }
     }
   },
-};
+})
 </script>
 
 <style lang="less" scoped>
