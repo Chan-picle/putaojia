@@ -102,7 +102,7 @@ export default defineComponent({
         this.list = res.result;
       });
     },
-    change(e,n){
+    change(e:any,n:any){
       this.active = n;
     }
   }

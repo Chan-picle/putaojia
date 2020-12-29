@@ -3,7 +3,8 @@
     <div class="circle">
       <img :src="info.head" class="head">
       <div class="flag">
-        <img :src="info.flag" alt="">
+        <div class="flag-contain" :style="flags"></div>
+        <!-- <img :src="info.flag" alt=""> -->
       </div>
     </div>
     <p>{{info.tname}}</p>
@@ -32,7 +33,11 @@ export default defineComponent({
     }
   },
   data() {
-    return {};
+    return {
+      flags:{
+        "background-image":`url("/img/flags/${this.msg.flag}")`
+      },
+    };
   },
   computed: {
      info(){
@@ -70,12 +75,18 @@ export default defineComponent({
     .flag{
       position: absolute;
       right: 0;
-      bottom: 5px;
+      bottom: -3px;
       background-color: #fff;
       border-radius: 50%;
       padding:4px;
-      img{
-        display: block;
+      height: 25px;
+      width: 25px;
+      .flag-contain{
+        width: 100%;
+        height: 100%;
+        background-color: #f00;
+        border-radius: 50%;
+        // background-image: url("/img/flags/xixik-0a41c28457c0d50b.png");
       }
     }
   }
