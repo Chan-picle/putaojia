@@ -54,7 +54,7 @@
     </section>
     <span class="teacher-msg">外教信息</span>
     <div class="teacher-br"></div>
-    <div class="teacher" @click="goTeacherDetail(timeDetail.productId)">
+    <div class="teacher" @click="goTeacherDetail(timeDetail.t_id)">
       <img :src="timeDetail.pic" alt="" />
       <div class="teacher-right">
         <span>{{ timeDetail.t_name }}</span>
@@ -148,7 +148,8 @@ export default defineComponent({
         productId:msg.productId,
         title:msg.title,
         t_name:msg.t_name,
-        time:msg.time
+        time:msg.time,
+        t_id: msg.t_no
       }
     //   this.timeDetail = res.result.filter(elm => {
     //     // console.log(this.id == elm.id)
@@ -242,7 +243,7 @@ export default defineComponent({
   }
   .main {
     width: 100%;
-    background: #eee;
+    background: #F2F2F2;
     display: flex;
     flex-direction: column;
     padding: 10px 0 20px 0;
@@ -349,7 +350,7 @@ export default defineComponent({
 .bottom-br {
   height: 30px;
   width: 100%;
-  background: #eee;
+  background: #F2F2F2;
   margin-bottom: 40px;
 }
 .buy {

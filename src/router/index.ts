@@ -159,6 +159,13 @@ const routes: Array<RouteRecordRaw> = [
     props: true
   },
   {
+    //morecalss 详情页
+    path:"/moreclass/:id",
+    component: () => import('../views/More.vue'),
+    //传参
+    props: true
+  },
+  {
     path:"/:catchAll(.*)",
     component:()=> import("../views/Error.vue")
   },

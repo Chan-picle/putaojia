@@ -18,7 +18,7 @@
           </div>
           <div class="from">
             <van-icon name="location-o" size="12px" />
-            <span class="come-from">来自 美国</span>
+            <span class="come-from">来自 {{ timeDetail.t_nation }}</span>
             <van-icon name="user-o" size="12px" />
             <span>毕业院校 the harford university</span>
           </div>
@@ -26,9 +26,9 @@
       </div>
       <div class="t-down">
         <span>服务时长：</span>
-        <em>0min</em>
+        <em>20min</em>
         <span class="jiaoxue">教学经验：</span>
-        <em>3年</em>
+        <em>{{ timeDetail.experience }}年</em>
         <span class="open-class">开课时间</span>
         <van-icon name="arrow" size="12px" />
       </div>
@@ -57,7 +57,7 @@
         </section>
       </div>
     </section>
-    <div class="more">
+    <div class="more" @click="goMore(id)">
       <span>查看更多</span>
       <van-icon name="arrow" />
     </div>
@@ -69,7 +69,7 @@
 <script lang="ts">
 import { Toast } from "vant";
 import { defineComponent, ref } from "vue";
-import { getProductInfoApi } from "../utils/api";
+import { getTeacherCourseApi } from "../utils/api";
 
 
 export default defineComponent({
@@ -88,20 +88,20 @@ export default defineComponent({
   computed: {},
 
   mounted() {
-    this.getProductInfo();
+    this.getTeacherCourse();
   },
 
   methods: {
     goback() {
       this.$router.go(-1);
     },
-    async getProductInfo() {
-      const res:any = await getProductInfoApi({id: this.id});
+    async getTeacherCourse() {
+      const res:any = await getTeacherCourseApi({id: this.id});
       let msg = res.result[0];
       this.timeDetail = {
         bought: msg.bought,
         detail: JSON.parse( msg.c_detail),
-        c_img:"img/products/" + msg.c_img,
+        c_img:"img/products/" + msg.c_img[0],
         c_price:msg.c_price,
         id: msg.id,
         lasting: msg.lasting,
@@ -110,9 +110,13 @@ export default defineComponent({
         title:msg.title,
         t_name:msg.t_name,
         time:msg.time,
-        experience:msg.t_experence
+        experience:msg.t_experience,
+        t_nation:msg.t_nation
       }as any;
     },
+    goMore(id:any) {
+      this.$router.push("/moreclass/" + id)
+    }
   },
 });
 </script>
