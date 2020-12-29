@@ -116,6 +116,12 @@ const routes: Array<RouteRecordRaw> = [
     path:"/login",
     component:()=> import("../views/Login.vue")
   },
+  //结算路由
+  {
+    path:"/closing/:id",
+    component:()=> import("../views/Closing.vue"),
+    props: true
+  },
 
   
 

@@ -8,7 +8,7 @@ import { Tabbar, TabbarItem, Button, NavBar,
    Search,Icon,Empty,Grid, GridItem,
    Toast,Sticky,ActionBar, ActionBarIcon,
     ActionBarButton,CouponCell, CouponList, Popup,
-    ActionSheet,Rate,Loading,Collapse, CollapseItem} from 'vant';
+    ActionSheet,Rate,Loading,Collapse, CollapseItem,RadioGroup,Radio} from 'vant';
 //引入全部vant
 // import Vant from 'vant';
 import 'vant/lib/index.css';
@@ -77,5 +77,8 @@ app.use(Loading);
 //下拉菜单
 app.use(Collapse);
 app.use(CollapseItem);
+// 单选框
+app.use(RadioGroup);
+app.use(Radio);
 
 app.mount('#app');

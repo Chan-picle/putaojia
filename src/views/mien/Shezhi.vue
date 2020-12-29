@@ -51,18 +51,18 @@
         </li>
       </ul>
       <div class="tuichu">
-        <p>退出登录</p>
+        <button @click="logout">退出登录</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { defineComponent, reactive } from 'vue';
 
 let zhi=document.querySelector('.gai');
 
-export default {
+export default defineComponent({
   data() {
     return {
       nc:"牛牛",
@@ -70,7 +70,6 @@ export default {
       nckg:false,
       // 昵称编辑内容
       bjnr:"牛牛1"
-
     }
   },
   setup() {
@@ -117,104 +116,106 @@ export default {
     nicheng_x_click(){
       this.bjnr="";
       console.log(11);
+    },
+    logout() {
+      sessionStorage.clear();
+      this.$router.push("/login");
     }
-  }
-};
+}
+})
 </script>
 
+
 <style lang="less" scoped>
-
-  #nc{
-    // background-color: red;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    // z-index: 1111;
-    position: absolute;
-    top: 0px;
-    z-index: 1000;
-    
+#nc{
+  background-color: white;
+  height: 100% ;
+  width: 100% ;
+  position: absolute ;
+  top: 0px;
+  z-index: 1000;
+}
+.nicheng{
+  width: 88%;
+  margin: 0 3%;
+  height: 45px;
+  border-radius: 10px;
+  // margin-left: 5px;
+  padding-left: 20px;
+  border: 0px;
+  background-color: rgba(0, 0, 0, .15);
+}
+.nicheng_x{
+  position: absolute;
+  right: 25px;
+  top: 55px;
+}
+.z_index{
+  z-index: 2000;
+  margin-top: 46px;
+  
+}
+.header{
+  .left{
+    position: fixed;
+    font-size: 20px;
+    top: 15px;
+    left: 15px;
+    z-index: 999;
   }
-  // 昵称表单
-  .nicheng{
-    width: 88%;
-    margin: 0 3%;
-    height: 45px;
-    border-radius: 10px;
-    // margin-left: 5px;
-    padding-left: 20px;
-    border: 0px;
-    background-color: rgba(0, 0, 0, .15);
-  }
-  .nicheng_x{
-    position: absolute;
-    right: 25px;
-    top: 55px;
-  }
-  .z_index{
-    z-index: 2000;
-    margin-top: 46px;
-    
-  }
-  .header{
+}
 
-    .left{
-     position: fixed;
-     font-size: 20px;
-      top: 15px;
-      left: 15px;
-      z-index: 999;
-    }
-  }
+  .ul{
+    padding: 0 15px;
 
-   .ul{
-      padding: 0 15px;
+    li{
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgb(235, 232, 232);
+      position: relative;
 
-      li{
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid rgb(235, 232, 232);
-        position: relative;
+      .touxiang{
+        width: 35px;
+        height: 40px;
+        position: absolute;
+        top: 5px;
+        right: 16px;
+      }
 
-        .touxiang{
-          width: 35px;
-          height: 40px;
-          position: absolute;
-          top: 5px;
-          right: 16px;
-        }
+      p{
+        padding: 15px 0;
+        margin: 0;
+      }
+      input{
+        border: none;
+        text-align: right;
+        position: absolute;
+        right: 10px;
+        line-height: 46px;
+        font-size: 15px;
+        color: rgb(154, 151, 151);
+      }
 
-        p{
-          padding: 15px 0;
-          margin: 0;
-        }
-        input{
-          border: none;
-          text-align: right;
-          position: absolute;
-          right: 10px;
-          line-height: 46px;
-          font-size: 15px;
-          color: rgb(154, 151, 151);
-        }
-
-        span{
-          padding: 15px 0;
-          font-size: 15px;
-          color: rgb(154, 151, 151);
-        }
+      span{
+        padding: 15px 0;
+        font-size: 15px;
+        color: rgb(154, 151, 151);
       }
     }
-  .tuichu{
-    margin-top: 60px;
-    background-color: rgb(247, 242, 242);
-    border-radius: 20px;
-    box-shadow: 0 1px 2px 1px rgb(220, 216, 216);
-
-    p{
-      text-align: center;
-      padding: 10px 0;
-      color: red;
-    }
   }
+.tuichu{
+  margin-top: 60px;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px 1px rgb(220, 216, 216);
+  overflow: hidden;
+  button{
+    width: 100%;
+    border: 0;
+    text-align: center;
+    padding: 10px 0;
+    color: red;
+    background-color: rgb(247, 242, 242);
+  }
+}
+
 </style>
