@@ -122,7 +122,8 @@ export default defineComponent({
   line-height: 150px;
   text-align: center;
   background-color: #39a9ed;
-  height: 150px;
+  height: 245px;
+  width: 375px;
 
   img {
     width: 100%;
