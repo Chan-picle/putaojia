@@ -74,6 +74,8 @@ export default defineComponent({
   video{
     width: 100%;
     height: 200px;
+    z-index:1;
+    position: relative;
   }
 }
 .t-info{

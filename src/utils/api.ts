@@ -38,3 +38,5 @@ export const soldListApi = (params:paramType) => http.get("/product/soldList", p
 export const getTeacherCourseApi = (params:paramType) => http.post("/product/teachercourse", params);
 //用户信息获取
 export const getUserApi = (params:paramType) => http.post("/user/getuserinfo", params);
+//用户昵称修改
+export const setUserApi = (params:paramType) => http.post("/user/updateuser", params);

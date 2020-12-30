@@ -172,13 +172,12 @@ export default defineComponent({
 <style lang="less" scoped>
 // 弹出框
 .tanchukuang{
-  background-color: red;
+  background-color: #fff;
   position: absolute;
   right: 5px;
   z-index: 100;
   ul{
     width: 100px;
-    background-color: yellow;
     border-radius:5px;
     li{
       text-align: center;

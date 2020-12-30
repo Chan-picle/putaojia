@@ -1,6 +1,6 @@
 <template>
-  <div class="bigbox">
     <!-- 下拉刷新组件 -->
+  <div class="bigbox">
     <van-pull-refresh
       class="asd"
       v-model="state.loading"
@@ -108,8 +108,6 @@ export default defineComponent({
   margin: 0px;
 }
 .bigbox {
-  // overflow-y:yes;
-  margin-bottom: 50px;
   height: 100%;
 }
 .asd {

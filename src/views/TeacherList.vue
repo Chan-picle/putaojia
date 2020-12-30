@@ -130,6 +130,7 @@ export default defineComponent({
     .van-search{
       position: relative;
       width: 274px;
+      flex-shrink: 1;
     }
   }
   .tabs{

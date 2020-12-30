@@ -32,13 +32,13 @@
           <p>绑定微信</p><span>去绑定 ></span>
         </li>
         <li>
-          <p>性别</p><span>男 ></span>
+          <p>性别</p><span>{{userinfo.sex}} ></span>
         </li>
         <li>
-           <p>出生年月</p><span>2016-11-07 ></span>
+           <p>出生年月</p><span>{{userinfo.birth}} ></span>
         </li>
         <li>
-           <p>个性签名</p><span>暂时还没有编辑个性签名~ ></span>
+           <p>个性签名</p><span>{{userinfo.sign}} ></span>
         </li>
         <li>
            <p>用户协议</p><span>></span>
@@ -58,7 +58,9 @@
 </template>
 
 <script>
+import { Toast } from 'vant';
 import { defineComponent, reactive } from 'vue';
+import {getUserApi,setUserApi} from "../../utils/api";
 
 let zhi=document.querySelector('.gai');
 
@@ -69,7 +71,13 @@ export default defineComponent({
       //nc开关
       nckg:false,
       // 昵称编辑内容
-      bjnr:"牛牛1"
+      bjnr:"牛牛1",
+      userinfo:{
+        username:"unknow",
+        sex:"男",
+        birth:"2020-01-25",
+        sign:"暂时还没有个性签名"
+      }
     }
   },
   setup() {
@@ -93,9 +101,7 @@ export default defineComponent({
     },
     //进入编辑昵称
     nc_click(){
-      console.log(this.nc);
       this.nckg=true
-      console.log(this.nc);
       this.bjnr=this.nc
     },
     //放弃编辑昵称返回
@@ -110,18 +116,33 @@ export default defineComponent({
       }else{
         this.nc=this.bjnr
       }
+      // console.log(this.nc);
+      let id = sessionStorage.getItem("userid");
+      setUserApi({id:id,username:this.nc}).then(res=>{
+        Toast(res.msg)
+      })
       
     },
     //清除昵称
     nicheng_x_click(){
       this.bjnr="";
-      console.log(11);
     },
     logout() {
       sessionStorage.clear();
       this.$router.push("/login");
     }
-}
+  },
+  mounted() {
+    let userid = sessionStorage.getItem("userid") ;
+    getUserApi({id:userid}).then((res)=>{
+      // this.userinfo.username = res.result.user_name;
+      this.nc = res.result.user_name;
+      this.userinfo.sex = res.result.sex == 1 ? "男":"女";
+      this.userinfo.birth = res.result.birth;
+      this.userinfo.sign = res.result.sign;
+   })
+  },
+
 })
 </script>
 

@@ -45,7 +45,7 @@
             <!-- tab切换 -->
             
             <div class="index-tabs">
-              <van-sticky :offset-top="54" @scroll="tabNavScroll">
+              <van-sticky :offset-top="53" @scroll="tabNavScroll">
                 <div>
                   <ul style="background-color:#F2F2F2">
                     <li @click="changetab(0)" :class="{active:active===0}">
@@ -342,6 +342,7 @@ export default defineComponent({
   .index-tabs{
     ul{
       display:flex;
+      z-index:9999;
       li{
         flex:1;
         display:flex;

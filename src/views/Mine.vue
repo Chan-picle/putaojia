@@ -97,7 +97,7 @@ export default defineComponent({
       this.$router.push("/juan")
     },
     login(){
-      this.$router.push("/login")
+      // this.$router.push("/login")
     }
   },
   setup() {
