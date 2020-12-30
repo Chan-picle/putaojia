@@ -26,7 +26,7 @@
         <span class="class-detail-first" @click="chageClass">课程详情</span>
         <span class="class-detail-second" @click="chageClass">课件预览</span>
       </div>
-      <div class="main" v-if="show">
+      <div class="main" v-show="show">
         <span>课程内容</span>
         <p>
           {{ timeDetail.detail.content }}
@@ -41,7 +41,7 @@
         <span>拓展词汇</span>
         <em>{{ timeDetail.detail.expand }}</em>
       </div>
-      <div class="main-2" v-if="!show">
+      <div class="main-2" v-show="!show">
         <van-collapse v-model="activeNames">
         <van-collapse-item title="上册" name="1" size="large">
           <div class="unit" v-for="item in 9">
@@ -60,7 +60,7 @@
         <span>{{ timeDetail.t_name }}</span>
         <div class="star">
           <van-rate v-model="value" size="12px" color="#ffd21e" />
-          <span>5.0分</span>
+          <span>3.0分</span>
         </div>
       </div>
       <div class="go">
@@ -100,8 +100,8 @@ export default defineComponent({
     const onClickButton = () => {
       Toast("点击按钮");
     };
-    const value = ref(5);
-    const activeNames = ref(['1']);
+    const value = ref(3);
+    const activeNames = ref(['0']);
     return {
       onClickIcon,
       onClickButton,
@@ -131,7 +131,6 @@ export default defineComponent({
 
   methods: {
     onClickLeft() {
-      Toast("返回");
       this.$router.go(-1);  
     },
     async getProductInfo() {
@@ -258,14 +257,14 @@ export default defineComponent({
       font-size: 14px;
       height: 20px;
       line-height: 20px;
-      color: #aaa;
+      color: #000;
       font-style: normal;
       display: block;
     }
     p {
       font-size: 14px;
       line-height: 20px;
-      color: #aaa;
+      color: #000;
     }
   }
   .main-2 {
@@ -394,7 +393,7 @@ export default defineComponent({
     }
     .btn-r {
       background: #F4A460;
-      color: #FFFFE0;
+      color: #F2F2F2;
       border-top-right-radius: 999px;
       border-bottom-right-radius: 999px;
       cursor: pointer;

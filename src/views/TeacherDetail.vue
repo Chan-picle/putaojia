@@ -14,7 +14,7 @@
           <div class="score">
             <span>{{ timeDetail.t_name }}</span>
             <van-rate v-model="value" color="#ffd21e" :size="14" />
-            <em>5.0分</em>
+            <em>{{ timeDetail.score }}分</em>
           </div>
           <div class="from">
             <van-icon name="location-o" size="12px" />
@@ -66,7 +66,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { Toast } from "vant";
 import { defineComponent, ref } from "vue";
 import { getTeacherCourseApi } from "../utils/api";
@@ -77,10 +77,11 @@ export default defineComponent({
   data() {
     return {
       timeDetail: {},
+      timeImg:[]
     };
   },
   setup() {
-    const value = ref(5);
+    let value= ref(3);
     return { value };
   },
   components: {},
@@ -96,12 +97,12 @@ export default defineComponent({
       this.$router.go(-1);
     },
     async getTeacherCourse() {
-      const res:any = await getTeacherCourseApi({id: this.id});
+      const res = await getTeacherCourseApi({id: this.id});
       let msg = res.result[0];
       this.timeDetail = {
         bought: msg.bought,
         detail: JSON.parse( msg.c_detail),
-        c_img:"img/products/" + msg.c_img[0],
+        c_img:msg.t_imgs,
         c_price:msg.c_price,
         id: msg.id,
         lasting: msg.lasting,
@@ -111,10 +112,11 @@ export default defineComponent({
         t_name:msg.t_name,
         time:msg.time,
         experience:msg.t_experience,
-        t_nation:msg.t_nation
-      }as any;
+        t_nation:msg.t_nation,
+        score:msg.score
+      };
     },
-    goMore(id:any) {
+    goMore(id) {
       this.$router.push("/moreclass/" + id)
     }
   },
