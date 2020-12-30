@@ -41,7 +41,7 @@
     <section class="bg-br"></section>
     <div class="his-class">TA的课程</div>
     <section class="class-detail">
-      <div class="detail" v-for="item in 3">
+      <div class="detail" v-for="item in 3" @click="goDetail(id)">
         <img src="TimeImg/jiaocai.jpg" alt="" />
         <section class="d-right">
           <em>{{ timeDetail.title }}</em>
@@ -118,6 +118,10 @@ export default defineComponent({
     },
     goMore(id) {
       this.$router.push("/moreclass/" + id)
+    },
+    goDetail(id) {
+      let i = 100 + id
+      this.$router.push("/timedetail/" + i)
     }
   },
 });
