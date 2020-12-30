@@ -137,6 +137,10 @@ const routes: Array<RouteRecordRaw> = [
     path:"/hello_details/:id",
     component:()=> import("../views/Hello/hello_details.vue")
   },
+  {
+    path:"/hello_details_gm",
+    component:()=> import("../views/Hello/hello_details_gm.vue")
+  },
 
 
   {
