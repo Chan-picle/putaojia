@@ -17,7 +17,7 @@
       <div id="person">
           <div class="top">
             <img src="../assets/logo.png" alt="头像">
-            <b @click="login">牛牛</b>
+            <b @click="login">{{username}}</b>
             <span> <img src="../../public/mienimg/icon03.png" alt=""> 激活会员卡</span>
           </div>
           <div class="bottom">
@@ -69,14 +69,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { reactive } from 'vue';
-
+import {getUserApi} from "../utils/api";
 // interface listType {text:string;to:string};
 export default defineComponent({
   data (){
     return {
       onelist:[{text:"我的外教",to:"/waijiao"},{text:"我的订单",to:"/dingdan"},{text:"已购课程",to:"/kecheng",class:"bt"}],
       twolist:[{text:"我的绘本",to:"/huiben"},{text:"我的配音",to:"/peiyin"},{text:"试听报告",to:"/baogao",class:"bt"}],
-      threelist:[{text:"课程回放",to:"/huifang"},{text:"专属客服",to:"/kefu",class:"bt"}]
+      threelist:[{text:"课程回放",to:"/huifang"},{text:"专属客服",to:"/kefu",class:"bt"}],
+      username : "unknow"
     }
   },
   methods:{
@@ -114,7 +115,13 @@ export default defineComponent({
     };
   },
   components: {},
-  props:{}
+  props:{},
+  mounted() {
+   let userid = sessionStorage.getItem("userid") ;
+   getUserApi({id:userid}).then((res:any)=>{
+     this.username = res.result.user_name;
+   })
+  }
 });
 </script>
 
@@ -122,6 +129,11 @@ export default defineComponent({
 // 页面
 #page{
   background-color: #F2F2F2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 // 头部
   #header{
     width: 100%;

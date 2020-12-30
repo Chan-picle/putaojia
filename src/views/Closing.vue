@@ -9,7 +9,7 @@
     <div class="content">
       <div class="top">
         <img :src="orderdata.touxiang" alt="头像">
-        <span>{{ orderdata.t_name }}</span>
+        <span style="text-transform: capitalize;">{{ orderdata.t_name }}</span>
         <span>{{ orderdata.t_nation }}</span>
         <div class="introduce">
           <img :src="orderdata.c_img" alt="教材">
@@ -98,6 +98,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
   .page{
+    
 
     .left{
      position: fixed;
@@ -110,7 +111,12 @@ export default defineComponent({
   .content{
     padding: 10px 15px;
     background-color: rgb(243, 242, 242);
-    height: 520px;
+    // height: 520px;
+    position: absolute;
+    top: 46px;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
     .top{
       padding: 10px;
@@ -118,14 +124,15 @@ export default defineComponent({
       border-radius: 8px;
       
 
-      img{
+      >img{
         width: 25px;
         height: 25px;
         vertical-align: middle;
+        border-radius: 50%;
       }
       span{
         margin-left: 10px;
-        font-size: 13px;
+        font-size: 15px;
         vertical-align: middle;
       }
       .introduce{
@@ -135,12 +142,13 @@ export default defineComponent({
         img{
           width: 130px;
           height: 90px;
+          border-radius: 8px;
         }
         div{
           padding: 12px 0;
 
           span{
-            font-size: 14px;
+            font-size: 15px;
 
             i{
               font-style: normal;
@@ -148,11 +156,11 @@ export default defineComponent({
             }
           }
           p{
-            padding: 1px 3px;
+            padding: 2px 3px;
             margin: 5px 10px;
             font-size: 12px;
-            color: rgb(160, 158, 158);
-            background-color: rgb(235, 231, 231);
+            color:#B8B8B8;
+            background-color:#f2f2f2;
           }
         }
       }
@@ -206,7 +214,7 @@ export default defineComponent({
     position: fixed;
     bottom: 0;
     width: 100%;
-
+    background-color: #fff;
     span,em,i,b,button{
       float: right;
     }

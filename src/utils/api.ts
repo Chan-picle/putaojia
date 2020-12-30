@@ -36,3 +36,5 @@ export const scoreListApi = (params:paramType) => http.get("/product/scoreList",
 export const soldListApi = (params:paramType) => http.get("/product/soldList", params);
 //教师信息
 export const getTeacherCourseApi = (params:paramType) => http.post("/product/teachercourse", params);
+//用户信息获取
+export const getUserApi = (params:paramType) => http.post("/user/getuserinfo", params);
