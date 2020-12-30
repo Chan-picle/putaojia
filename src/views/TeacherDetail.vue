@@ -41,8 +41,8 @@
     <section class="bg-br"></section>
     <div class="his-class">TA的课程</div>
     <section class="class-detail">
-      <div class="detail" v-for="item in 3" @click="goDetail(id)">
-        <img src="TimeImg/jiaocai.jpg" alt="" />
+      <div class="detail" @click="goDetail(id3)">
+        <img :src="timeDetail.c_img" alt="" />
         <section class="d-right">
           <em>{{ timeDetail.title }}</em>
           <span class="first">包括10个学习模块(modules)</span>
@@ -52,6 +52,36 @@
           </div>
           <div class="third">
             <span>￥{{ timeDetail.c_price }}</span>
+            <div>购买</div>
+          </div>
+        </section>
+      </div>
+      <div class="detail" @click="goDetail(id2)">
+        <img :src="timeDetail2.c_img" alt="" />
+        <section class="d-right">
+          <em>{{ timeDetail2.title }}</em>
+          <span class="first">包括10个学习模块(modules)</span>
+          <div class="second">
+            <span>{{ timeDetail2.time }}课时</span>
+            <span>6-12岁</span>
+          </div>
+          <div class="third">
+            <span>￥{{ timeDetail2.c_price }}</span>
+            <div>购买</div>
+          </div>
+        </section>
+      </div>
+      <div class="detail" @click="goDetail(id1)">
+        <img :src="timeDetail3.c_img" alt="" />
+        <section class="d-right">
+          <em>{{ timeDetail3.title }}</em>
+          <span class="first">包括10个学习模块(modules)</span>
+          <div class="second">
+            <span>{{ timeDetail3.time }}课时</span>
+            <span>6-12岁</span>
+          </div>
+          <div class="third">
+            <span>￥{{ timeDetail3.c_price }}</span>
             <div>购买</div>
           </div>
         </section>
@@ -77,7 +107,12 @@ export default defineComponent({
   data() {
     return {
       timeDetail: {},
-      timeImg:[]
+      timeDetail2: {},
+      timeDetail3: {},
+      timeImg:[],
+      id1: 1002,
+      id2: 1001,
+      id3: 1000
     };
   },
   setup() {
@@ -98,11 +133,12 @@ export default defineComponent({
     },
     async getTeacherCourse() {
       const res = await getTeacherCourseApi({id: this.id});
+      console.log(res.result);
       let msg = res.result[0];
       this.timeDetail = {
         bought: msg.bought,
         detail: JSON.parse( msg.c_detail),
-        c_img:msg.t_imgs,
+        c_img: "img/products/" + msg.c_img,
         c_price:msg.c_price,
         id: msg.id,
         lasting: msg.lasting,
@@ -115,13 +151,45 @@ export default defineComponent({
         t_nation:msg.t_nation,
         score:msg.score
       };
+      let msg1 = res.result[1];
+      this.timeDetail2 = {
+        bought: msg1.bought,
+        detail: JSON.parse( msg1.c_detail),
+        c_img: "img/products/" + msg1.c_img,
+        c_price:msg1.c_price,
+        id: msg1.id,
+        lasting: msg1.lasting,
+        pic:"img/shouye/" + msg1.pic,
+        productId:msg1.productId,
+        title:msg1.title,
+        t_name:msg1.t_name,
+        time:msg1.time,
+        experience:msg1.t_experience,
+        t_nation:msg1.t_nation,
+        score:msg1.score
+      };
+      let msg2 = res.result[2];
+      this.timeDetail3 = {
+        bought: msg2.bought,
+        c_img: "img/products/" + msg2.c_img,
+        c_price:msg2.c_price,
+        id: msg2.id,
+        lasting: msg2.lasting,
+        pic:"img/shouye/" + msg2.pic,
+        productId:msg2.productId,
+        title:msg2.title,
+        t_name:msg2.t_name,
+        time:msg2.time,
+        experience:msg2.t_experience,
+        t_nation:msg2.t_nation,
+        score:msg2.score
+      };
     },
     goMore(id) {
       this.$router.push("/moreclass/" + id)
     },
     goDetail(id) {
-      let i = 100 + id
-      this.$router.push("/timedetail/" + i)
+      this.$router.push("/timedetail/" + id)
     }
   },
 });
