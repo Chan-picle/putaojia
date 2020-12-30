@@ -35,19 +35,35 @@
     </section>
     <span class="intro">课程推荐</span>
     <div class="class-intro" v-for="i in 8">
-      <div class="intro-detail" v-for="item in timeList" :key="item.id" @click="goToDetail(item.id)">
+      <div class="intro-detail" @click="goToDetail(id1)">
         <div class="up">
-          <img :src="item.classimg" alt="" />
+          <img src="TimeImg/jiaocai.jpg" alt="" />
         </div>
         <div class="down">
-          <span class="text">{{ item.textbook }}</span>
-          <span class="hour">课时数：{{ item.hours }}课时</span>
+          <span class="text">新概念英语5B</span>
+          <span class="hour">课时数: 45课时</span>
           <section class="btom">
             <div class="btom-d">
-              <img :src="item.teacherimg" alt="" />
+              <img src="TimeImg/waijiao.jpg" alt="" />
               <span>Mark</span>
             </div>
-            <span class="price">{{ item.price }}元</span>
+            <span class="price">3600元</span>
+          </section>
+        </div>
+      </div>
+      <div class="intro-detail" @click="goToDetail(id2)">
+        <div class="up">
+          <img src="TimeImg/jiaocai2.jpg" alt="" />
+        </div>
+        <div class="down">
+          <span class="text">新概念英语入门</span>
+          <span class="hour">课时数：30课时</span>
+          <section class="btom">
+            <div class="btom-d">
+              <img src="TimeImg/waijiao2.jpg" alt="" />
+              <span>Mark</span>
+            </div>
+            <span class="price">1500元</span>
           </section>
         </div>
       </div>
@@ -63,6 +79,8 @@ export default defineComponent({
   data() {
     return {
       timeList: [],
+      id1: 1001,
+      id2: 1002
     };
   },
   setup() {
@@ -185,8 +203,7 @@ export default defineComponent({
     changeTog() {
       this.tog = !this.tog;
     },
-    goToDetail(i) {
-      let id = 1000 + i;
+    goToDetail(id) {
       this.$router.push('/timedetail/' + id);
     }
   },
