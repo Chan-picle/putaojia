@@ -5,6 +5,7 @@
       <van-icon class="left" name="arrow-left" @click="luyou" />
     </div>
     <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh" success-text="刷新成功">
+      <van-empty description="暂时还没有内容" />
     </van-pull-refresh>
   </div>
 </template>

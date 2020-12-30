@@ -9,7 +9,7 @@
     <van-tabs  animated swipeable>
       <van-tab v-for="(item,index) in list" :key="index" :title="item.title">
         <van-pull-refresh class="xiala" v-model="state.loading" @refresh="onRefresh">
-          <span class="aa">{{item.title}}</span>
+          <van-empty description="赶紧去添加内容吧" />
         </van-pull-refresh>
       </van-tab>
     </van-tabs>
