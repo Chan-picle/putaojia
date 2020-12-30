@@ -252,6 +252,7 @@ export default defineComponent({
       display: block;
       height: 30px;
       line-height: 30px;
+      margin-top: 5px;
     }
     em {
       font-size: 14px;
