@@ -3,21 +3,25 @@
     <van-nav-bar
       title="话题库"
       left-text="返回"
-      right-text="按钮"
+      :right-text="jibie"
       left-arrow
       @click-left="onClickLeft"
       @click-right="onClickRight"
       fixed
       placeholder
     />
-
     <!-- 按钮弹出框  筛选框 -->
     <div class="tanchukuang" v-show="kaiguan">
       <ul>
-        <li @click="shaixuan_click(item.tite)" v-for="(item,index) in tanchulist" :key="index">{{item.tite}}</li>
+        <li
+          @click="shaixuan_click(item.tite)"
+          v-for="(item, index) in tanchulist"
+          :key="index"
+        >
+          {{ item.tite }}
+        </li>
       </ul>
     </div>
-
     <!-- <button @click="fn">aa</button> -->
     <van-tabs
       v-model:active="active"
@@ -25,25 +29,34 @@
       animated
       title-active-color="orange"
       color="orange"
-
-      sticky 
+      sticky
       offset-top="46px"
     >
-      <van-tab v-for="(i, index) in fenlist" :title="i.tite" >
-          <!-- 下拉刷新组件 -->
-        <van-pull-refresh v-model="state.loading" @refresh="onRefresh" success-text="刷新成功">
+      <van-tab v-for="(i, index) in fenlist" :title="i.tite">
+        <!-- 下拉刷新组件 -->
+        <van-pull-refresh
+          v-model="state.loading"
+          @refresh="onRefresh"
+          success-text="刷新成功"
+        >
           <!-- 内容 {{ index }} -->
-
-          <div class="huadong_box" v-if="list.list.length" style="overflow:hidden" >
-            <div class="img_box" v-for="(item,i) in list.list" @click="jumpTo(to1,item.id)" :key="i">
+          <div
+            class="huadong_box"
+            v-if="list.list.length"
+            style="overflow: hidden"
+          >
+            <div
+              class="img_box"
+              v-for="(item, i) in list.list"
+              @click="jumpTo(to1, item.id)"
+              :key="i"
+            >
               <!-- <p>{{item}}</p> -->
               <img :src="item.topic_img" alt="" />
               <p>{{ item.topic_title }}</p>
               <!-- <p>{{ item.id  }}</p> -->
             </div>
           </div>
-
-
           <!-- <div class="huadong_box">
             <div class="img_box" v-for="item in list">
               <img :src="item.topic_img" alt="" />
@@ -54,30 +67,27 @@
       </van-tab>
     </van-tabs>
   </div>
-
 </template>
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import { getHello } from "../../utils/api";
-
 import { reactive } from "vue";
 import { Toast } from "vant";
-
 export default defineComponent({
   data() {
     return {
-      tanchulist:[
-          { tite: "全部" },
-          { tite: "入门" },
-          { tite: "初级" },
-          { tite: "中级" },
-          { tite: "高级" }
-        ],
-        //筛选级别
-      jibie:"全部",
+      tanchulist: [
+        { tite: "全部" },
+        { tite: "入门" },
+        { tite: "初级" },
+        { tite: "中级" },
+        { tite: "高级" },
+      ],
+      //筛选级别
+      jibie: "全部",
       //筛选开关
-      kaiguan:false,
-      aaa:3,
+      kaiguan: false,
+      aaa: 3,
       fenlist: [
         { tite: "认识" },
         { tite: "动物" },
@@ -87,7 +97,6 @@ export default defineComponent({
       to1: "/hello_details/",
     };
   },
-
   setup() {
     // 请求数据
     const state = reactive({
@@ -95,9 +104,8 @@ export default defineComponent({
       loading: false,
     });
     const list = reactive({
-      list: []
+      list: [],
     });
-
     const onRefresh = () => {
       setTimeout(() => {
         // Toast("刷新成功");
@@ -105,7 +113,6 @@ export default defineComponent({
         // state.count++;
       }, 1000);
     };
-
     return {
       state,
       onRefresh,
@@ -118,10 +125,6 @@ export default defineComponent({
       console.log(res);
       this.list.list = res.result;
       this.$forceUpdate();
-
-
-
-      
       // console.log(this.list);
       // console.log(item.topic_img)
     });
@@ -134,35 +137,32 @@ export default defineComponent({
   // name:'${该组件名称}',
   // data() {
   //   return {
-
   //   };
   // },
   // computed: {},
-
   // mounted() {},
-
   methods: {
-    fn(){console.log(this.list)},
+    fn() {
+      console.log(this.list);
+    },
     onClickLeft() {
       history.go(-1);
     },
-
     onClickRight() {
       console.log("弹出框");
-      this.kaiguan?this.kaiguan=false:this.kaiguan=true
+      this.kaiguan ? (this.kaiguan = false) : (this.kaiguan = true);
     },
-
     // 筛选
-    shaixuan_click(a:string){
+    shaixuan_click(a: string) {
       console.log(a);
       console.log(this.jibie);
-      this.jibie=a;
+      this.jibie = a;
       console.log(this.jibie);
-      
+      this.kaiguan = false;
     },
 
-//需要的数据要用参数来接收，this就试过垃圾
-    jumpTo(to: string,a: string) {
+    //需要的数据要用参数来接收，this就试过垃圾
+    jumpTo(to: string, a: string) {
       let allto = to + a;
       this.$router.push(allto);
     },
@@ -171,32 +171,31 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 // 弹出框
-.tanchukuang{
-  background-color: #fff;
+.tanchukuang {
+  background-color: white;
   position: absolute;
-  right: 5px;
+  right: 10px;
   z-index: 100;
-  ul{
+  ul {
     width: 100px;
-    border-radius:5px;
-    li{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    box-shadow: 2px 2px 5px #909090;
+    li {
       text-align: center;
       width: 100%;
       font-size: 20px;
       height: 50px;
       line-height: 50px;
       border-bottom: 1px solid #ddd;
-      
-
     }
   }
 }
-
 .asd {
   // padding-bottom: 400px;
   margin-bottom: 100px;
-  overflow-y:scroll;
-
+  overflow-y: scroll;
 }
 .huadong_box {
   width: 100%;
@@ -210,12 +209,12 @@ export default defineComponent({
   // background-color: yellow;
   float: left;
   padding: 5px;
-  margin: 5px;  
+  margin: 5px;
   margin-bottom: 10px;
   img {
     width: 100%;
     height: 80%;
-    border-radius:10px;
+    border-radius: 10px;
   }
   p {
     text-align: center;
